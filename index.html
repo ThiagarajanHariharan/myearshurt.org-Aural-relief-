@@ -1,0 +1,2672 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AuralRelief // Clinical AI Audio Therapeutics & Endel Engine</title>
+  <meta name="description" content="AuralRelief: Clinical-grade AI audio therapeutics with precision notch therapy, 4-stem mixing, 3D HRTF spatial audio, and adaptive soundscapes for tinnitus relief, focus, and sleep.">
+  <meta name="theme-color" content="#000000">
+  <meta property="og:title" content="AuralRelief — Clinical AI Audio Therapeutics">
+  <meta property="og:description" content="Precision notch therapy, 3D spatial audio, and adaptive soundscapes for tinnitus relief and deep focus.">
+  <meta property="og:type" content="website">
+
+  <!-- Tailwind CSS & Google Fonts -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Lexend:wght@300;400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background-color: #000000;
+      color: #ffffff;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .font-headline {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      letter-spacing: -0.02em;
+    }
+
+    /* Fullscreen Viewports (100% Main Focus) */
+    #visual-canvas, #bg-video-stream {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: 1;
+      pointer-events: none;
+      transition: opacity 0.5s ease;
+    }
+
+    /* Endel Minimalist Glass HUD */
+    .endel-hud {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 20;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 26px 24px 20px 24px;
+      pointer-events: none;
+      transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .endel-hud.idle {
+      opacity: 0;
+      cursor: none;
+    }
+
+    .interactive {
+      pointer-events: auto;
+    }
+
+    
+    /* 5 Main Category Station Circles */
+    .carousel-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px 20px;
+      max-width: 96vw;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .carousel-container::-webkit-scrollbar {
+      display: none;
+    }
+
+    .category-station-circle {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .category-station-circle:hover {
+      transform: translateY(-3px) scale(1.05);
+    }
+
+    .station-bubble {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.2);
+      background: rgba(14, 16, 22, 0.75);
+      backdrop-filter: blur(18px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+    }
+    .category-station-circle.active .station-bubble {
+      width: 68px;
+      height: 68px;
+      border-color: #ffffff;
+      background: rgba(255, 255, 255, 0.22);
+      box-shadow: 0 0 35px rgba(255, 255, 255, 0.4), inset 0 0 18px rgba(255, 255, 255, 0.3);
+      transform: scale(1.08);
+    }
+
+    .station-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: rgba(255, 255, 255, 0.6);
+      transition: color 0.3s ease;
+      white-space: nowrap;
+    }
+    .category-station-circle.active .station-label {
+      color: #ffffff;
+      font-weight: 600;
+    }
+
+    /* Endel Dock Controls */
+    .dock-pill {
+      background: rgba(18, 20, 26, 0.84);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(28px);
+      -webkit-backdrop-filter: blur(28px);
+      border-radius: 40px;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    }
+
+    .btn-circle {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #ffffff;
+      transition: all 0.25s ease;
+    }
+    .btn-circle:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.08);
+    }
+    .btn-circle:active {
+      transform: scale(0.95);
+    }
+
+    /* Sliders */
+    input[type="range"] {
+      -webkit-appearance: none;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+      outline: none;
+    }
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+      transition: transform 0.15s ease;
+    }
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.3);
+    }
+
+    /* Set Timer Pill */
+    .timer-pill {
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: rgba(15, 17, 23, 0.55);
+      backdrop-filter: blur(16px);
+      padding: 8px 24px;
+      border-radius: 24px;
+      cursor: pointer;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s ease;
+    }
+    .timer-pill:hover {
+      border-color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      transform: scale(1.05);
+    }
+
+    /* Explore Button */
+    .explore-btn {
+      background: rgba(18, 20, 26, 0.85);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(24px);
+      padding: 10px 44px;
+      border-radius: 28px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: rgba(255, 255, 255, 0.9);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+    }
+    .explore-btn:hover {
+      background: rgba(255, 255, 255, 0.18);
+      border-color: rgba(255, 255, 255, 0.35);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* Slide-Up Explore Drawer */
+    #explore-drawer {
+      transform: translateY(100%);
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    #explore-drawer.open {
+      transform: translateY(0);
+    }
+
+    /* Autoplay Gate Overlay */
+    #autoplay-gate {
+      transition: opacity 0.5s ease;
+    }
+    #autoplay-gate.hidden-gate {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    /* P1 Issue 9: Reduced Motion for vestibular/photosensitive users */
+    @media (prefers-reduced-motion: reduce) {
+      #visual-canvas { opacity: 0.3 !important; }
+      .animate-pulse, .animate-ping { animation: none !important; }
+      .soundscape-circle:hover { transform: none; }
+      .soundscape-circle.active { transform: none; }
+      .btn-circle:hover { transform: none; }
+      .btn-circle:active { transform: none; }
+      .timer-pill:hover { transform: none; }
+      .explore-btn:hover { transform: none; }
+      #explore-drawer { transition-duration: 0.01ms !important; }
+    }
+
+    /* P1 Issue 8: Mobile-responsive touch targets & layout */
+    @media (max-width: 640px) {
+      .dock-pill { gap: 8px; padding: 6px 10px; }
+      .btn-circle { width: 48px; height: 48px; min-width: 48px; }
+      #hud-vol-slider { width: 80px; }
+      .soundscape-circle { width: 48px; height: 48px; }
+      .soundscape-circle.active { width: 56px; height: 56px; }
+      .carousel-container { gap: 10px; padding: 8px 14px; }
+      .explore-btn { padding: 12px 32px; }
+      .timer-pill { padding: 10px 20px; }
+      #endel-hud { padding: 18px 14px 14px 14px; }
+    }
+
+    /* P2 Issue 16: Allow text selection in content areas */
+    #explore-drawer, #timer-settings-modal { user-select: text; -webkit-user-select: text; }
+
+    /* Audio loading feedback */
+    .audio-loading { opacity: 0.5; pointer-events: none; }
+  </style>
+</head>
+<body class="w-screen h-screen bg-black relative" onclick="dismissAutoplayGate()">
+
+  <!-- ========================================================================= -->
+  <!-- 1. FULLSCREEN GENERATIVE CODE VISUAL CANVAS (100% MAIN FOCUS) -->
+  <!-- ========================================================================= -->
+  <canvas id="visual-canvas" style="opacity: 1;"></canvas>
+
+  <!-- Autoplay Click-To-Start Overlay -->
+  <div id="autoplay-gate" class="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-md cursor-pointer">
+    <div class="px-8 py-4 rounded-full bg-white/10 border border-white/25 text-white flex items-center gap-3 shadow-2xl hover:bg-white/20 transition-all hover:scale-105">
+      <div class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></div>
+      <span class="text-sm font-medium tracking-wide">Click Anywhere to Begin Acoustic Soundscape</span>
+      <span class="material-symbols-outlined text-lg">play_arrow</span>
+    </div>
+  </div>
+
+  <!-- Persistent Ambient Timer Badge (Visible in top-right when HUD goes to sleep & timer is active) -->
+  <div id="ambient-timer-badge" onclick="openTimerSettings(event)" class="fixed top-6 right-6 z-30 opacity-0 pointer-events-none transition-all duration-500 cursor-pointer">
+    <div class="px-4 py-2 rounded-full bg-[#12141a]/90 border border-white/20 backdrop-blur-2xl text-white flex items-center gap-2.5 shadow-[0_10px_30px_rgba(0,0,0,0.8)] hover:scale-105 hover:border-white/50 transition-all">
+      <div class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></div>
+      <span id="ambient-timer-text" class="text-xs font-mono font-bold tracking-wider text-emerald-300">25:00</span>
+      <span class="material-symbols-outlined text-sm text-white/60">timer</span>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 2. ENDEL FLOATING MINIMALIST HUD OVERLAY -->
+  <!-- ========================================================================= -->
+  <div id="endel-hud" class="endel-hud">
+    
+    <!-- Top Bar: Status Badges & Fullscreen -->
+    <header class="w-full flex justify-between items-center interactive">
+      <div class="flex items-center gap-3">
+        <div class="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_10px_#34d399]"></div>
+        <span id="hud-top-filename" class="text-xs tracking-widest uppercase font-mono text-white/80 font-bold">BRAINWAVE // AURAL RELIEF</span>
+        
+        <!-- Live Notch Status Badge -->
+        <span id="notch-active-pill" class="hidden text-[10px] font-mono px-2 py-0.5 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/30">
+          Notch: <span id="hud-notch-freq">4,000 Hz</span>
+        </span>
+        
+        <!-- 3D Spatial Audio Badge -->
+        <span id="spatial-active-pill" class="hidden text-[10px] font-mono px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-400/30">
+          3D HRTF Orbit
+        </span>
+      </div>
+
+      <div class="flex items-center gap-2.5">
+        <button onclick="toggleFullscreen()" class="p-1.5 rounded-full text-white/60 hover:text-white transition-colors" title="Fullscreen (F)">
+          <span class="material-symbols-outlined text-lg">fullscreen</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Center: Channel Title, Serene Acoustic State & Interactive Timer Pill -->
+    <div class="flex flex-col items-center text-center gap-2 pointer-events-none -mt-6">
+      <h1 id="hud-track-title" class="font-headline text-3xl md:text-5xl font-light tracking-tight text-white/95 transition-all">
+        Brainwave
+      </h1>
+      <p id="hud-track-subtitle" class="text-xs md:text-sm font-normal tracking-widest uppercase text-white/45 transition-all">
+        Circadian Neural Entrainment
+      </p>
+
+      <!-- Center Set Timer Pill -->
+      <div class="mt-4 interactive">
+        <button onclick="openTimerSettings(event)" id="timer-pill-btn" class="timer-pill flex items-center gap-2">
+          <span class="material-symbols-outlined text-sm text-emerald-400">timer</span>
+          <span id="timer-pill-text">Set Timer</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Bottom: Horizontal Soundscape Carousel & Transport Bar -->
+    <div class="w-full flex flex-col items-center gap-4 interactive pb-2">
+      
+                        <!-- 5 Main Category Stations (Continuous Auto-Progression) -->
+      <div class="carousel-container" id="category-carousel-container">
+        <!-- Rendered via JS: 5 Main Stations -->
+      </div>
+
+      <!-- Center Dock: Play/Pause, View Cycle, Mixer, Notch, Spatial, Volume -->
+      <div class="dock-pill">
+        
+        <!-- Play / Pause Button (Advances to next track on play) -->
+        <button onclick="toggleAudioPlayback()" id="hud-play-btn" class="btn-circle" title="Space to Play/Pause (Advances to Next Track on Play)">
+          <svg id="hud-play-svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M8 5v14l11-7z"/>
+          </svg>
+        </button>
+
+        <!-- Quick 4-Stem Mixer Button (🎛️) -->
+        <button onclick="openDrawerTab('mixer')" class="btn-circle" title="4-Stem Audio Mixer">
+          <span class="material-symbols-outlined text-xl">tune</span>
+        </button>
+
+        <!-- Quick Notch Therapy Button (🦻) -->
+        <button onclick="openDrawerTab('notch')" class="btn-circle" title="Precision Notch Therapy">
+          <span class="material-symbols-outlined text-xl">hearing</span>
+        </button>
+
+        <!-- Quick 3D Spatial Audio Button (🎧) -->
+        <button onclick="openDrawerTab('spatial')" class="btn-circle" title="3D Spatial Audio Studio">
+          <span class="material-symbols-outlined text-xl">spatial_audio</span>
+        </button>
+
+        <div class="w-px h-6 bg-white/15"></div>
+
+        <!-- Master Volume Slider -->
+        <div class="flex items-center gap-2 px-1">
+          <span id="vol-icon" class="material-symbols-outlined text-sm text-white/60 cursor-pointer" onclick="toggleMute()" title="Mute (M)">volume_up</span>
+          <input type="range" id="hud-vol-slider" min="0" max="1" step="0.01" value="0.85" oninput="setAudioVolume(this.value)" class="w-16" title="Volume Slider (Up/Down Arrows)">
+        </div>
+      </div>
+
+      <!-- Bottom Explore Pill Button -->
+      <button onclick="toggleExploreDrawer()" class="explore-btn" title="Explore Suite (E)">
+        Explore Suite
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 3. SLIDE-UP EXPLORE DRAWER: 4-STEM MIXER, NOTCH THERAPY & 3D SPATIAL -->
+  <!-- ========================================================================= -->
+  <div id="explore-drawer" class="fixed inset-x-0 bottom-0 z-50 max-h-[88vh] bg-[#090b10]/95 border-t border-white/15 backdrop-blur-3xl rounded-t-[36px] p-6 md:p-10 flex flex-col gap-6 shadow-2xl overflow-y-auto">
+    
+    <!-- Drawer Header with Nav Tabs -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
+      <div>
+        <h2 class="font-headline text-2xl font-bold text-white">AuralRelief Clinical Suite</h2>
+        <p class="text-xs text-white/50 mt-0.5">4-Stem Mixer • Precision Notch DSP • 3D HRTF Spatial Audio • ENT Intake</p>
+      </div>
+
+      <div class="flex items-center gap-2 flex-wrap">
+        <!-- Drawer Tabs -->
+        <div class="flex items-center gap-1 bg-white/5 p-1 rounded-2xl border border-white/10 text-xs">
+          <button onclick="setDrawerTab('mixer')" id="tab-btn-mixer" class="px-3 py-1.5 rounded-xl font-medium text-white bg-white/15">4-Stem Mixer</button>
+          <button onclick="setDrawerTab('notch')" id="tab-btn-notch" class="px-3 py-1.5 rounded-xl font-medium text-white/60 hover:text-white">Notch Therapy</button>
+          <button onclick="setDrawerTab('spatial')" id="tab-btn-spatial" class="px-3 py-1.5 rounded-xl font-medium text-white/60 hover:text-white">3D Spatial</button>
+          <button onclick="setDrawerTab('catalog')" id="tab-btn-catalog" class="px-3 py-1.5 rounded-xl font-medium text-white/60 hover:text-white">Catalog</button>
+          <button onclick="setDrawerTab('checklist')" id="tab-btn-checklist" class="px-3 py-1.5 rounded-xl font-medium text-white/60 hover:text-white">ENT Checklist</button>
+        </div>
+
+        <button onclick="toggleExploreDrawer()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all flex-shrink-0">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 1: 🎛️ 4-STEM INTERACTIVE AUDIO MIXER (FEATURE 1) -->
+    <!-- ======================================================================= -->
+    <div id="drawer-tab-mixer" class="flex flex-col gap-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h3 class="text-sm font-bold text-white uppercase tracking-wider">Independent Multi-Stem Sound Mixing</h3>
+          <p class="text-xs text-white/50">Blend Sub-Bass Drones, Organic Nature, Theta Binaural carriers, and Singing Bowls.</p>
+        </div>
+        <button onclick="resetStemMixer()" class="text-xs px-3 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white/80">
+          Reset Balanced Mix
+        </button>
+      </div>
+
+      <!-- 4-Stem Faders Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        
+        <!-- Stem 1: Sub-Bass Brownian Drone -->
+        <div class="p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-sky-400">1. Sub-Bass Drone</span>
+            <span id="stem-val-drone" class="text-xs font-mono text-white/70">0%</span>
+          </div>
+          <p class="text-[11px] text-white/50">1/f² Brownian noise sub-bass layer for extra fullness masking.</p>
+          <input type="range" id="stem-slider-drone" min="0" max="1" step="0.01" value="0" oninput="setStemVolume('drone', this.value)" class="w-full">
+          <div class="flex justify-between items-center text-[10px] text-white/40 pt-1">
+            <span>Off</span>
+            <span>Max Layer</span>
+          </div>
+        </div>
+
+        <!-- Stem 2: Organic Environment (Rain/Ocean) -->
+        <div class="p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-400">2. Nature Texture</span>
+            <span id="stem-val-nature" class="text-xs font-mono text-white/70">0%</span>
+          </div>
+          <p class="text-[11px] text-white/50">Filtered rain & waterfall frequencies to blend into soundscape.</p>
+          <input type="range" id="stem-slider-nature" min="0" max="1" step="0.01" value="0" oninput="setStemVolume('nature', this.value)" class="w-full">
+          <div class="flex justify-between items-center text-[10px] text-white/40 pt-1">
+            <span>Off</span>
+            <span>Max Layer</span>
+          </div>
+        </div>
+
+        <!-- Stem 3: Theta Binaural Carrier (6Hz) -->
+        <div class="p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-amber-400">3. Theta Binaural</span>
+            <span id="stem-val-binaural" class="text-xs font-mono text-white/70">0%</span>
+          </div>
+          <p class="text-[11px] text-white/50">Dual-ear 6Hz differential (200Hz / 206Hz) for brainwave calming.</p>
+          <input type="range" id="stem-slider-binaural" min="0" max="1" step="0.01" value="0" oninput="setStemVolume('binaural', this.value)" class="w-full">
+          <div class="flex justify-between items-center text-[10px] text-white/40 pt-1">
+            <span>Off</span>
+            <span>Max Layer</span>
+          </div>
+        </div>
+
+        <!-- Stem 4: Harmonic Resonators (Singing Bowls) -->
+        <div class="p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase tracking-wider text-rose-300">4. Harmonic Overtones</span>
+            <span id="stem-val-chimes" class="text-xs font-mono text-white/70">0%</span>
+          </div>
+          <p class="text-[11px] text-white/50">Grounding 432Hz & 528Hz singing bowl overtone resonance rings.</p>
+          <input type="range" id="stem-slider-chimes" min="0" max="1" step="0.01" value="0" oninput="setStemVolume('chimes', this.value)" class="w-full">
+          <div class="flex justify-between items-center text-[10px] text-white/40 pt-1">
+            <span>Off</span>
+            <span>Max Layer</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 2: 🦻 PRECISION ACOUSTIC NOTCH THERAPY DSP (FEATURE 2) -->
+    <!-- ======================================================================= -->
+    <div id="drawer-tab-notch" class="hidden flex-col gap-6">
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-sky-500/10 border border-sky-400/20">
+        <div>
+          <div class="flex items-center gap-2">
+            <div class="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse"></div>
+            <h3 class="text-base font-bold text-white">Tailored Notch Sound Therapy (TNST)</h3>
+          </div>
+          <p class="text-xs text-white/70 mt-1 max-w-xl">
+            Inserts a real-time <strong>Biquad Notch Filter (Q=5.0)</strong> into your audio stream to carve out a narrow ±0.5 octave window centered at your specific tinnitus pitch, inducing lateral cortical inhibition.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button onclick="toggleNotchFilter()" id="btn-toggle-notch" class="px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wider uppercase bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm">filter_alt</span>
+            <span id="notch-toggle-label">Enable Notch Filter</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Frequency Sweeper & Octave Snap Selector -->
+      <div class="p-6 rounded-2xl bg-white/5 border border-white/10 flex flex-col gap-5">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-white uppercase tracking-wider">Matched Tinnitus Pitch Calibration</span>
+          <span id="notch-freq-display" class="font-mono text-2xl font-bold text-sky-400">4,000 Hz</span>
+        </div>
+
+        <!-- Continuous Logarithmic Frequency Slider (125Hz to 16,000Hz) -->
+        <input type="range" id="notch-freq-slider" min="0" max="1000" step="1" value="625" oninput="onNotchSliderChange(this.value)" class="w-full">
+
+        <!-- Octave Snapping Quick Buttons -->
+        <div class="flex items-center gap-1.5 flex-wrap">
+          <span class="text-[11px] text-white/40 mr-2">Octave Jump:</span>
+          <button onclick="setNotchFrequency(250)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">250 Hz</button>
+          <button onclick="setNotchFrequency(500)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">500 Hz</button>
+          <button onclick="setNotchFrequency(1000)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">1,000 Hz</button>
+          <button onclick="setNotchFrequency(2000)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">2,000 Hz</button>
+          <button onclick="setNotchFrequency(4000)" class="px-3 py-1 rounded-lg bg-sky-500/20 text-sky-300 border border-sky-400/30 text-xs font-mono">4,000 Hz</button>
+          <button onclick="setNotchFrequency(6000)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">6,000 Hz</button>
+          <button onclick="setNotchFrequency(8000)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">8,000 Hz</button>
+          <button onclick="setNotchFrequency(12000)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">12,000 Hz</button>
+          <button onclick="setNotchFrequency(16000)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">16,000 Hz</button>
+        </div>
+
+        <!-- Fine-Tuning Controls & Test Tone -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-3 border-t border-white/10">
+          <div class="flex items-center gap-2">
+            <span class="text-xs text-white/60">Fine-Tune (±10 Hz):</span>
+            <button onclick="adjustNotchFrequency(-10)" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-sm">-</button>
+            <button onclick="adjustNotchFrequency(10)" class="w-8 h-8 rounded-lg bg-white/10 hover:bg-white/20 text-white font-mono text-sm">+</button>
+          </div>
+
+          <div class="flex items-center gap-3">
+            <button onclick="toggleTestTone()" id="btn-test-tone" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-xs font-medium text-white flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm">volume_up</span>
+              <span id="test-tone-label">Audition Sine Tone</span>
+            </button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Live Notch Frequency Response Canvas -->
+      <div class="p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col gap-2">
+        <span class="text-xs font-bold text-white/80 uppercase tracking-wider">Acoustic Notch Frequency Curve</span>
+        <canvas id="notch-curve-canvas" class="w-full h-24 rounded-xl bg-black/50"></canvas>
+      </div>
+
+    </div>
+
+    <!-- ======================================================================= -->
+    <!-- TAB 3: 🎧 3D SPATIAL AUDIO & HRTF ORBITAL PANNER (FEATURE 5) -->
+    <!-- ======================================================================= -->
+    <div id="drawer-tab-spatial" class="hidden flex-col gap-6">
+      
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 p-5 rounded-2xl bg-emerald-500/10 border border-emerald-400/20">
+        <div>
+          <div class="flex items-center gap-2">
+            <div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
+            <h3 class="text-base font-bold text-white">3D HRTF Orbital Sound Panning</h3>
+          </div>
+          <p class="text-xs text-white/70 mt-1 max-w-xl">
+            Smoothly orbits the ambient nature textures in a 360° horizontal acoustic plane around your head, eliminating sensory auditory fatigue during long sessions.
+          </p>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <button onclick="toggleSpatialAudio()" id="btn-toggle-spatial" class="px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wider uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 transition-all flex items-center gap-2">
+            <span class="material-symbols-outlined text-sm">spatial_audio</span>
+            <span id="spatial-toggle-label">Disable 3D Orbit</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Spatial Orbit Radar & Controls -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        
+        <!-- Interactive 360° Orbit Radar Canvas -->
+        <div class="p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col items-center justify-center gap-3">
+          <span class="text-xs font-bold text-white/80 uppercase tracking-wider">360° Horizontal Azimuth Radar</span>
+          <canvas id="spatial-radar-canvas" width="220" height="220" class="rounded-full bg-black/60 border border-white/15"></canvas>
+          <span id="spatial-angle-text" class="text-xs font-mono text-emerald-400">Azimuth Angle: 0°</span>
+        </div>
+
+        <!-- Orbit Speed & Radius Sliders -->
+        <div class="flex flex-col justify-center gap-5 p-5 rounded-2xl bg-white/5 border border-white/10">
+          <div>
+            <div class="flex justify-between items-center text-xs font-bold text-white mb-2">
+              <span>Orbital Speed (Rotation Rate)</span>
+              <span id="spatial-speed-val" class="font-mono text-emerald-400">0.03 rad/s</span>
+            </div>
+            <input type="range" id="spatial-speed-slider" min="0.005" max="0.10" step="0.005" value="0.03" oninput="setSpatialSpeed(this.value)" class="w-full">
+            <div class="flex justify-between text-[10px] text-white/40 mt-1">
+              <span>Deep Calm (Slow)</span>
+              <span>Dynamic (Fast)</span>
+            </div>
+          </div>
+
+          <div>
+            <div class="flex justify-between items-center text-xs font-bold text-white mb-2">
+              <span>3D Orbit Radius (Acoustic Distance)</span>
+              <span id="spatial-radius-val" class="font-mono text-emerald-400">3.5 meters</span>
+            </div>
+            <input type="range" id="spatial-radius-slider" min="1" max="8" step="0.5" value="3.5" oninput="setSpatialRadius(this.value)" class="w-full">
+            <div class="flex justify-between text-[10px] text-white/40 mt-1">
+              <span>Intimate (1m)</span>
+              <span>Expansive (8m)</span>
+            </div>
+          </div>
+
+          <p class="text-[11px] text-white/50 italic">
+            💡 For maximum 3D HRTF spatial immersion, listen with stereo headphones or AirPods.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- TAB 4: Soundscape Catalog Grid -->
+    <div id="drawer-tab-catalog" class="hidden flex-col gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="drawer-soundscape-grid">
+        <!-- Rendered via JS -->
+      </div>
+    </div>
+
+    <!-- TAB 5: 5-Point ENT Checklist -->
+    <div id="drawer-tab-checklist" class="hidden flex-col gap-4">
+      <p class="text-xs text-white/60">Complete this interactive 5-point checklist to prepare your acoustic history:</p>
+      <div class="space-y-3">
+        <label class="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:border-white/30">
+          <input type="checkbox" class="mt-1 rounded text-sky-400" checked>
+          <div>
+            <div class="font-semibold text-sm text-white">1. Onset Timing & Acoustic History</div>
+            <div class="text-xs text-white/60 mt-0.5">Did the symptom begin after a loud noise blast, infection, or flight?</div>
+          </div>
+        </label>
+        <label class="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:border-white/30">
+          <input type="checkbox" class="mt-1 rounded text-sky-400" checked>
+          <div>
+            <div class="font-semibold text-sm text-white">2. Laterality (Unilateral vs. Bilateral)</div>
+            <div class="text-xs text-white/60 mt-0.5">Is the fullness or ringing in your left ear, right ear, or balanced across both?</div>
+          </div>
+        </label>
+        <label class="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:border-white/30">
+          <input type="checkbox" class="mt-1 rounded text-sky-400">
+          <div>
+            <div class="font-semibold text-sm text-white">3. Otalgia (Ear Pain) or Fullness Sensation</div>
+            <div class="text-xs text-white/60 mt-0.5">Do you feel sharp pain, deep dull aching, or water-clogged sensation?</div>
+          </div>
+        </label>
+        <label class="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:border-white/30">
+          <input type="checkbox" class="mt-1 rounded text-sky-400">
+          <div>
+            <div class="font-semibold text-sm text-white">4. Vestibular Balance & Dizziness</div>
+            <div class="text-xs text-white/60 mt-0.5">Any room-spinning sensations, loss of balance, or motion nausea?</div>
+          </div>
+        </label>
+        <label class="flex items-start gap-3 p-4 rounded-xl bg-white/5 border border-white/10 cursor-pointer hover:border-white/30">
+          <input type="checkbox" class="mt-1 rounded text-sky-400">
+          <div>
+            <div class="font-semibold text-sm text-white">5. Sound Sensitivity (Hyperacusis)</div>
+            <div class="text-xs text-white/60 mt-0.5">Do normal sounds (dishes clattering) sound painfully loud?</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- 3.5 TIMER & SESSION SETTINGS MODAL -->
+  <!-- ========================================================================= -->
+  <div id="timer-settings-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300" onclick="closeTimerSettings()">
+    <div class="w-[92vw] max-w-md bg-[#0d0f15]/95 border border-white/20 rounded-[32px] p-6 md:p-8 backdrop-blur-3xl shadow-2xl flex flex-col gap-5 relative" onclick="event.stopPropagation()">
+      
+      <!-- Modal Header -->
+      <div class="flex items-center justify-between border-b border-white/10 pb-4">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-300">
+            <span class="material-symbols-outlined text-base">timer</span>
+          </div>
+          <div>
+            <h3 class="text-base font-bold text-white">Timer & Sleep Settings</h3>
+            <p class="text-[11px] text-white/50">Auto-countdown & gentle audio fadeout</p>
+          </div>
+        </div>
+        <button onclick="closeTimerSettings()" class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all">
+          <span class="material-symbols-outlined text-sm">close</span>
+        </button>
+      </div>
+
+      <!-- Live Countdown / Target Display -->
+      <div class="flex flex-col items-center justify-center p-5 rounded-2xl bg-white/5 border border-white/10 gap-1">
+        <span class="text-[10px] font-mono tracking-widest text-white/40 uppercase">Selected Duration</span>
+        <div id="modal-timer-display" class="text-4xl font-bold font-mono text-emerald-400 tracking-tight">25:00</div>
+        <div id="modal-timer-status" class="text-xs text-white/60">Ready to Start</div>
+      </div>
+
+      <!-- Quick Preset Buttons -->
+      <div class="flex flex-col gap-2">
+        <span class="text-xs font-bold text-white uppercase tracking-wider">Quick Presets</span>
+        <div class="grid grid-cols-4 gap-2" id="preset-grid">
+          <button onclick="selectPresetMinutes(5)" class="timer-preset-btn py-2 px-1 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-mono text-white/80 text-center transition-all">5 min</button>
+          <button onclick="selectPresetMinutes(15)" class="timer-preset-btn py-2 px-1 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-mono text-white/80 text-center transition-all">15 min</button>
+          <button onclick="selectPresetMinutes(25)" class="timer-preset-btn active-preset py-2 px-1 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-xs font-mono text-emerald-300 text-center transition-all">25 min</button>
+          <button onclick="selectPresetMinutes(45)" class="timer-preset-btn py-2 px-1 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-mono text-white/80 text-center transition-all">45 min</button>
+          <button onclick="selectPresetMinutes(60)" class="timer-preset-btn py-2 px-1 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-mono text-white/80 text-center transition-all">60 min</button>
+          <button onclick="selectPresetMinutes(90)" class="timer-preset-btn py-2 px-1 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-mono text-white/80 text-center transition-all">90 min</button>
+          <button onclick="selectPresetMinutes(120)" class="timer-preset-btn py-2 px-1 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-mono text-white/80 text-center transition-all">120 min</button>
+          <button onclick="selectPresetMinutes(180)" class="timer-preset-btn py-2 px-1 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-mono text-white/80 text-center transition-all">180 min</button>
+        </div>
+      </div>
+
+      <!-- Custom Minutes Slider -->
+      <div class="flex flex-col gap-2">
+        <div class="flex justify-between items-center text-xs font-bold text-white">
+          <span>Custom Duration</span>
+          <span id="custom-slider-val" class="font-mono text-emerald-400">25 mins</span>
+        </div>
+        <input type="range" id="modal-duration-slider" min="1" max="180" step="1" value="25" oninput="onCustomSliderChange(this.value)" class="w-full">
+      </div>
+
+      <!-- Behavior Toggles -->
+      <div class="flex flex-col gap-2.5 pt-2 border-t border-white/10">
+        <label class="flex items-center justify-between cursor-pointer">
+          <span class="text-xs text-white/80">Gentle 30s Volume Fadeout</span>
+          <input type="checkbox" id="timer-opt-fadeout" checked class="rounded text-emerald-400 bg-white/10 border-white/20">
+        </label>
+        <label class="flex items-center justify-between cursor-pointer">
+          <span class="text-xs text-white/80">Play Ending 528Hz Bell Chime</span>
+          <input type="checkbox" id="timer-opt-chime" checked class="rounded text-emerald-400 bg-white/10 border-white/20">
+        </label>
+      </div>
+
+      <!-- Modal Action Buttons -->
+      <div class="flex items-center gap-3 pt-2">
+        <button onclick="startModalTimer()" id="btn-modal-start" class="flex-1 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-black font-bold text-xs uppercase tracking-wider shadow-[0_0_20px_rgba(52,211,153,0.4)] transition-all">
+          Start Timer
+        </button>
+        <button onclick="clearTimer()" id="btn-modal-clear" class="py-3 px-4 rounded-2xl bg-white/10 hover:bg-white/20 text-white/80 hover:text-white font-medium text-xs tracking-wider transition-all">
+          Reset
+        </button>
+      </div>
+
+    </div>
+  </div>
+  <script>
+    // 10 Clinical Soundscapes exactly matching files on disk
+    const SOUNDSCAPES = [
+    {
+        "id": 0,
+        "title": "40Hz Vibroacoustic Purr (1)",
+        "subtitle": "Focus & Brainwave Entrainment",
+        "audioFile": "40Hz Vibroacoustic Purr (1).mp3",
+        "category": "neural",
+        "icon": "pulse",
+        "style": "neural"
+    },
+    {
+        "id": 1,
+        "title": "40Hz Vibroacoustic Purr",
+        "subtitle": "Focus & Brainwave Entrainment",
+        "audioFile": "40Hz Vibroacoustic Purr.mp3",
+        "category": "neural",
+        "icon": "pulse",
+        "style": "neural"
+    },
+    {
+        "id": 2,
+        "title": "Alpha Wave Entrainment Brown Noise",
+        "subtitle": "Focus & Brainwave Entrainment",
+        "audioFile": "Alpha Wave Entrainment Brown Noise.mp3",
+        "category": "neural",
+        "icon": "pulse",
+        "style": "neural"
+    },
+    {
+        "id": 3,
+        "title": "Balanced Spectral Noise Masking",
+        "subtitle": "Clinical Colored Noise & Notch",
+        "audioFile": "Balanced Spectral Noise Masking.mp3",
+        "category": "noise",
+        "icon": "rings",
+        "style": "noise"
+    },
+    {
+        "id": 4,
+        "title": "Deep Brown Noise Drone (Take 1)",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Deep Brown Noise Drone (Take 1).mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 5,
+        "title": "Deep Brown Noise Drone (Take 2) (1)",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Deep Brown Noise Drone (Take 2) (1).mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 6,
+        "title": "Deep Brown Noise Drone (Take 2)",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Deep Brown Noise Drone (Take 2).mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 7,
+        "title": "Deep Sea Sub-Bass Ambient Masking",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Deep Sea Sub-Bass Ambient Masking.mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 8,
+        "title": "Distant River Rapids Sound Masking",
+        "subtitle": "Organic Rain, Water & Nature",
+        "audioFile": "Distant River Rapids Sound Masking.mp3",
+        "category": "nature",
+        "icon": "wave",
+        "style": "rain"
+    },
+    {
+        "id": 9,
+        "title": "Equal Energy Pink Noise Shield",
+        "subtitle": "Clinical Colored Noise & Notch",
+        "audioFile": "Equal Energy Pink Noise Shield.mp3",
+        "category": "noise",
+        "icon": "rings",
+        "style": "noise"
+    },
+    {
+        "id": 10,
+        "title": "Filtered Cosmic Deep Space Drone",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Filtered Cosmic Deep Space Drone.mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 11,
+        "title": "Filtered Pine Forest Wind Masking",
+        "subtitle": "Organic Rain, Water & Nature",
+        "audioFile": "Filtered Pine Forest Wind Masking.mp3",
+        "category": "nature",
+        "icon": "wave",
+        "style": "rain"
+    },
+    {
+        "id": 12,
+        "title": "Filtered Violet Noise Masking",
+        "subtitle": "Clinical Colored Noise & Notch",
+        "audioFile": "Filtered Violet Noise Masking.mp3",
+        "category": "noise",
+        "icon": "rings",
+        "style": "noise"
+    },
+    {
+        "id": 13,
+        "title": "Fractal Zen Chimes (1)",
+        "subtitle": "Harmonic Bowls & Sound Baths",
+        "audioFile": "Fractal Zen Chimes (1).mp3",
+        "category": "harmonic",
+        "icon": "bowl",
+        "style": "harmonic"
+    },
+    {
+        "id": 14,
+        "title": "Fractal Zen Chimes (2)",
+        "subtitle": "Harmonic Bowls & Sound Baths",
+        "audioFile": "Fractal Zen Chimes (2).mp3",
+        "category": "harmonic",
+        "icon": "bowl",
+        "style": "harmonic"
+    },
+    {
+        "id": 15,
+        "title": "Fractal Zen Chimes",
+        "subtitle": "Harmonic Bowls & Sound Baths",
+        "audioFile": "Fractal Zen Chimes.mp3",
+        "category": "harmonic",
+        "icon": "bowl",
+        "style": "harmonic"
+    },
+    {
+        "id": 16,
+        "title": "Green Noise - Natural Mid-Spectrum Masking (1)",
+        "subtitle": "Clinical Colored Noise & Notch",
+        "audioFile": "Green Noise - Natural Mid-Spectrum Masking (1).mp3",
+        "category": "noise",
+        "icon": "rings",
+        "style": "noise"
+    },
+    {
+        "id": 17,
+        "title": "Green Noise - Natural Mid-Spectrum Masking",
+        "subtitle": "Clinical Colored Noise & Notch",
+        "audioFile": "Green Noise - Natural Mid-Spectrum Masking.mp3",
+        "category": "noise",
+        "icon": "rings",
+        "style": "noise"
+    },
+    {
+        "id": 18,
+        "title": "Heavy Ventilation Hum Masking",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Heavy Ventilation Hum Masking.mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 19,
+        "title": "High-Cut Distant Waterfall",
+        "subtitle": "Organic Rain, Water & Nature",
+        "audioFile": "High-Cut Distant Waterfall.mp3",
+        "category": "nature",
+        "icon": "wave",
+        "style": "rain"
+    },
+    {
+        "id": 20,
+        "title": "Indoors Canvas Muffled Heavy Rain",
+        "subtitle": "Organic Rain, Water & Nature",
+        "audioFile": "Indoors Canvas Muffled Heavy Rain.mp3",
+        "category": "nature",
+        "icon": "wave",
+        "style": "rain"
+    },
+    {
+        "id": 21,
+        "title": "Jet Air Conditioner Acoustic Drone",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Jet Air Conditioner Acoustic Drone.mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 22,
+        "title": "Low-Pass Filtered White Noise Masking",
+        "subtitle": "Clinical Colored Noise & Notch",
+        "audioFile": "Low-Pass Filtered White Noise Masking.mp3",
+        "category": "noise",
+        "icon": "rings",
+        "style": "noise"
+    },
+    {
+        "id": 23,
+        "title": "Muffled Waterfall Acoustic Masking",
+        "subtitle": "Organic Rain, Water & Nature",
+        "audioFile": "Muffled Waterfall Acoustic Masking.mp3",
+        "category": "nature",
+        "icon": "wave",
+        "style": "rain"
+    },
+    {
+        "id": 24,
+        "title": "Notch-Friendly Rainstorm (Take 1)",
+        "subtitle": "Organic Rain, Water & Nature",
+        "audioFile": "Notch-Friendly Rainstorm (Take 1).mp3",
+        "category": "nature",
+        "icon": "wave",
+        "style": "rain"
+    },
+    {
+        "id": 25,
+        "title": "Notch-Friendly Rainstorm (Take 2)",
+        "subtitle": "Organic Rain, Water & Nature",
+        "audioFile": "Notch-Friendly Rainstorm (Take 2).mp3",
+        "category": "nature",
+        "icon": "wave",
+        "style": "rain"
+    },
+    {
+        "id": 26,
+        "title": "Notched Broadband White Noise",
+        "subtitle": "Clinical Colored Noise & Notch",
+        "audioFile": "Notched Broadband White Noise.mp3",
+        "category": "noise",
+        "icon": "rings",
+        "style": "noise"
+    },
+    {
+        "id": 27,
+        "title": "Ocean Surf Rhythmic Acoustic Masking",
+        "subtitle": "Organic Rain, Water & Nature",
+        "audioFile": "Ocean Surf Rhythmic Acoustic Masking.mp3",
+        "category": "nature",
+        "icon": "wave",
+        "style": "rain"
+    },
+    {
+        "id": 28,
+        "title": "Pink Noise - Equal Energy Spectrum",
+        "subtitle": "Clinical Colored Noise & Notch",
+        "audioFile": "Pink Noise - Equal Energy Spectrum.mp3",
+        "category": "noise",
+        "icon": "rings",
+        "style": "noise"
+    },
+    {
+        "id": 29,
+        "title": "Resonant Humming Bowls",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Resonant Humming Bowls.mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 30,
+        "title": "Rhythmic Ocean Pink Noise (1)",
+        "subtitle": "Organic Rain, Water & Nature",
+        "audioFile": "Rhythmic Ocean Pink Noise (1).mp3",
+        "category": "nature",
+        "icon": "wave",
+        "style": "rain"
+    },
+    {
+        "id": 31,
+        "title": "Rhythmic Ocean Pink Noise",
+        "subtitle": "Organic Rain, Water & Nature",
+        "audioFile": "Rhythmic Ocean Pink Noise.mp3",
+        "category": "nature",
+        "icon": "wave",
+        "style": "rain"
+    },
+    {
+        "id": 32,
+        "title": "Soft Shower Acoustic Masking Drone (1)",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Soft Shower Acoustic Masking Drone (1).mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 33,
+        "title": "Soft Shower Acoustic Masking Drone",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Soft Shower Acoustic Masking Drone.mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 34,
+        "title": "Somatic Pulse Pad (Take 1)",
+        "subtitle": "Focus & Brainwave Entrainment",
+        "audioFile": "Somatic Pulse Pad (Take 1).mp3",
+        "category": "neural",
+        "icon": "pulse",
+        "style": "neural"
+    },
+    {
+        "id": 35,
+        "title": "Somatic Pulse Pad (Take 2)",
+        "subtitle": "Focus & Brainwave Entrainment",
+        "audioFile": "Somatic Pulse Pad (Take 2).mp3",
+        "category": "neural",
+        "icon": "pulse",
+        "style": "neural"
+    },
+    {
+        "id": 36,
+        "title": "Stereo Phase-Shifted Pink Noise",
+        "subtitle": "Clinical Colored Noise & Notch",
+        "audioFile": "Stereo Phase-Shifted Pink Noise.mp3",
+        "category": "noise",
+        "icon": "rings",
+        "style": "noise"
+    },
+    {
+        "id": 37,
+        "title": "Stereo Pink Noise Sweep",
+        "subtitle": "Clinical Colored Noise & Notch",
+        "audioFile": "Stereo Pink Noise Sweep.mp3",
+        "category": "noise",
+        "icon": "rings",
+        "style": "noise"
+    },
+    {
+        "id": 38,
+        "title": "Sub-800Hz Deep Ambient Roar",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Sub-800Hz Deep Ambient Roar.mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 39,
+        "title": "Sub-Bass Cabin Air Flow Drone",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Sub-Bass Cabin Air Flow Drone.mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 40,
+        "title": "Sub-Bass Train Cabin Interior Rumble (1)",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Sub-Bass Train Cabin Interior Rumble (1).mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 41,
+        "title": "Sub-Bass Train Cabin Interior Rumble",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Sub-Bass Train Cabin Interior Rumble.mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 42,
+        "title": "Theta Binaural Relief (Take 2)",
+        "subtitle": "Focus & Brainwave Entrainment",
+        "audioFile": "Theta Binaural Relief (Take 2).mp3",
+        "category": "neural",
+        "icon": "pulse",
+        "style": "neural"
+    },
+    {
+        "id": 43,
+        "title": "Theta Binaural Relief",
+        "subtitle": "Focus & Brainwave Entrainment",
+        "audioFile": "Theta Binaural Relief.mp3",
+        "category": "neural",
+        "icon": "pulse",
+        "style": "neural"
+    },
+    {
+        "id": 44,
+        "title": "Tibetan Bowl Harmonic Entrainment",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Tibetan Bowl Harmonic Entrainment.mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 45,
+        "title": "Ultra Deep 1 f2 Brown Noise Drone",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Ultra Deep 1_f2 Brown Noise Drone.mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 46,
+        "title": "Warm Low-Frequency Hum Drone",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Warm Low-Frequency Hum Drone.mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    },
+    {
+        "id": 47,
+        "title": "Warm Low-Pass Rain Ambient Drone",
+        "subtitle": "Deep Masking & Acoustic Drones",
+        "audioFile": "Warm Low-Pass Rain Ambient Drone.mp3",
+        "category": "drone",
+        "icon": "grid",
+        "style": "drone"
+    }
+];
+
+    let currentIdx = 0;
+    let visualEngineMode = 'code'; // Permanently in Generative Code Mode
+    let timerSeconds = 0;
+    let timerInterval = null;
+    let previousVolume = 0.85;
+
+    // Master Native Audio Element
+    const masterAudio = new Audio();
+    masterAudio.loop = true;
+    masterAudio.volume = 0.85;
+
+    // =========================================================================
+    // MODULAR WEB AUDIO API DSP GRAPH (Features 1, 2, 5)
+    // =========================================================================
+    let audioCtx = null;
+    let masterGain = null;
+    let notchFilter = null;
+    let mediaSource = null; // MediaElementAudioSourceNode for masterAudio
+    let analyserNode = null; // AnalyserNode for audio-reactive visuals
+    let isNotchActive = false;
+    let notchFrequency = 4000; // Default 4kHz
+
+    // Feature 5: 3D Spatial HRTF Panner
+    let spatialPanner = null;
+    let isSpatialActive = true;
+    let spatialAngle = 0;
+    let spatialSpeed = 0.03; // rad/s
+    let spatialRadius = 3.5; // meters
+
+    // Feature 1: 4-Stem Web Audio Nodes (Default 0.0 - Off so normal audio plays clean)
+    const stems = {
+      drone: { gain: null, node: null, vol: 0.0 },
+      nature: { gain: null, node: null, vol: 0.0 },
+      binaural: { gain: null, oscL: null, oscR: null, vol: 0.0 },
+      chimes: { gain: null, osc1: null, osc2: null, vol: 0.0 }
+    };
+
+    function initModularWebAudio() {
+      if (audioCtx) return;
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioCtx();
+
+      // Master Gain & Analyser
+      masterGain = audioCtx.createGain();
+      masterGain.gain.value = 0.85;
+
+      // Feature 2: Precision Biquad Notch Filter Node
+      notchFilter = audioCtx.createBiquadFilter();
+      notchFilter.type = "notch";
+      notchFilter.frequency.value = notchFrequency;
+      notchFilter.Q.value = 5.0; // Sharp notch band (±0.5 octaves)
+
+      // Feature 5: 3D Spatial HRTF PannerNode
+      if (audioCtx.createPanner) {
+        spatialPanner = audioCtx.createPanner();
+        spatialPanner.panningModel = 'HRTF';
+        spatialPanner.distanceModel = 'inverse';
+        spatialPanner.refDistance = 1;
+        spatialPanner.maxDistance = 10000;
+        spatialPanner.rolloffFactor = 1;
+        spatialPanner.coneInnerAngle = 360;
+      }
+
+      // -------------------------------------------------------------
+      // Build 4 Real-time Stems (Feature 1 - Start Silent)
+      // -------------------------------------------------------------
+      
+      // Stem 1: Sub-Bass 1/f² Brownian Drone Generator
+      const bufferLength = audioCtx.sampleRate * 4;
+      const droneBuffer = audioCtx.createBuffer(2, bufferLength, audioCtx.sampleRate);
+      for (let ch = 0; ch < 2; ch++) {
+        const data = droneBuffer.getChannelData(ch);
+        let lastOut = 0.0;
+        for (let i = 0; i < bufferLength; i++) {
+          const white = Math.random() * 2 - 1;
+          lastOut = (lastOut + 0.02 * white) / 1.02;
+          data[i] = lastOut * 3.5;
+        }
+      }
+      const droneSrc = audioCtx.createBufferSource();
+      droneSrc.buffer = droneBuffer;
+      droneSrc.loop = true;
+      stems.drone.gain = audioCtx.createGain();
+      stems.drone.gain.gain.value = 0.0;
+      droneSrc.connect(stems.drone.gain);
+      droneSrc.start();
+
+      // Stem 2: Nature Texture (Rain/Water Spectrum)
+      const natureBuffer = audioCtx.createBuffer(2, bufferLength, audioCtx.sampleRate);
+      for (let ch = 0; ch < 2; ch++) {
+        const data = natureBuffer.getChannelData(ch);
+        let b0 = 0, b1 = 0, b2 = 0;
+        for (let i = 0; i < bufferLength; i++) {
+          const white = Math.random() * 2 - 1;
+          b0 = 0.99886 * b0 + white * 0.0555179;
+          b1 = 0.99332 * b1 + white * 0.0750759;
+          b2 = 0.96900 * b2 + white * 0.1538520;
+          data[i] = (b0 + b1 + b2 + white * 0.5362) * 0.15;
+        }
+      }
+      const natureSrc = audioCtx.createBufferSource();
+      natureSrc.buffer = natureBuffer;
+      natureSrc.loop = true;
+      stems.nature.gain = audioCtx.createGain();
+      stems.nature.gain.gain.value = 0.0;
+      natureSrc.connect(stems.nature.gain);
+      natureSrc.start();
+
+      // Stem 3: Binaural 6Hz Theta Carrier (Left: 200Hz, Right: 206Hz)
+      const merger = audioCtx.createChannelMerger(2);
+      stems.binaural.oscL = audioCtx.createOscillator();
+      stems.binaural.oscR = audioCtx.createOscillator();
+      stems.binaural.oscL.frequency.value = 200;
+      stems.binaural.oscR.frequency.value = 206;
+      stems.binaural.gain = audioCtx.createGain();
+      stems.binaural.gain.gain.value = 0.0;
+
+      stems.binaural.oscL.connect(merger, 0, 0);
+      stems.binaural.oscR.connect(merger, 0, 1);
+      merger.connect(stems.binaural.gain);
+      stems.binaural.oscL.start();
+      stems.binaural.oscR.start();
+
+      // Stem 4: Harmonic Resonators (432Hz & 528Hz Solfeggio)
+      stems.chimes.osc1 = audioCtx.createOscillator();
+      stems.chimes.osc2 = audioCtx.createOscillator();
+      stems.chimes.osc1.frequency.value = 432;
+      stems.chimes.osc2.frequency.value = 528;
+      stems.chimes.gain = audioCtx.createGain();
+      stems.chimes.gain.gain.value = 0.0;
+      stems.chimes.osc1.connect(stems.chimes.gain);
+      stems.chimes.osc2.connect(stems.chimes.gain);
+      stems.chimes.osc1.start();
+      stems.chimes.osc2.start();
+
+      // -------------------------------------------------------------
+      // Connect Stems into 3D Spatial Panner -> Notch Filter -> Master
+      // -------------------------------------------------------------
+      if (spatialPanner) {
+        stems.nature.gain.connect(spatialPanner);
+        spatialPanner.connect(notchFilter);
+      } else {
+        stems.nature.gain.connect(notchFilter);
+      }
+
+      stems.drone.gain.connect(notchFilter);
+      stems.binaural.gain.connect(notchFilter);
+      stems.chimes.gain.connect(notchFilter);
+
+      // AnalyserNode for audio-reactive visualizer
+      analyserNode = audioCtx.createAnalyser();
+      analyserNode.fftSize = 256;
+      analyserNode.smoothingTimeConstant = 0.8;
+
+      // Route procedural stems through Notch Filter -> AnalyserNode -> Master -> Destination
+      notchFilter.connect(analyserNode);
+      analyserNode.connect(masterGain);
+      masterGain.connect(audioCtx.destination);
+
+      drawNotchCurve();
+    }
+
+    // Stem Volume Controllers (Feature 1)
+    function setStemVolume(stem, val) {
+      initModularWebAudio();
+      const v = parseFloat(val);
+      stems[stem].vol = v;
+      document.getElementById(`stem-val-${stem}`).innerText = `${Math.round(v * 100)}%`;
+      if (stems[stem].gain) {
+        if (stem === 'binaural') stems[stem].gain.gain.value = v * 0.2;
+        else if (stem === 'chimes') stems[stem].gain.gain.value = v * 0.08;
+        else stems[stem].gain.gain.value = v;
+      }
+    }
+
+    function resetStemMixer() {
+      setStemVolume('drone', 0);
+      document.getElementById('stem-slider-drone').value = 0;
+      setStemVolume('nature', 0);
+      document.getElementById('stem-slider-nature').value = 0;
+      setStemVolume('binaural', 0);
+      document.getElementById('stem-slider-binaural').value = 0;
+      setStemVolume('chimes', 0);
+      document.getElementById('stem-slider-chimes').value = 0;
+    }
+
+    // =========================================================================
+    // FEATURE 2: PRECISION NOTCH THERAPY DSP
+    // =========================================================================
+    function toggleNotchFilter() {
+      initModularWebAudio();
+      isNotchActive = !isNotchActive;
+
+      const btn = document.getElementById('btn-toggle-notch');
+      const label = document.getElementById('notch-toggle-label');
+      const pill = document.getElementById('notch-active-pill');
+
+      if (isNotchActive) {
+        notchFilter.Q.value = 5.0;
+        label.innerText = 'Disable Notch Filter';
+        btn.className = 'px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wider uppercase bg-sky-500 text-black shadow-[0_0_20px_rgba(56,189,248,0.5)] transition-all flex items-center gap-2';
+        pill.classList.remove('hidden');
+        document.getElementById('hud-notch-freq').innerText = `${notchFrequency.toLocaleString()} Hz`;
+      } else {
+        notchFilter.Q.value = 0.0001; // Neutral bypass
+        label.innerText = 'Enable Notch Filter';
+        btn.className = 'px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wider uppercase bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all flex items-center gap-2';
+        pill.classList.add('hidden');
+      }
+      drawNotchCurve();
+    }
+
+    function setNotchFrequency(hz) {
+      initModularWebAudio();
+      notchFrequency = Math.max(125, Math.min(16000, Math.round(hz)));
+      if (notchFilter) notchFilter.frequency.value = notchFrequency;
+
+      document.getElementById('notch-freq-display').innerText = `${notchFrequency.toLocaleString()} Hz`;
+      document.getElementById('hud-notch-freq').innerText = `${notchFrequency.toLocaleString()} Hz`;
+
+      // Map logarithmic frequency back to 0-1000 slider
+      // f = 125 * (16000/125)^(val/1000)
+      const ratio = Math.log(notchFrequency / 125) / Math.log(16000 / 125);
+      document.getElementById('notch-freq-slider').value = Math.round(ratio * 1000);
+
+      drawNotchCurve();
+    }
+
+    function onNotchSliderChange(val) {
+      const ratio = val / 1000;
+      const f = 125 * Math.pow(16000 / 125, ratio);
+      setNotchFrequency(f);
+    }
+
+    function adjustNotchFrequency(delta) {
+      setNotchFrequency(notchFrequency + delta);
+    }
+
+    // Audition Test Tone
+    let testToneOsc = null;
+    function toggleTestTone() {
+      initModularWebAudio();
+      if (testToneOsc) {
+        try { testToneOsc.stop(); testToneOsc.disconnect(); } catch(e){}
+        testToneOsc = null;
+        document.getElementById('test-tone-label').innerText = 'Audition Sine Tone';
+        document.getElementById('btn-test-tone').classList.remove('bg-sky-500', 'text-black');
+      } else {
+        testToneOsc = audioCtx.createOscillator();
+        const tg = audioCtx.createGain();
+        tg.gain.value = 0.04;
+        testToneOsc.frequency.value = notchFrequency;
+        testToneOsc.connect(tg);
+        tg.connect(audioCtx.destination);
+        testToneOsc.start();
+        document.getElementById('test-tone-label').innerText = 'Stop Sine Tone';
+        document.getElementById('btn-test-tone').classList.add('bg-sky-500', 'text-black');
+      }
+    }
+
+    // Draw Notch Frequency Curve Canvas
+    function drawNotchCurve() {
+      const c = document.getElementById('notch-curve-canvas');
+      if (!c) return;
+      const ctx = c.getContext('2d');
+      const w = c.width = c.clientWidth;
+      const h = c.height = c.clientHeight;
+
+      ctx.fillStyle = '#090b10';
+      ctx.fillRect(0, 0, w, h);
+
+      // Grid
+      ctx.strokeStyle = 'rgba(255,255,255,0.06)';
+      ctx.lineWidth = 1;
+      for (let x = 0; x < w; x += 40) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
+      }
+
+      // Notch Response Curve
+      ctx.strokeStyle = isNotchActive ? '#38bdf8' : 'rgba(255,255,255,0.4)';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+
+      const notchX = (Math.log(notchFrequency / 125) / Math.log(16000 / 125)) * w;
+      for (let x = 0; x <= w; x += 2) {
+        const dist = Math.abs(x - notchX);
+        let dip = 0;
+        if (isNotchActive && dist < 45) {
+          dip = Math.cos((dist / 45) * (Math.PI / 2)) * (h * 0.65);
+        }
+        const y = h * 0.35 + dip;
+        if (x === 0) ctx.moveTo(x, y);
+        else ctx.lineTo(x, y);
+      }
+      ctx.stroke();
+
+      // Notch Marker line
+      if (isNotchActive) {
+        ctx.strokeStyle = 'rgba(56, 189, 248, 0.6)';
+        ctx.setLineDash([3, 3]);
+        ctx.beginPath();
+        ctx.moveTo(notchX, 0);
+        ctx.lineTo(notchX, h);
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = '10px Inter';
+        ctx.fillText(`${notchFrequency}Hz Notch`, Math.min(w - 75, Math.max(10, notchX - 30)), h - 8);
+      }
+    }
+
+    // =========================================================================
+    // FEATURE 5: 3D SPATIAL AUDIO & HRTF ORBITAL PANNER
+    // =========================================================================
+    function toggleSpatialAudio() {
+      isSpatialActive = !isSpatialActive;
+      const label = document.getElementById('spatial-toggle-label');
+      const btn = document.getElementById('btn-toggle-spatial');
+      const pill = document.getElementById('spatial-active-pill');
+
+      if (isSpatialActive) {
+        label.innerText = 'Disable 3D Orbit';
+        btn.className = 'px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wider uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-400/30 transition-all flex items-center gap-2';
+        pill.classList.remove('hidden');
+      } else {
+        label.innerText = 'Enable 3D Orbit';
+        btn.className = 'px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wider uppercase bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all flex items-center gap-2';
+        pill.classList.add('hidden');
+        if (spatialPanner && audioCtx) {
+          spatialPanner.setPosition(0, 0, 1);
+        }
+      }
+    }
+
+    function setSpatialSpeed(v) {
+      spatialSpeed = parseFloat(v);
+      document.getElementById('spatial-speed-val').innerText = `${spatialSpeed.toFixed(3)} rad/s`;
+    }
+
+    function setSpatialRadius(v) {
+      spatialRadius = parseFloat(v);
+      document.getElementById('spatial-radius-val').innerText = `${spatialRadius.toFixed(1)} meters`;
+    }
+
+    // Update 3D Spatial Panner Coordinates & Draw Radar
+    function updateSpatialOrbit() {
+      if (isSpatialActive && spatialPanner && audioCtx) {
+        spatialAngle = (spatialAngle + spatialSpeed) % (Math.PI * 2);
+        const x = Math.cos(spatialAngle) * spatialRadius;
+        const y = 0;
+        const z = Math.sin(spatialAngle) * spatialRadius;
+
+        if (spatialPanner.positionX) {
+          spatialPanner.positionX.value = x;
+          spatialPanner.positionY.value = y;
+          spatialPanner.positionZ.value = z;
+        } else if (spatialPanner.setPosition) {
+          spatialPanner.setPosition(x, y, z);
+        }
+
+        const deg = Math.round(((spatialAngle * 180 / Math.PI) % 360 + 360) % 360);
+        const txt = document.getElementById('spatial-angle-text');
+        if (txt) txt.innerText = `Azimuth Angle: ${deg}°`;
+
+        drawSpatialRadar(x, z);
+      }
+    }
+
+    function drawSpatialRadar(x, z) {
+      const c = document.getElementById('spatial-radar-canvas');
+      if (!c) return;
+      const ctx = c.getContext('2d');
+      const cx = c.width / 2;
+      const cy = c.height / 2;
+      const r = 85;
+
+      ctx.clearRect(0, 0, c.width, c.height);
+
+      // Radar Concentric Rings
+      ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+      ctx.lineWidth = 1;
+      for (let i = 1; i <= 3; i++) {
+        ctx.beginPath(); ctx.arc(cx, cy, (r / 3) * i, 0, Math.PI * 2); ctx.stroke();
+      }
+
+      // Crosshairs
+      ctx.beginPath();
+      ctx.moveTo(cx, 15); ctx.lineTo(cx, c.height - 15);
+      ctx.moveTo(15, cy); ctx.lineTo(c.width - 15, cy);
+      ctx.stroke();
+
+      // Center Listener Head
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath(); ctx.arc(cx, cy, 6, 0, Math.PI * 2); ctx.fill();
+
+      // Glowing Orbiting Sound Source
+      const px = cx + (x / 8) * r;
+      const py = cy + (z / 8) * r;
+
+      ctx.fillStyle = 'rgba(52, 211, 153, 0.25)';
+      ctx.beginPath(); ctx.arc(px, py, 14, 0, Math.PI * 2); ctx.fill();
+
+      ctx.fillStyle = '#34d399';
+      ctx.beginPath(); ctx.arc(px, py, 5, 0, Math.PI * 2); ctx.fill();
+    }
+
+    
+    
+    // =========================================================================
+    // 5 UNIQUE PROCEDURAL 2D CANVAS GENERATIVE VISUAL ENGINES
+    // =========================================================================
+    const canvas = document.getElementById('visual-canvas');
+    const visualCtx = canvas.getContext('2d');
+    let width, height, dpr;
+
+    function resizeCanvas() {
+      dpr = window.devicePixelRatio || 1;
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width * dpr;
+      canvas.height = height * dpr;
+      visualCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    let globalTime = 0;
+
+    // 1. BRAINWAVE: Neural Synapse & Multi-Harmonic EEG Oscilloscope Flow
+    function drawEndelNeural(t) {
+      const cx = width / 2;
+      const cy = height / 2;
+
+      // Real-time audio energy modulation
+      let audioPulse = 1.0;
+      if (analyserNode && !masterAudio.paused) {
+        const data = new Uint8Array(32);
+        analyserNode.getByteFrequencyData(data);
+        let sum = 0;
+        for (let i = 0; i < 16; i++) sum += data[i];
+        audioPulse = 1.0 + (sum / 16 / 255) * 0.8;
+      }
+
+      // Triple EEG Waves (Delta, Alpha, Gamma)
+      const waves = [
+        { freq: 0.006, speed: 0.025, amp: 45 * audioPulse, color: 'rgba(56, 189, 248, 0.85)', width: 2.2 },
+        { freq: 0.012, speed: -0.018, amp: 28 * audioPulse, color: 'rgba(255, 255, 255, 0.7)', width: 1.5 },
+        { freq: 0.024, speed: 0.04, amp: 14 * audioPulse, color: 'rgba(125, 211, 252, 0.5)', width: 1.0 }
+      ];
+
+      waves.forEach(w => {
+        visualCtx.beginPath();
+        visualCtx.strokeStyle = w.color;
+        visualCtx.lineWidth = w.width;
+        for (let x = 0; x <= width; x += 5) {
+          const theta = x * w.freq + t * w.speed;
+          const y = cy + Math.sin(theta) * w.amp + Math.cos(theta * 0.5) * (w.amp * 0.4);
+          if (x === 0) visualCtx.moveTo(x, y);
+          else visualCtx.lineTo(x, y);
+        }
+        visualCtx.stroke();
+      });
+
+      // Orbiting Synaptic Node Constellation
+      const numNodes = 14;
+      const baseR = 130 * audioPulse;
+      for (let i = 0; i < numNodes; i++) {
+        const angle = (i / numNodes) * Math.PI * 2 + t * 0.006;
+        const pulse = Math.sin(t * 0.06 + i * 1.5) * 22;
+        const nx = cx + Math.cos(angle) * (baseR + pulse);
+        const ny = cy + Math.sin(angle) * ((baseR + pulse) * 0.7) - 15;
+
+        // Firing Synaptic Halo
+        visualCtx.fillStyle = 'rgba(56, 189, 248, 0.25)';
+        visualCtx.beginPath();
+        visualCtx.arc(nx, ny, 12 + Math.sin(t * 0.1 + i) * 5, 0, Math.PI * 2);
+        visualCtx.fill();
+
+        // Node Center
+        visualCtx.fillStyle = '#ffffff';
+        visualCtx.beginPath();
+        visualCtx.arc(nx, ny, 3.5, 0, Math.PI * 2);
+        visualCtx.fill();
+
+        // Firing Synaptic Connection Ray to Core
+        visualCtx.strokeStyle = 'rgba(255, 255, 255, 0.15)';
+        visualCtx.lineWidth = 1;
+        visualCtx.beginPath();
+        visualCtx.moveTo(cx, cy - 15);
+        visualCtx.lineTo(nx, ny);
+        visualCtx.stroke();
+      }
+
+      // Central Theta Nucleus
+      visualCtx.fillStyle = 'rgba(56, 189, 248, 0.18)';
+      visualCtx.beginPath();
+      visualCtx.arc(cx, cy - 15, 32 * audioPulse, 0, Math.PI * 2);
+      visualCtx.fill();
+    }
+
+    // 2. DEEP DRONES: Vanishing 3D Horizon Grid & Monolithic Frequency Blocks
+    function drawEndelFocus(t) {
+      const cx = width / 2;
+      const cy = height / 2;
+      const gridSize = 64;
+      const cols = Math.ceil(width / gridSize) + 1;
+      const rows = Math.ceil(height / gridSize) + 1;
+
+      // Sub-Bass Background Grid
+      visualCtx.strokeStyle = 'rgba(255, 255, 255, 0.035)';
+      visualCtx.lineWidth = 1;
+      for (let c = 0; c < cols; c++) {
+        visualCtx.beginPath(); visualCtx.moveTo(c * gridSize, 0); visualCtx.lineTo(c * gridSize, height); visualCtx.stroke();
+      }
+      for (let r = 0; r < rows; r++) {
+        visualCtx.beginPath(); visualCtx.moveTo(0, r * gridSize); visualCtx.lineTo(width, r * gridSize); visualCtx.stroke();
+      }
+
+      // Pulsing Frequency Crosshairs
+      for (let c = 2; c < cols - 2; c += 3) {
+        for (let r = 2; r < rows - 2; r += 3) {
+          const px = c * gridSize;
+          const py = r * gridSize;
+          const pulse = 0.5 + 0.5 * Math.sin(t * 0.02 + c * 0.7 + r * 0.7);
+          const size = 6 + pulse * 4;
+
+          visualCtx.strokeStyle = `rgba(255, 255, 255, ${0.15 + pulse * 0.5})`;
+          visualCtx.lineWidth = 1.5;
+          visualCtx.beginPath();
+          visualCtx.moveTo(px - size, py); visualCtx.lineTo(px + size, py);
+          visualCtx.moveTo(px, py - size); visualCtx.lineTo(px, py + size);
+          visualCtx.stroke();
+        }
+      }
+
+      // Monolithic Horizon Geometric Frame
+      const rectW = Math.min(260, width * 0.6);
+      const rectH = Math.min(380, height * 0.55);
+      visualCtx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
+      visualCtx.lineWidth = 1.8;
+      visualCtx.strokeRect(cx - rectW / 2, cy - rectH / 2 - 20, rectW, rectH);
+
+      // Scanning Monolith Level Meters
+      const numLines = 8;
+      for (let i = 0; i < numLines; i++) {
+        const speed = 0.0012 + (i % 4) * 0.0006;
+        const prog = ((t * speed + i / numLines) % 1.0);
+        const ly = cy - rectH / 2 - 20 + prog * rectH;
+        
+        visualCtx.strokeStyle = 'rgba(255, 255, 255, 0.95)';
+        visualCtx.lineWidth = 2.2;
+        visualCtx.beginPath();
+        visualCtx.moveTo(cx - rectW / 2 - 35, ly);
+        visualCtx.lineTo(cx - rectW / 2 + 25, ly);
+        visualCtx.moveTo(cx + rectW / 2 - 25, ly);
+        visualCtx.lineTo(cx + rectW / 2 + 35, ly);
+        visualCtx.stroke();
+      }
+    }
+
+    // 3. RAIN & NATURE: Slanted Rain Streaks & Expanding Floor Impact Ripples
+    function drawEndelRain(t) {
+      const numDrops = 60;
+      visualCtx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+      visualCtx.lineWidth = 1.2;
+
+      // Falling rain matrix
+      for (let i = 0; i < numDrops; i++) {
+        const seed = i * 197.3;
+        const speed = 7 + (i % 6) * 2.5;
+        const x = (seed * 23 + t * 2.5) % width;
+        const y = (seed * 41 + t * speed) % height;
+        const len = 22 + (i % 5) * 10;
+
+        visualCtx.beginPath();
+        visualCtx.moveTo(x, y);
+        visualCtx.lineTo(x - len * 0.3, y + len);
+        visualCtx.stroke();
+
+        // Floor Impact Ripple Expansion
+        if (y + len >= height - 90) {
+          const rProg = ((y + len - (height - 90)) / 90);
+          visualCtx.strokeStyle = `rgba(255, 255, 255, ${0.5 * (1 - rProg)})`;
+          visualCtx.lineWidth = 1.0;
+          visualCtx.beginPath();
+          visualCtx.ellipse(x, height - 35, rProg * 35, rProg * 9, 0, 0, Math.PI * 2);
+          visualCtx.stroke();
+          visualCtx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
+          visualCtx.lineWidth = 1.2;
+        }
+      }
+
+      // Calm Biophilic Water Swells
+      const cy = height * 0.65;
+      const numWaves = 4;
+      for (let i = 0; i < numWaves; i++) {
+        visualCtx.beginPath();
+        visualCtx.strokeStyle = `rgba(255, 255, 255, ${0.15 + i * 0.12})`;
+        visualCtx.lineWidth = (i === 1) ? 2.0 : 1.0;
+        const freq = 0.002 + i * 0.0005;
+        const speed = 0.015 + i * 0.005;
+        const amp = 24 + i * 12;
+
+        for (let x = 0; x <= width + 8; x += 8) {
+          const y = cy + Math.sin(x * freq + t * speed) * amp + Math.cos(x * freq * 0.5 - t * speed * 0.7) * (amp * 0.35);
+          if (x === 0) visualCtx.moveTo(x, y);
+          else visualCtx.lineTo(x, y);
+        }
+        visualCtx.stroke();
+      }
+    }
+
+    // 4. COLORED NOISE: Quantum Constellation Particle Mesh & Spectral Orbit
+    function drawEndelNoise(t) {
+      const cx = width / 2;
+      const cy = height / 2;
+      const numParticles = 42;
+      const points = [];
+
+      // Generate 3D rotating quantum points
+      for (let i = 0; i < numParticles; i++) {
+        const angle = (i / numParticles) * Math.PI * 2 + t * 0.0018;
+        const r = 180 + Math.sin(t * 0.025 + i * 2.3) * 70;
+        const px = cx + Math.cos(angle) * r;
+        const py = cy + Math.sin(angle) * (r * 0.6) - 10;
+        points.push({ x: px, y: py });
+
+        // Quantum Particle Glow
+        visualCtx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+        visualCtx.beginPath();
+        visualCtx.arc(px, py, 2.5, 0, Math.PI * 2);
+        visualCtx.fill();
+      }
+
+      // Constellation Delaunay Connection Web
+      visualCtx.strokeStyle = 'rgba(255, 255, 255, 0.16)';
+      visualCtx.lineWidth = 1;
+      visualCtx.beginPath();
+      for (let i = 0; i < points.length; i++) {
+        const p1 = points[i];
+        const next1 = points[(i + 1) % points.length];
+        const next2 = points[(i + 3) % points.length];
+        visualCtx.moveTo(p1.x, p1.y);
+        visualCtx.lineTo(next1.x, next1.y);
+        visualCtx.moveTo(p1.x, p1.y);
+        visualCtx.lineTo(next2.x, next2.y);
+      }
+      visualCtx.stroke();
+
+      // Concentric Spectral Shells
+      for (let s = 1; s <= 3; s++) {
+        visualCtx.strokeStyle = `rgba(255, 255, 255, ${0.05 * s})`;
+        visualCtx.beginPath();
+        visualCtx.ellipse(cx, cy - 10, s * 90, s * 55, t * 0.001 * s, 0, Math.PI * 2);
+        visualCtx.stroke();
+      }
+    }
+
+    // 5. HARMONIC BOWLS: Counter-Rotating Sacred Solfeggio Mandalas & Chime Waves
+    function drawEndelRadial(t) {
+      const cx = width / 2;
+      const cy = height / 2;
+      const baseR = 165;
+      const numBars = 64;
+
+      // 1. Expanding Solfeggio Standing-Wave Resonance Rings
+      for (let r = 1; r <= 4; r++) {
+        const ringProg = ((t * 0.008 + r / 4) % 1.0);
+        const currentR = 40 + ringProg * 240;
+        const alpha = (1 - ringProg) * 0.45;
+
+        visualCtx.strokeStyle = `rgba(255, 255, 255, ${alpha})`;
+        visualCtx.lineWidth = 1.8;
+        visualCtx.beginPath();
+        visualCtx.arc(cx, cy - 15, currentR, 0, Math.PI * 2);
+        visualCtx.stroke();
+      }
+
+      // 2. Outer Rotating Harmonic Overtone Bars (432Hz Mode)
+      visualCtx.save();
+      visualCtx.translate(cx, cy - 15);
+      visualCtx.rotate(t * 0.0025);
+
+      for (let i = 0; i < numBars; i++) {
+        const angle = (i / numBars) * Math.PI * 2;
+        const barH = 8 + 55 * Math.sin(i * 0.28 + t * 0.04)**2;
+        const x1 = Math.cos(angle) * baseR;
+        const y1 = Math.sin(angle) * baseR;
+        const x2 = Math.cos(angle) * (baseR + barH);
+        const y2 = Math.sin(angle) * (baseR + barH);
+
+        visualCtx.strokeStyle = 'rgba(255, 255, 255, 0.78)';
+        visualCtx.lineWidth = 1.8;
+        visualCtx.beginPath();
+        visualCtx.moveTo(x1, y1); visualCtx.lineTo(x2, y2); visualCtx.stroke();
+      }
+      visualCtx.restore();
+
+      // 3. Inner Counter-Rotating Sacred Flower of Life Rosette (528Hz Mode)
+      visualCtx.save();
+      visualCtx.translate(cx, cy - 15);
+      visualCtx.rotate(-t * 0.0035);
+
+      const numPetals = 8;
+      const petalR = 60;
+      visualCtx.strokeStyle = 'rgba(255, 255, 255, 0.65)';
+      visualCtx.lineWidth = 1.4;
+      for (let i = 0; i < numPetals; i++) {
+        const pAngle = (i / numPetals) * Math.PI * 2;
+        const px = Math.cos(pAngle) * petalR;
+        const py = Math.sin(pAngle) * petalR;
+
+        visualCtx.beginPath();
+        visualCtx.arc(px, py, petalR, 0, Math.PI * 2);
+        visualCtx.stroke();
+      }
+      visualCtx.restore();
+    }
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let reducedMotionFrame = 0;
+
+    function mainVisualLoop() {
+      if (prefersReducedMotion.matches) {
+        reducedMotionFrame++;
+        if (reducedMotionFrame % 60 !== 0) {
+          requestAnimationFrame(mainVisualLoop);
+          return;
+        }
+      }
+
+      if (visualEngineMode === 'code') {
+        globalTime++;
+        visualCtx.fillStyle = '#000000';
+        visualCtx.fillRect(0, 0, width, height);
+
+        // Map strictly to the active category for a unique animation per category
+        if (activeCategory === 'neural') drawEndelNeural(globalTime);
+        else if (activeCategory === 'drone') drawEndelFocus(globalTime);
+        else if (activeCategory === 'nature') drawEndelRain(globalTime);
+        else if (activeCategory === 'noise') drawEndelNoise(globalTime);
+        else if (activeCategory === 'harmonic') drawEndelRadial(globalTime);
+        else drawEndelFocus(globalTime);
+
+        // Audio-reactive ambient glow
+        if (analyserNode && !masterAudio.paused) {
+          const dataArray = new Uint8Array(analyserNode.frequencyBinCount);
+          analyserNode.getByteFrequencyData(dataArray);
+          let sum = 0;
+          for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
+          const avgEnergy = sum / dataArray.length / 255;
+          const glowAlpha = avgEnergy * 0.08;
+          visualCtx.fillStyle = `rgba(255, 255, 255, ${glowAlpha})`;
+          visualCtx.fillRect(0, 0, width, height);
+        }
+      }
+
+      updateSpatialOrbit();
+      requestAnimationFrame(mainVisualLoop);
+    }
+    requestAnimationFrame(mainVisualLoop);
+
+    // =========================================================================
+    // MAIN 5 CATEGORY STATIONS & AUTOMATIC ONE-BY-ONE AUDIO PLAYBACK
+    // =========================================================================
+    const CATEGORIES = [
+      { id: 'neural', label: 'Brainwave', name: 'Brainwave', subtitle: 'Circadian Neural Entrainment', icon: 'pulse', style: 'neural' },
+      { id: 'drone', label: 'Deep Drones', name: 'Deep Drones', subtitle: 'Infrasonic Acoustic Masking', icon: 'grid', style: 'drone' },
+      { id: 'nature', label: 'Rain & Nature', name: 'Rain & Nature', subtitle: 'Biophilic Water Stream', icon: 'wave', style: 'rain' },
+      { id: 'noise', label: 'Colored Noise', name: 'Colored Noise', subtitle: 'Full-Spectrum Acoustic Shield', icon: 'rings', style: 'noise' },
+      { id: 'harmonic', label: 'Harmonic Bowls', name: 'Harmonic Bowls', subtitle: 'Solfeggio Overtone Resonance', icon: 'bowl', style: 'harmonic' }
+    ];
+
+    const ICONS = {
+      grid: '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>',
+      moon: '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>',
+      wave: '<path d="M2 12c4-8 8-8 12 0s8 8 12 0"/>',
+      pulse: '<path d="M2 12h5l3-9 4 18 3-9h5"/>',
+      spiral: '<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+      leaf: '<path d="M12 2a10 10 0 0 1 10 10c0 5.5-4.5 10-10 10S2 17.5 2 12A10 10 0 0 1 12 2zm0 0v20"/>',
+      bowl: '<path d="M4 10c0 6 3.5 10 8 10s8-4 8-10H4z"/><path d="M8 20h8"/>',
+      rings: '<ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="4" ry="10"/>'
+    };
+
+    let activeCategory = 'neural'; // Default 1st category
+    let currentCategoryTrackIndex = 0;
+
+    // Automatic Continuous One-By-One Progression
+    masterAudio.loop = false;
+    masterAudio.onended = handleTrackEnded;
+
+    function handleTrackEnded() {
+      playNextInCategory();
+    }
+
+    function getTracksInActiveCategory() {
+      return SOUNDSCAPES.filter(s => s.category === activeCategory);
+    }
+
+    function selectCategory(catId) {
+      activeCategory = catId;
+      currentCategoryTrackIndex = 0;
+      const tracks = getTracksInActiveCategory();
+      if (tracks.length > 0) {
+        selectSoundscape(tracks[0].id);
+      }
+      renderCategoryStationsUI();
+      renderDrawerGrid();
+    }
+
+    function playNextInCategory() {
+      const tracks = getTracksInActiveCategory();
+      if (!tracks || tracks.length === 0) return;
+      currentCategoryTrackIndex = (currentCategoryTrackIndex + 1) % tracks.length;
+      selectSoundscape(tracks[currentCategoryTrackIndex].id);
+    }
+
+    function playPrevInCategory() {
+      const tracks = getTracksInActiveCategory();
+      if (!tracks || tracks.length === 0) return;
+      currentCategoryTrackIndex = (currentCategoryTrackIndex - 1 + tracks.length) % tracks.length;
+      selectSoundscape(tracks[currentCategoryTrackIndex].id);
+    }
+
+    function selectSoundscape(trackId) {
+      const sound = SOUNDSCAPES.find(s => s.id === trackId) || SOUNDSCAPES[0];
+      currentIdx = sound.id;
+      activeCategory = sound.category;
+
+      const tracks = getTracksInActiveCategory();
+      const pos = tracks.findIndex(s => s.id === sound.id);
+      if (pos !== -1) currentCategoryTrackIndex = pos;
+
+      initModularWebAudio();
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+
+      const catObj = CATEGORIES.find(c => c.id === sound.category) || CATEGORIES[0];
+
+      // Update Center HUD Display (Distraction-Free: Only category channel and acoustic subtitle)
+      document.getElementById('hud-top-filename').innerText = `${catObj.name.toUpperCase()} // AURAL RELIEF`;
+      document.getElementById('hud-track-title').innerText = catObj.name;
+      document.getElementById('hud-track-subtitle').innerText = catObj.subtitle;
+
+      const targetVol = previousVolume || 0.85;
+      masterAudio.pause();
+      masterAudio.src = `music/${sound.audioFile}`;
+      masterAudio.currentTime = 0;
+      masterAudio.volume = targetVol;
+      masterAudio.load();
+      masterAudio.play().then(() => {
+        updatePlayButtonUI(true);
+      }).catch((e) => {
+        console.log('Autoplay awaiting interaction', e);
+      });
+
+      renderCategoryStationsUI();
+      updateMediaSession(sound, catObj, tracks);
+      saveSession();
+    }
+
+    // Render the 5 Main Category Stations
+    function renderCategoryStationsUI() {
+      const container = document.getElementById('category-carousel-container');
+      if (!container) return;
+      container.innerHTML = '';
+
+      CATEGORIES.forEach((cat) => {
+        const isActive = (cat.id === activeCategory);
+
+        const stationEl = document.createElement('div');
+        stationEl.className = `category-station-circle ${isActive ? 'active' : ''}`;
+        stationEl.title = `${cat.name} Soundscape Channel`;
+        stationEl.onclick = (e) => {
+          e.stopPropagation();
+          selectCategory(cat.id);
+        };
+
+        stationEl.innerHTML = `
+          <div class="station-bubble">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              ${ICONS[cat.icon] || ICONS.grid}
+            </svg>
+          </div>
+          <span class="station-label">${cat.label}</span>
+        `;
+        container.appendChild(stationEl);
+      });
+    }
+
+    function renderDrawerGrid() {
+      const grid = document.getElementById('drawer-soundscape-grid');
+      if (!grid) return;
+      grid.innerHTML = '';
+
+      CATEGORIES.forEach((cat) => {
+        const isCurrentCat = (cat.id === activeCategory);
+
+        const section = document.createElement('div');
+        section.className = `p-5 rounded-3xl ${isCurrentCat ? 'bg-white/15 border-white/40' : 'bg-white/5 border-white/10'} border flex flex-col gap-3 transition-all`;
+        
+        section.innerHTML = `
+          <div class="flex items-center justify-between cursor-pointer" onclick="selectCategory('${cat.id}')">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-full ${isCurrentCat ? 'bg-emerald-500 text-black' : 'bg-white/10 text-white'} flex items-center justify-center font-bold">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  ${ICONS[cat.icon] || ICONS.grid}
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-bold text-white text-sm">${cat.name}</h4>
+                <p class="text-xs text-white/50">${cat.subtitle}</p>
+              </div>
+            </div>
+            <button class="px-3.5 py-1.5 rounded-full ${isCurrentCat ? 'bg-emerald-500 text-black font-bold' : 'bg-white/10 text-white/80'} text-xs font-mono">
+              ${isCurrentCat ? 'Active Channel' : 'Play Channel'}
+            </button>
+          </div>
+        `;
+        grid.appendChild(section);
+      });
+    }
+
+    function updateMediaSession(sound, catObj, tracks) {
+      if ('mediaSession' in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          title: sound.title,
+          artist: catObj ? catObj.name : 'AuralRelief Clinical Audio',
+          album: `AuralRelief • Track ${currentCategoryTrackIndex + 1} of ${tracks.length}`
+        });
+
+        navigator.mediaSession.setActionHandler('play', () => {
+          toggleAudioPlayback();
+          navigator.mediaSession.playbackState = 'playing';
+        });
+        navigator.mediaSession.setActionHandler('pause', () => {
+          toggleAudioPlayback();
+          navigator.mediaSession.playbackState = 'paused';
+        });
+        navigator.mediaSession.setActionHandler('nexttrack', playNextInCategory);
+        navigator.mediaSession.setActionHandler('previoustrack', playPrevInCategory);
+      }
+    }
+
+    let hasInitiallyStarted = false;
+
+    function toggleAudioPlayback() {
+      initModularWebAudio();
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+
+      if (masterAudio.paused) {
+        if (!hasInitiallyStarted) {
+          hasInitiallyStarted = true;
+          const vol = previousVolume || 0.85;
+          masterAudio.volume = vol;
+          if (masterGain) masterGain.gain.value = vol;
+          document.getElementById('hud-vol-slider').value = vol;
+          masterAudio.play().then(() => updatePlayButtonUI(true)).catch(()=>{});
+        } else {
+          // Whenever user resumes/plays, automatically advance to next audio track in the active category
+          playNextInCategory();
+        }
+      } else {
+        hasInitiallyStarted = true;
+        masterAudio.pause();
+        if (masterGain) masterGain.gain.value = 0.0001;
+        updatePlayButtonUI(false);
+      }
+    }
+
+    function updatePlayButtonUI(playing) {
+      const svg = document.getElementById('hud-play-svg');
+      if (playing) {
+        svg.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>';
+      } else {
+        svg.innerHTML = '<path d="M8 5v14l11-7z"/>';
+      }
+    }
+
+    function setAudioVolume(v) {
+      const val = parseFloat(v);
+      masterAudio.volume = val;
+      if (masterGain) masterGain.gain.value = val;
+      const icon = document.getElementById('vol-icon');
+      if (val === 0) icon.innerText = 'volume_off';
+      else if (val < 0.5) icon.innerText = 'volume_down';
+      else icon.innerText = 'volume_up';
+    }
+
+    function toggleMute() {
+      const slider = document.getElementById('hud-vol-slider');
+      if (masterAudio.volume > 0.01) {
+        previousVolume = masterAudio.volume;
+        slider.value = 0;
+        setAudioVolume(0);
+      } else {
+        slider.value = previousVolume || 0.85;
+        setAudioVolume(previousVolume || 0.85);
+      }
+    }
+
+    function cycleVisualEffect() {
+      const styles = ['neural', 'grid', 'rain', 'noise', 'radial', 'lunar', 'wave'];
+      const cur = SOUNDSCAPES[currentIdx]?.style || 'neural';
+      const next = styles[(styles.indexOf(cur) + 1) % styles.length];
+      SOUNDSCAPES[currentIdx].style = next;
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen().catch(()=>{});
+      else document.exitFullscreen().catch(()=>{});
+    }
+
+    // =========================================================================
+    // EXPLORE DRAWER NAVIGATION & TABS
+    // =========================================================================
+    function toggleExploreDrawer() {
+      const drawer = document.getElementById('explore-drawer');
+      drawer.classList.toggle('open');
+      if (drawer.classList.contains('open')) {
+        drawNotchCurve();
+      }
+    }
+
+    function openDrawerTab(tab) {
+      setDrawerTab(tab);
+      const drawer = document.getElementById('explore-drawer');
+      if (!drawer.classList.contains('open')) {
+        drawer.classList.add('open');
+      }
+      if (tab === 'notch') setTimeout(drawNotchCurve, 50);
+    }
+
+    function setDrawerTab(tab) {
+      ['mixer', 'notch', 'spatial', 'catalog', 'checklist'].forEach(t => {
+        const div = document.getElementById(`drawer-tab-${t}`);
+        const btn = document.getElementById(`tab-btn-${t}`);
+        if (div && btn) {
+          if (t === tab) {
+            div.classList.remove('hidden');
+            div.classList.add('flex');
+            btn.className = 'px-3 py-1.5 rounded-xl font-medium text-white bg-white/15';
+          } else {
+            div.classList.add('hidden');
+            div.classList.remove('flex');
+            btn.className = 'px-3 py-1.5 rounded-xl font-medium text-white/60 hover:text-white';
+          }
+        }
+      });
+      if (tab === 'notch') setTimeout(drawNotchCurve, 50);
+    }
+
+    // =========================================================================
+    // COMPREHENSIVE TIMER ENGINE & SETTINGS
+    // =========================================================================
+    let selectedTimerMins = 25;
+    let initialTimerSeconds = 0;
+
+    function openTimerSettings(e) {
+      if (e) e.stopPropagation();
+      const modal = document.getElementById('timer-settings-modal');
+      modal.classList.remove('opacity-0', 'pointer-events-none');
+      updateModalTimerDisplay();
+    }
+
+    function closeTimerSettings() {
+      const modal = document.getElementById('timer-settings-modal');
+      modal.classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    function selectPresetMinutes(mins) {
+      selectedTimerMins = mins;
+      document.getElementById('modal-duration-slider').value = mins;
+      document.getElementById('custom-slider-val').innerText = `${mins} mins`;
+
+      // Update active preset styling
+      const btns = document.querySelectorAll('.timer-preset-btn');
+      btns.forEach(b => {
+        if (b.innerText.startsWith(`${mins} `)) {
+          b.className = 'timer-preset-btn active-preset py-2 px-1 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-xs font-mono text-emerald-300 text-center transition-all';
+        } else {
+          b.className = 'timer-preset-btn py-2 px-1 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-mono text-white/80 text-center transition-all';
+        }
+      });
+
+      updateModalTimerDisplay();
+    }
+
+    function onCustomSliderChange(val) {
+      selectedTimerMins = parseInt(val);
+      document.getElementById('custom-slider-val').innerText = `${selectedTimerMins} mins`;
+      
+      const btns = document.querySelectorAll('.timer-preset-btn');
+      btns.forEach(b => {
+        if (b.innerText === `${selectedTimerMins} min`) {
+          b.className = 'timer-preset-btn active-preset py-2 px-1 rounded-xl bg-emerald-500/20 border border-emerald-400/40 text-xs font-mono text-emerald-300 text-center transition-all';
+        } else {
+          b.className = 'timer-preset-btn py-2 px-1 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-mono text-white/80 text-center transition-all';
+        }
+      });
+
+      updateModalTimerDisplay();
+    }
+
+    function updateModalTimerDisplay() {
+      if (timerSeconds > 0 && timerInterval !== null) {
+        const m = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+        const s = (timerSeconds % 60).toString().padStart(2, '0');
+        document.getElementById('modal-timer-display').innerText = `${m}:${s}`;
+        document.getElementById('modal-timer-status').innerText = 'Session In Progress';
+        document.getElementById('btn-modal-start').innerText = 'Restart Timer';
+      } else {
+        const m = selectedTimerMins.toString().padStart(2, '0');
+        document.getElementById('modal-timer-display').innerText = `${m}:00`;
+        document.getElementById('modal-timer-status').innerText = 'Ready to Start';
+        document.getElementById('btn-modal-start').innerText = 'Start Timer';
+      }
+    }
+
+    function startModalTimer() {
+      setTimerMinutes(selectedTimerMins);
+      closeTimerSettings();
+    }
+
+    function setTimerMinutes(mins) {
+      clearInterval(timerInterval);
+      selectedTimerMins = mins;
+      initialTimerSeconds = mins * 60;
+      timerSeconds = mins * 60;
+      updateTimerText();
+
+      timerInterval = setInterval(() => {
+        timerSeconds--;
+
+        // Gentle 30s Volume Fadeout
+        const optFadeout = document.getElementById('timer-opt-fadeout').checked;
+        if (optFadeout && timerSeconds <= 30 && timerSeconds > 0) {
+          const fadeRatio = timerSeconds / 30;
+          const targetVol = (previousVolume || 0.85) * fadeRatio;
+          masterAudio.volume = Math.max(0, targetVol);
+          if (masterGain) masterGain.gain.value = Math.max(0, targetVol);
+        }
+
+        if (timerSeconds <= 0) {
+          clearInterval(timerInterval);
+          timerInterval = null;
+          timerSeconds = 0;
+
+          // Stop Music Completely
+          masterAudio.pause();
+          masterAudio.currentTime = 0;
+          masterAudio.volume = 0;
+          if (masterGain) masterGain.gain.value = 0.0001;
+          updatePlayButtonUI(false);
+
+          // Ending Chime if enabled
+          const optChime = document.getElementById('timer-opt-chime').checked;
+          if (optChime) playEndingChime();
+
+          // Volume is restored on next explicit play (toggleAudioPlayback)
+          // NOT immediately here, to prevent volume blast
+
+          document.getElementById('timer-pill-text').innerText = 'Session Finished';
+          document.getElementById('ambient-timer-text').innerText = 'Finished';
+
+          setTimeout(() => {
+            document.getElementById('timer-pill-text').innerText = 'Set Timer';
+            updateAmbientBadgeVisibility();
+          }, 8000);
+        } else {
+          updateTimerText();
+        }
+      }, 1000);
+
+      updateAmbientBadgeVisibility();
+      if (document.getElementById('explore-drawer').classList.contains('open')) {
+        toggleExploreDrawer();
+      }
+    }
+
+    function clearTimer() {
+      clearInterval(timerInterval);
+      timerInterval = null;
+      timerSeconds = 0;
+      masterAudio.volume = previousVolume || 0.85;
+      if (masterGain) masterGain.gain.value = previousVolume || 0.85;
+
+      document.getElementById('timer-pill-text').innerText = 'Set Timer';
+      document.getElementById('ambient-timer-text').innerText = '25:00';
+      updateModalTimerDisplay();
+      updateAmbientBadgeVisibility();
+      closeTimerSettings();
+    }
+
+    function updateTimerText() {
+      const m = Math.floor(timerSeconds / 60).toString().padStart(2, '0');
+      const s = (timerSeconds % 60).toString().padStart(2, '0');
+      const formatted = `${m}:${s}`;
+      document.getElementById('timer-pill-text').innerText = formatted;
+      document.getElementById('ambient-timer-text').innerText = formatted;
+      if (!document.getElementById('timer-settings-modal').classList.contains('opacity-0')) {
+        document.getElementById('modal-timer-display').innerText = formatted;
+      }
+    }
+
+    function updateAmbientBadgeVisibility() {
+      const ambientBadge = document.getElementById('ambient-timer-badge');
+      const hud = document.getElementById('endel-hud');
+      const isTimerRunning = (timerSeconds > 0 && timerInterval !== null);
+
+      if (hud.classList.contains('idle') && isTimerRunning) {
+        ambientBadge.style.opacity = '1';
+        ambientBadge.style.pointerEvents = 'auto';
+      } else {
+        ambientBadge.style.opacity = '0';
+        ambientBadge.style.pointerEvents = 'none';
+      }
+    }
+
+    // Play Gentle 528Hz Solfeggio Chime on Session Finish
+    function playEndingChime() {
+      initModularWebAudio();
+      if (!audioCtx) return;
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+
+      const chimeOsc = audioCtx.createOscillator();
+      const chimeGain = audioCtx.createGain();
+
+      chimeOsc.type = 'sine';
+      chimeOsc.frequency.setValueAtTime(528, audioCtx.currentTime); // 528Hz Transformation chime
+      chimeOsc.frequency.exponentialRampToValueAtTime(526, audioCtx.currentTime + 3.5);
+
+      chimeGain.gain.setValueAtTime(0.0001, audioCtx.currentTime);
+      chimeGain.gain.linearRampToValueAtTime(0.18, audioCtx.currentTime + 0.05);
+      chimeGain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + 4.0);
+
+      chimeOsc.connect(chimeGain);
+      chimeGain.connect(audioCtx.destination);
+
+      chimeOsc.start();
+      chimeOsc.stop(audioCtx.currentTime + 4.1);
+    }
+
+    // Dismiss Autoplay Gate
+    function dismissAutoplayGate() {
+      const gate = document.getElementById('autoplay-gate');
+      if (!gate.classList.contains('hidden-gate')) {
+        gate.classList.add('hidden-gate');
+        hasInitiallyStarted = true;
+        initModularWebAudio();
+        selectSoundscape(currentIdx);
+      }
+    }
+
+    // Auto-hide HUD on idle
+    let hudIdleTimer = null;
+    function resetHudIdle() {
+      const hud = document.getElementById('endel-hud');
+      hud.classList.remove('idle');
+      updateAmbientBadgeVisibility();
+
+      clearTimeout(hudIdleTimer);
+      hudIdleTimer = setTimeout(() => {
+        if (!masterAudio.paused && !document.getElementById('explore-drawer').classList.contains('open') && document.getElementById('timer-settings-modal').classList.contains('opacity-0')) {
+          hud.classList.add('idle');
+          updateAmbientBadgeVisibility();
+        }
+      }, 4500);
+    }
+    window.addEventListener('mousemove', resetHudIdle);
+    window.addEventListener('click', resetHudIdle);
+
+    // Keyboard Shortcuts
+    window.addEventListener('keydown', (e) => {
+      dismissAutoplayGate();
+      if (e.code === 'Space') {
+        e.preventDefault();
+        toggleAudioPlayback();
+      } else if (e.key === 'ArrowRight') {
+        playNextInCategory();
+      } else if (e.key === 'ArrowLeft') {
+        playPrevInCategory();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        const cur = parseFloat(document.getElementById('hud-vol-slider').value);
+        const next = Math.min(1, cur + 0.1);
+        document.getElementById('hud-vol-slider').value = next;
+        setAudioVolume(next);
+      } else if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        const cur = parseFloat(document.getElementById('hud-vol-slider').value);
+        const next = Math.max(0, cur - 0.1);
+        document.getElementById('hud-vol-slider').value = next;
+        setAudioVolume(next);
+      } else if (e.key >= '0' && e.key <= '9') {
+        const num = parseInt(e.key);
+        const idx = num === 0 ? 9 : num - 1;
+        selectSoundscape(idx);
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      } else if (e.key === 'm' || e.key === 'M') {
+        toggleMute();
+      } else if (e.key === 'e' || e.key === 'E') {
+        toggleExploreDrawer();
+      } else if (e.key === 'v' || e.key === 'V') {
+        cycleVisualEffect();
+      } else if (e.key === 't' || e.key === 'T') {
+        const modal = document.getElementById('timer-settings-modal');
+        if (modal.classList.contains('opacity-0')) openTimerSettings();
+        else closeTimerSettings();
+      } else if (e.key === 'Escape') {
+        document.getElementById('explore-drawer').classList.remove('open');
+        closeTimerSettings();
+        if (testToneOsc) toggleTestTone();
+      } else if (e.key === '?' || e.key === '/') {
+        toggleKeyboardHelp();
+      }
+    });
+
+    // P1 Issue 8: Mobile touch support — swipe left/right on carousel to switch soundscapes
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const carouselTouch = document.getElementById('carousel-container');
+    if (carouselTouch) {
+      carouselTouch.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        touchStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      carouselTouch.addEventListener('touchend', (e) => {
+        const dx = e.changedTouches[0].screenX - touchStartX;
+        const dy = e.changedTouches[0].screenY - touchStartY;
+        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy)) {
+          if (dx < 0) playNextInCategory();
+          else playPrevInCategory();
+        }
+      }, { passive: true });
+    }
+
+    // Mobile touch also resets HUD idle
+    window.addEventListener('touchstart', resetHudIdle, { passive: true });
+
+    // Audio visibility recovery (iOS/Android background tab)
+    document.addEventListener('visibilitychange', () => {
+      if (document.visibilityState === 'visible' && audioCtx && audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+    });
+
+    // P3 Issue 18: Keyboard Shortcut Help Overlay
+    function toggleKeyboardHelp() {
+      let overlay = document.getElementById('keyboard-help-overlay');
+      if (overlay) {
+        overlay.remove();
+        return;
+      }
+      overlay = document.createElement('div');
+      overlay.id = 'keyboard-help-overlay';
+      overlay.onclick = () => overlay.remove();
+      overlay.className = 'fixed inset-0 z-[60] flex items-center justify-center bg-black/85 backdrop-blur-lg cursor-pointer';
+      overlay.innerHTML = `
+        <div class="max-w-sm w-full bg-[#0d0f15]/95 border border-white/20 rounded-3xl p-6 shadow-2xl" onclick="event.stopPropagation()">
+          <h3 class="text-base font-bold text-white mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-emerald-400">keyboard</span> Keyboard Shortcuts
+          </h3>
+          <div class="grid grid-cols-2 gap-y-2 gap-x-4 text-xs">
+            <span class="text-white/60">Play / Pause</span><span class="text-white font-mono">Space</span>
+            <span class="text-white/60">Next Track</span><span class="text-white font-mono">→</span>
+            <span class="text-white/60">Prev Track</span><span class="text-white font-mono">←</span>
+            <span class="text-white/60">Volume Up</span><span class="text-white font-mono">↑</span>
+            <span class="text-white/60">Volume Down</span><span class="text-white font-mono">↓</span>
+            <span class="text-white/60">Track 1–10</span><span class="text-white font-mono">1-9, 0</span>
+            <span class="text-white/60">Fullscreen</span><span class="text-white font-mono">F</span>
+            <span class="text-white/60">Mute</span><span class="text-white font-mono">M</span>
+            <span class="text-white/60">Explore Suite</span><span class="text-white font-mono">E</span>
+            <span class="text-white/60">Visual Cycle</span><span class="text-white font-mono">V</span>
+            <span class="text-white/60">Timer</span><span class="text-white font-mono">T</span>
+            <span class="text-white/60">Close / Cancel</span><span class="text-white font-mono">Esc</span>
+            <span class="text-white/60">This Help</span><span class="text-white font-mono">?</span>
+          </div>
+          <p class="text-[10px] text-white/30 mt-4 text-center">Press Esc or click outside to close</p>
+        </div>
+      `;
+      document.body.appendChild(overlay);
+    }
+
+    // P2 Issue 11: Session Persistence (localStorage)
+    function saveSession() {
+      try {
+        localStorage.setItem('auralrelief_session', JSON.stringify({
+          soundscapeIdx: currentIdx,
+          volume: masterAudio.volume || previousVolume,
+          timerMins: selectedTimerMins,
+          fadeoutEnabled: document.getElementById('timer-opt-fadeout')?.checked,
+          chimeEnabled: document.getElementById('timer-opt-chime')?.checked
+        }));
+      } catch(e) {}
+    }
+
+    function restoreSession() {
+      try {
+        const data = JSON.parse(localStorage.getItem('auralrelief_session'));
+        if (data) {
+          if (typeof data.soundscapeIdx === 'number' && data.soundscapeIdx >= 0 && data.soundscapeIdx < SOUNDSCAPES.length) {
+            currentIdx = data.soundscapeIdx;
+          }
+          if (typeof data.volume === 'number') {
+            previousVolume = data.volume;
+            masterAudio.volume = data.volume;
+            document.getElementById('hud-vol-slider').value = data.volume;
+          }
+          if (typeof data.timerMins === 'number') {
+            selectedTimerMins = data.timerMins;
+          }
+          if (typeof data.fadeoutEnabled === 'boolean') {
+            const el = document.getElementById('timer-opt-fadeout');
+            if (el) el.checked = data.fadeoutEnabled;
+          }
+          if (typeof data.chimeEnabled === 'boolean') {
+            const el = document.getElementById('timer-opt-chime');
+            if (el) el.checked = data.chimeEnabled;
+          }
+        }
+      } catch(e) {}
+    }
+
+    // Auto-save session periodically
+    setInterval(saveSession, 15000);
+    window.addEventListener('beforeunload', saveSession);
+
+    // Boot
+    document.addEventListener('DOMContentLoaded', () => {
+      restoreSession();
+      renderCategoryStationsUI();
+      renderDrawerGrid();
+
+      const sound = SOUNDSCAPES[currentIdx];
+      masterAudio.src = `music/${sound.audioFile}`;
+      const catObj = CATEGORIES.find(c => c.id === sound.category) || CATEGORIES[0];
+      document.getElementById('hud-top-filename').innerText = `${catObj.name.toUpperCase()} // AURAL RELIEF`;
+      document.getElementById('hud-track-title').innerText = catObj.name;
+      document.getElementById('hud-track-subtitle').innerText = catObj.subtitle;
+    });
+  </script>
+</body>
+</html>
