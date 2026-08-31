@@ -1404,7 +1404,6 @@
     // Master Native Audio Element
     const masterAudio = new Audio();
     masterAudio.loop = true;
-    masterAudio.crossOrigin = "anonymous";
     masterAudio.volume = 0.85;
 
     // =========================================================================
@@ -1413,7 +1412,6 @@
     let audioCtx = null;
     let masterGain = null;
     let notchFilter = null;
-    let mediaSource = null; // MediaElementAudioSourceNode for masterAudio
     let analyserNode = null; // AnalyserNode for audio-reactive visuals
     let isNotchActive = false;
     let notchFrequency = 4000; // Default 4kHz
@@ -1637,17 +1635,6 @@
       analyserNode = audioCtx.createAnalyser();
       analyserNode.fftSize = 256;
       analyserNode.smoothingTimeConstant = 0.8;
-
-      // Route HTML5 masterAudio through Web Audio Notch DSP:
-      // masterAudio -> mediaSource -> notchFilter -> analyserNode -> masterGain -> destination
-      try {
-        if (!mediaSource) {
-          mediaSource = audioCtx.createMediaElementSource(masterAudio);
-          mediaSource.connect(notchFilter);
-        }
-      } catch (e) {
-        console.log('MediaElementSource initialization notice:', e);
-      }
 
       notchFilter.connect(analyserNode);
       analyserNode.connect(masterGain);
@@ -2461,28 +2448,20 @@
       }
     }
 
-    let hasInitiallyStarted = false;
-
     function toggleAudioPlayback() {
-      initModularWebAudio();
-      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
-
       if (masterAudio.paused) {
-        if (!hasInitiallyStarted) {
-          hasInitiallyStarted = true;
-          const vol = previousVolume || 0.85;
-          masterAudio.volume = vol;
-          if (masterGain) masterGain.gain.value = vol;
-          document.getElementById('hud-vol-slider').value = vol;
-          masterAudio.play().then(() => updatePlayButtonUI(true)).catch(()=>{});
-        } else {
-          // Whenever user resumes/plays, automatically advance to next audio track in the active category
-          playNextInCategory();
-        }
+        const vol = previousVolume || 0.85;
+        masterAudio.volume = vol;
+        const slider = document.getElementById('hud-vol-slider');
+        if (slider) slider.value = vol;
+        
+        masterAudio.play().then(() => {
+          updatePlayButtonUI(true);
+        }).catch(err => {
+          console.log('Playback error:', err);
+        });
       } else {
-        hasInitiallyStarted = true;
         masterAudio.pause();
-        if (masterGain) masterGain.gain.value = 0.0001;
         updatePlayButtonUI(false);
       }
     }
