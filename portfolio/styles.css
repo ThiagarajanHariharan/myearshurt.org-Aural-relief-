@@ -1,0 +1,95 @@
+/* Retro Cartoon Arcade & Tactical Nuke Styling */
+
+@keyframes muzzle-flash {
+    0% { transform: scale(0.4) rotate(0deg); opacity: 1; }
+    50% { transform: scale(1.4) rotate(25deg); opacity: 0.9; }
+    100% { transform: scale(0) rotate(50deg); opacity: 0; }
+}
+
+@keyframes energy-pulse {
+    0%, 100% { opacity: 0.4; filter: drop-shadow(0 0 4px #38bdf8); }
+    50% { opacity: 1; filter: drop-shadow(0 0 12px #38bdf8); }
+}
+
+@keyframes lock-on-anim {
+    0% { transform: scale(2.4) rotate(45deg); opacity: 0; }
+    50% { transform: scale(1) rotate(0deg); opacity: 1; }
+    80% { transform: scale(1.15) rotate(0deg); opacity: 1; }
+    100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes screen-rumble {
+    0% { transform: translate(0, 0); }
+    20% { transform: translate(-4px, 3px); }
+    40% { transform: translate(4px, -3px); }
+    60% { transform: translate(-3px, -2px); }
+    80% { transform: translate(3px, 2px); }
+    100% { transform: translate(0, 0); }
+}
+
+.shake-active {
+    animation: screen-rumble 0.35s ease-in-out;
+}
+
+.animate-pulse-glow {
+    animation: energy-pulse 2s infinite ease-in-out;
+}
+
+.blaster-recoil {
+    transform-origin: center bottom;
+    transition: transform 0.08s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.recoil-active {
+    transform: scale(0.92, 1.15) translateY(12px) !important;
+}
+
+.target-lock {
+    animation: lock-on-anim 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+/* Cross-Browser Scrollbar Concealer */
+.scrollbar-none {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+.scrollbar-none::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+    background: #334155;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+}
+
+/* Mobile Tap Highlight Reset */
+* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ♿ Accessibility: Motion Sensitivity Protection */
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .shake-active {
+        animation: none !important;
+    }
+    .animate-pulse-glow, .animate-pulse {
+        animation: none !important;
+    }
+}
