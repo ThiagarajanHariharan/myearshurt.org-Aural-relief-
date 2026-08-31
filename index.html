@@ -2786,9 +2786,12 @@
     window.addEventListener('mousemove', resetHudIdle);
     window.addEventListener('click', resetHudIdle);
 
-    // Keyboard Shortcuts
+    // Keyboard Shortcuts (Bypass when typing in input fields or textareas)
     window.addEventListener('keydown', (e) => {
       dismissAutoplayGate();
+      if (['INPUT', 'TEXTAREA', 'SELECT'].includes(document.activeElement?.tagName) && e.key !== 'Escape') {
+        return;
+      }
       if (e.code === 'Space') {
         e.preventDefault();
         toggleAudioPlayback();
@@ -2825,8 +2828,10 @@
         if (modal.classList.contains('opacity-0')) openTimerSettings();
         else closeTimerSettings();
       } else if (e.key === 'Escape') {
-        document.getElementById('explore-drawer').classList.remove('open');
+        const drawer = document.getElementById('explore-drawer');
+        if (drawer) drawer.classList.remove('open');
         closeTimerSettings();
+        dismissFeedbackModal();
         if (testToneOsc) toggleTestTone();
       } else if (e.key === '?' || e.key === '/') {
         toggleKeyboardHelp();
