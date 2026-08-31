@@ -543,7 +543,7 @@
             <span id="stem-val-drone" class="text-xs font-mono text-white/70">0%</span>
           </div>
           <p class="text-[11px] text-white/50">1/f² Brownian noise sub-bass layer for extra fullness masking.</p>
-          <input type="range" id="stem-slider-drone" min="0" max="1" step="0.01" value="0" oninput="setStemVolume('drone', this.value)" class="w-full">
+          <input type="range" id="stem-slider-drone" min="0" max="1" step="0.01" value="0" oninput="setStemVolume('drone', this.value)" onchange="setStemVolume('drone', this.value)" onpointerdown="ensureProceduralAudioEngine()" class="w-full">
           <div class="flex justify-between items-center text-[10px] text-white/40 pt-1">
             <span>Off</span>
             <span>Max Layer</span>
@@ -557,7 +557,7 @@
             <span id="stem-val-nature" class="text-xs font-mono text-white/70">0%</span>
           </div>
           <p class="text-[11px] text-white/50">Filtered rain & waterfall frequencies to blend into soundscape.</p>
-          <input type="range" id="stem-slider-nature" min="0" max="1" step="0.01" value="0" oninput="setStemVolume('nature', this.value)" class="w-full">
+          <input type="range" id="stem-slider-nature" min="0" max="1" step="0.01" value="0" oninput="setStemVolume('nature', this.value)" onchange="setStemVolume('nature', this.value)" onpointerdown="ensureProceduralAudioEngine()" class="w-full">
           <div class="flex justify-between items-center text-[10px] text-white/40 pt-1">
             <span>Off</span>
             <span>Max Layer</span>
@@ -571,7 +571,7 @@
             <span id="stem-val-binaural" class="text-xs font-mono text-white/70">0%</span>
           </div>
           <p class="text-[11px] text-white/50">Dual-ear 6Hz differential (200Hz / 206Hz) for brainwave calming.</p>
-          <input type="range" id="stem-slider-binaural" min="0" max="1" step="0.01" value="0" oninput="setStemVolume('binaural', this.value)" class="w-full">
+          <input type="range" id="stem-slider-binaural" min="0" max="1" step="0.01" value="0" oninput="setStemVolume('binaural', this.value)" onchange="setStemVolume('binaural', this.value)" onpointerdown="ensureProceduralAudioEngine()" class="w-full">
           <div class="flex justify-between items-center text-[10px] text-white/40 pt-1">
             <span>Off</span>
             <span>Max Layer</span>
@@ -585,7 +585,7 @@
             <span id="stem-val-chimes" class="text-xs font-mono text-white/70">0%</span>
           </div>
           <p class="text-[11px] text-white/50">Grounding 432Hz & 528Hz singing bowl overtone resonance rings.</p>
-          <input type="range" id="stem-slider-chimes" min="0" max="1" step="0.01" value="0" oninput="setStemVolume('chimes', this.value)" class="w-full">
+          <input type="range" id="stem-slider-chimes" min="0" max="1" step="0.01" value="0" oninput="setStemVolume('chimes', this.value)" onchange="setStemVolume('chimes', this.value)" onpointerdown="ensureProceduralAudioEngine()" class="w-full">
           <div class="flex justify-between items-center text-[10px] text-white/40 pt-1">
             <span>Off</span>
             <span>Max Layer</span>
@@ -1424,14 +1424,184 @@
     let spatialSpeed = 0.03; // rad/s
     let spatialRadius = 3.5; // meters
 
-    // Feature 1: 4-Stem Web Audio Nodes (Default 0.0 - Off so normal audio plays clean)
-    const stems = {
-      drone: { gain: null, node: null, vol: 0.0 },
-      nature: { gain: null, node: null, vol: 0.0 },
+    // =========================================================================
+    // REAL-TIME 4-STEM PROCEDURAL AUDIO SYNTHESIZER (FEATURE 1)
+    // =========================================================================
+    let proceduralCtx = null;
+    const proceduralStems = {
+      drone: { gain: null, source: null, filter: null, vol: 0.0 },
+      nature: { gain: null, source: null, filter: null, vol: 0.0 },
       binaural: { gain: null, oscL: null, oscR: null, vol: 0.0 },
       chimes: { gain: null, osc1: null, osc2: null, vol: 0.0 }
     };
 
+    function ensureProceduralAudioEngine() {
+      if (!proceduralCtx) {
+        const AudioCtx = window.AudioContext || window.webkitAudioContext;
+        proceduralCtx = new AudioCtx();
+      }
+      if (proceduralCtx.state === 'suspended') {
+        proceduralCtx.resume();
+      }
+
+      // Stem 1: Sub-Bass 1/f² Brownian Drone Generator
+      if (!proceduralStems.drone.source) {
+        const bufLen = proceduralCtx.sampleRate * 4;
+        const buf = proceduralCtx.createBuffer(2, bufLen, proceduralCtx.sampleRate);
+        for (let ch = 0; ch < 2; ch++) {
+          const d = buf.getChannelData(ch);
+          let lastOut = 0.0;
+          for (let i = 0; i < bufLen; i++) {
+            const white = Math.random() * 2 - 1;
+            lastOut = (lastOut + 0.03 * white) / 1.02;
+            d[i] = lastOut * 4.5;
+          }
+        }
+        const src = proceduralCtx.createBufferSource();
+        src.buffer = buf;
+        src.loop = true;
+
+        const filter = proceduralCtx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.value = 180;
+        filter.Q.value = 2.5;
+
+        const gain = proceduralCtx.createGain();
+        gain.gain.value = proceduralStems.drone.vol * 0.95;
+
+        src.connect(filter);
+        filter.connect(gain);
+        gain.connect(proceduralCtx.destination);
+        src.start();
+
+        proceduralStems.drone.source = src;
+        proceduralStems.drone.filter = filter;
+        proceduralStems.drone.gain = gain;
+      }
+
+      // Stem 2: Nature Water & Rainfall Biophilic Texture
+      if (!proceduralStems.nature.source) {
+        const bufLen = proceduralCtx.sampleRate * 4;
+        const buf = proceduralCtx.createBuffer(2, bufLen, proceduralCtx.sampleRate);
+        for (let ch = 0; ch < 2; ch++) {
+          const d = buf.getChannelData(ch);
+          let b0 = 0, b1 = 0, b2 = 0;
+          for (let i = 0; i < bufLen; i++) {
+            const white = Math.random() * 2 - 1;
+            b0 = 0.99886 * b0 + white * 0.0555179;
+            b1 = 0.99332 * b1 + white * 0.0750759;
+            b2 = 0.96900 * b2 + white * 0.1538520;
+            d[i] = (b0 + b1 + b2 + white * 0.5362) * 0.45;
+          }
+        }
+        const src = proceduralCtx.createBufferSource();
+        src.buffer = buf;
+        src.loop = true;
+
+        const filter = proceduralCtx.createBiquadFilter();
+        filter.type = 'bandpass';
+        filter.frequency.value = 1100;
+        filter.Q.value = 0.7;
+
+        const gain = proceduralCtx.createGain();
+        gain.gain.value = proceduralStems.nature.vol * 0.9;
+
+        src.connect(filter);
+        filter.connect(gain);
+        gain.connect(proceduralCtx.destination);
+        src.start();
+
+        proceduralStems.nature.source = src;
+        proceduralStems.nature.filter = filter;
+        proceduralStems.nature.gain = gain;
+      }
+
+      // Stem 3: 6Hz Theta Binaural Carrier (Left: 200Hz, Right: 206Hz)
+      if (!proceduralStems.binaural.oscL) {
+        const merger = proceduralCtx.createChannelMerger(2);
+        const oscL = proceduralCtx.createOscillator();
+        const oscR = proceduralCtx.createOscillator();
+        oscL.type = 'sine';
+        oscR.type = 'sine';
+        oscL.frequency.value = 200;
+        oscR.frequency.value = 206;
+
+        const gain = proceduralCtx.createGain();
+        gain.gain.value = proceduralStems.binaural.vol * 0.45;
+
+        oscL.connect(merger, 0, 0);
+        oscR.connect(merger, 0, 1);
+        merger.connect(gain);
+        gain.connect(proceduralCtx.destination);
+
+        oscL.start();
+        oscR.start();
+
+        proceduralStems.binaural.oscL = oscL;
+        proceduralStems.binaural.oscR = oscR;
+        proceduralStems.binaural.gain = gain;
+      }
+
+      // Stem 4: 432Hz & 528Hz Solfeggio Singing Bowl Harmonic Overtones
+      if (!proceduralStems.chimes.osc1) {
+        const osc1 = proceduralCtx.createOscillator();
+        const osc2 = proceduralCtx.createOscillator();
+        osc1.type = 'triangle';
+        osc2.type = 'sine';
+        osc1.frequency.value = 432;
+        osc2.frequency.value = 528;
+
+        const gain = proceduralCtx.createGain();
+        gain.gain.value = proceduralStems.chimes.vol * 0.35;
+
+        osc1.connect(gain);
+        osc2.connect(gain);
+        gain.connect(proceduralCtx.destination);
+
+        osc1.start();
+        osc2.start();
+
+        proceduralStems.chimes.osc1 = osc1;
+        proceduralStems.chimes.osc2 = osc2;
+        proceduralStems.chimes.gain = gain;
+      }
+    }
+
+    // Stem Volume Controllers (Feature 1)
+    function setStemVolume(stem, val) {
+      const v = parseFloat(val);
+      proceduralStems[stem].vol = v;
+
+      const valEl = document.getElementById(`stem-val-${stem}`);
+      if (valEl) valEl.innerText = `${Math.round(v * 100)}%`;
+
+      ensureProceduralAudioEngine();
+
+      if (proceduralStems[stem].gain && proceduralCtx) {
+        const now = proceduralCtx.currentTime;
+        let targetGain = 0;
+        if (stem === 'drone') targetGain = v * 0.95;
+        else if (stem === 'nature') targetGain = v * 0.9;
+        else if (stem === 'binaural') targetGain = v * 0.45;
+        else if (stem === 'chimes') targetGain = v * 0.35;
+
+        proceduralStems[stem].gain.gain.cancelScheduledValues(now);
+        proceduralStems[stem].gain.gain.setValueAtTime(proceduralStems[stem].gain.gain.value, now);
+        proceduralStems[stem].gain.gain.linearRampToValueAtTime(targetGain, now + 0.05);
+      }
+    }
+
+    function resetStemMixer() {
+      ['drone', 'nature', 'binaural', 'chimes'].forEach(stem => {
+        setStemVolume(stem, 0);
+        const slider = document.getElementById(`stem-slider-${stem}`);
+        if (slider) slider.value = 0;
+      });
+    }
+
+    // =========================================================================
+    // MODULAR WEB AUDIO & NOTCH FILTER ENGINE
+    // =========================================================================
     function initModularWebAudio() {
       if (audioCtx) return;
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
@@ -1445,7 +1615,7 @@
       notchFilter = audioCtx.createBiquadFilter();
       notchFilter.type = "notch";
       notchFilter.frequency.value = notchFrequency;
-      notchFilter.Q.value = 5.0; // Sharp notch band (±0.5 octaves)
+      notchFilter.Q.value = 5.0;
 
       // Feature 5: 3D Spatial HRTF PannerNode
       if (audioCtx.createPanner) {
@@ -1456,129 +1626,19 @@
         spatialPanner.maxDistance = 10000;
         spatialPanner.rolloffFactor = 1;
         spatialPanner.coneInnerAngle = 360;
+        if (spatialPanner.positionZ) spatialPanner.positionZ.value = 1;
       }
-
-      // -------------------------------------------------------------
-      // Build 4 Real-time Stems (Feature 1 - Start Silent)
-      // -------------------------------------------------------------
-      
-      // Stem 1: Sub-Bass 1/f² Brownian Drone Generator
-      const bufferLength = audioCtx.sampleRate * 4;
-      const droneBuffer = audioCtx.createBuffer(2, bufferLength, audioCtx.sampleRate);
-      for (let ch = 0; ch < 2; ch++) {
-        const data = droneBuffer.getChannelData(ch);
-        let lastOut = 0.0;
-        for (let i = 0; i < bufferLength; i++) {
-          const white = Math.random() * 2 - 1;
-          lastOut = (lastOut + 0.02 * white) / 1.02;
-          data[i] = lastOut * 3.5;
-        }
-      }
-      const droneSrc = audioCtx.createBufferSource();
-      droneSrc.buffer = droneBuffer;
-      droneSrc.loop = true;
-      stems.drone.gain = audioCtx.createGain();
-      stems.drone.gain.gain.value = 0.0;
-      droneSrc.connect(stems.drone.gain);
-      droneSrc.start();
-
-      // Stem 2: Nature Texture (Rain/Water Spectrum)
-      const natureBuffer = audioCtx.createBuffer(2, bufferLength, audioCtx.sampleRate);
-      for (let ch = 0; ch < 2; ch++) {
-        const data = natureBuffer.getChannelData(ch);
-        let b0 = 0, b1 = 0, b2 = 0;
-        for (let i = 0; i < bufferLength; i++) {
-          const white = Math.random() * 2 - 1;
-          b0 = 0.99886 * b0 + white * 0.0555179;
-          b1 = 0.99332 * b1 + white * 0.0750759;
-          b2 = 0.96900 * b2 + white * 0.1538520;
-          data[i] = (b0 + b1 + b2 + white * 0.5362) * 0.15;
-        }
-      }
-      const natureSrc = audioCtx.createBufferSource();
-      natureSrc.buffer = natureBuffer;
-      natureSrc.loop = true;
-      stems.nature.gain = audioCtx.createGain();
-      stems.nature.gain.gain.value = 0.0;
-      natureSrc.connect(stems.nature.gain);
-      natureSrc.start();
-
-      // Stem 3: Binaural 6Hz Theta Carrier (Left: 200Hz, Right: 206Hz)
-      const merger = audioCtx.createChannelMerger(2);
-      stems.binaural.oscL = audioCtx.createOscillator();
-      stems.binaural.oscR = audioCtx.createOscillator();
-      stems.binaural.oscL.frequency.value = 200;
-      stems.binaural.oscR.frequency.value = 206;
-      stems.binaural.gain = audioCtx.createGain();
-      stems.binaural.gain.gain.value = 0.0;
-
-      stems.binaural.oscL.connect(merger, 0, 0);
-      stems.binaural.oscR.connect(merger, 0, 1);
-      merger.connect(stems.binaural.gain);
-      stems.binaural.oscL.start();
-      stems.binaural.oscR.start();
-
-      // Stem 4: Harmonic Resonators (432Hz & 528Hz Solfeggio)
-      stems.chimes.osc1 = audioCtx.createOscillator();
-      stems.chimes.osc2 = audioCtx.createOscillator();
-      stems.chimes.osc1.frequency.value = 432;
-      stems.chimes.osc2.frequency.value = 528;
-      stems.chimes.gain = audioCtx.createGain();
-      stems.chimes.gain.gain.value = 0.0;
-      stems.chimes.osc1.connect(stems.chimes.gain);
-      stems.chimes.osc2.connect(stems.chimes.gain);
-      stems.chimes.osc1.start();
-      stems.chimes.osc2.start();
-
-      // -------------------------------------------------------------
-      // Connect Stems into 3D Spatial Panner -> Notch Filter -> Master
-      // -------------------------------------------------------------
-      if (spatialPanner) {
-        stems.nature.gain.connect(spatialPanner);
-        spatialPanner.connect(notchFilter);
-      } else {
-        stems.nature.gain.connect(notchFilter);
-      }
-
-      stems.drone.gain.connect(notchFilter);
-      stems.binaural.gain.connect(notchFilter);
-      stems.chimes.gain.connect(notchFilter);
 
       // AnalyserNode for audio-reactive visualizer
       analyserNode = audioCtx.createAnalyser();
       analyserNode.fftSize = 256;
       analyserNode.smoothingTimeConstant = 0.8;
 
-      // Route procedural stems through Notch Filter -> AnalyserNode -> Master -> Destination
       notchFilter.connect(analyserNode);
       analyserNode.connect(masterGain);
       masterGain.connect(audioCtx.destination);
 
       drawNotchCurve();
-    }
-
-    // Stem Volume Controllers (Feature 1)
-    function setStemVolume(stem, val) {
-      initModularWebAudio();
-      const v = parseFloat(val);
-      stems[stem].vol = v;
-      document.getElementById(`stem-val-${stem}`).innerText = `${Math.round(v * 100)}%`;
-      if (stems[stem].gain) {
-        if (stem === 'binaural') stems[stem].gain.gain.value = v * 0.2;
-        else if (stem === 'chimes') stems[stem].gain.gain.value = v * 0.08;
-        else stems[stem].gain.gain.value = v;
-      }
-    }
-
-    function resetStemMixer() {
-      setStemVolume('drone', 0);
-      document.getElementById('stem-slider-drone').value = 0;
-      setStemVolume('nature', 0);
-      document.getElementById('stem-slider-nature').value = 0;
-      setStemVolume('binaural', 0);
-      document.getElementById('stem-slider-binaural').value = 0;
-      setStemVolume('chimes', 0);
-      document.getElementById('stem-slider-chimes').value = 0;
     }
 
     // =========================================================================
@@ -2444,6 +2504,7 @@
           }
         }
       });
+      if (tab === 'mixer') ensureProceduralAudioEngine();
       if (tab === 'notch') setTimeout(drawNotchCurve, 50);
     }
 
