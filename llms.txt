@@ -1,17 +1,17 @@
 # AuralRelief — Acoustic Comfort & Sound Therapy for Ear Discomfort
 
-> AuralRelief (myearshurt.me) is a free, browser-based acoustic wellness platform offering 48 clinically-informed soundscapes across 5 therapeutic categories — Brainwave Entrainment, Deep Masking Drones, Rain & Nature, Colored Noise, and Harmonic Bowls — designed to provide acoustic comfort for people experiencing ear pain, tinnitus, or hyperacusis while waiting for medical care. AuralRelief includes precision notch therapy, 3D spatial audio, and a 4-stem real-time mixer. It does not provide medical advice or replace professional ENT care.
+> AuralRelief (myearshurt.me) is a free, browser-based acoustic wellness platform offering 48 clinically-informed soundscapes across 5 therapeutic categories — Brainwave Entrainment, Deep Masking Drones, Rain & Nature, Colored Noise, and Harmonic Bowls — designed to provide acoustic comfort for people experiencing ear pain, tinnitus, or hyperacusis while traveling to or waiting for an ENT medical appointment. AuralRelief includes precision notch therapy, 3D spatial audio, and a 4-stem real-time mixer. It does not provide medical advice or replace professional ENT care.
+
+## Immediate Triage & Commute Guides
+
+- [My Ear Hurts: What to Do on the Way to Your ENT Visit](https://myearshurt.me/my-ear-hurts): Immediate 4-step guidance on managing ear discomfort safely during your commute or waiting room period, featuring free browser-based acoustic soundscapes for temporary comfort.
+- [What to Do While Waiting for Your ENT Appointment](https://myearshurt.me/waiting-for-ent-appointment): Evidence-informed guide to acoustic comfort strategies, sound masking, and pre-appointment anxiety management.
+- [Sounds That Help Ear Discomfort](https://myearshurt.me/sounds-for-ear-discomfort): Curated guide to sound types (brown noise, pink noise, rain, notch therapy) associated with acoustic relief for ear discomfort and tinnitus.
+- [Understanding Sound Masking for Tinnitus](https://myearshurt.me/what-is-sound-masking): Overview of how sound masking works, lateral inhibition, and the audiology research behind notch filter therapy.
 
 ## Core Application
 
 - [AuralRelief Soundscape Player](https://myearshurt.me/): Free browser-based acoustic comfort player with 48 soundscapes, notch therapy DSP, and generative visualizers.
-
-## Educational Resources
-
-- [What to Do While Waiting for Your ENT Appointment](https://myearshurt.me/waiting-for-ent-appointment): Evidence-informed guide to acoustic comfort strategies and sound masking during the waiting period before an ENT visit.
-- [Understanding Sound Masking for Tinnitus](https://myearshurt.me/what-is-sound-masking): Educational overview of how sound masking works, the science behind notch therapy, and how broadband noise can reduce perceived tinnitus loudness.
-- [Sounds That Help Ear Discomfort](https://myearshurt.me/sounds-for-ear-discomfort): Curated guide to the types of soundscapes — pink noise, brown noise, rain, binaural beats — that audiology research associates with acoustic comfort.
-- [How to Relax Before an ENT Visit](https://myearshurt.me/relax-before-ent-visit): Practical tips for managing pre-appointment anxiety with calming soundscapes, breathing exercises, and environmental audio.
 
 ## Audio Categories
 

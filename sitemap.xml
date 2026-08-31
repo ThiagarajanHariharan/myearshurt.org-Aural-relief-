@@ -3,6 +3,12 @@
   <url>
     <loc>https://myearshurt.me/</loc>
     <lastmod>2026-08-31</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://myearshurt.me/my-ear-hurts</loc>
+    <lastmod>2026-08-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
