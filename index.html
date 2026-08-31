@@ -630,17 +630,17 @@
         <input type="range" id="notch-freq-slider" min="0" max="1000" step="1" value="625" oninput="onNotchSliderChange(this.value)" class="w-full">
 
         <!-- Octave Snapping Quick Buttons -->
-        <div class="flex items-center gap-1.5 flex-wrap">
+        <div class="flex items-center gap-1.5 flex-wrap" id="octave-btn-group">
           <span class="text-[11px] text-white/40 mr-2">Octave Jump:</span>
-          <button onclick="setNotchFrequency(250)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">250 Hz</button>
-          <button onclick="setNotchFrequency(500)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">500 Hz</button>
-          <button onclick="setNotchFrequency(1000)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">1,000 Hz</button>
-          <button onclick="setNotchFrequency(2000)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">2,000 Hz</button>
-          <button onclick="setNotchFrequency(4000)" class="px-3 py-1 rounded-lg bg-sky-500/20 text-sky-300 border border-sky-400/30 text-xs font-mono">4,000 Hz</button>
-          <button onclick="setNotchFrequency(6000)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">6,000 Hz</button>
-          <button onclick="setNotchFrequency(8000)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">8,000 Hz</button>
-          <button onclick="setNotchFrequency(12000)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">12,000 Hz</button>
-          <button onclick="setNotchFrequency(16000)" class="px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80">16,000 Hz</button>
+          <button type="button" onclick="setNotchFrequency(250)" id="octave-btn-250" class="octave-btn px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80 transition-all">250 Hz</button>
+          <button type="button" onclick="setNotchFrequency(500)" id="octave-btn-500" class="octave-btn px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80 transition-all">500 Hz</button>
+          <button type="button" onclick="setNotchFrequency(1000)" id="octave-btn-1000" class="octave-btn px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80 transition-all">1,000 Hz</button>
+          <button type="button" onclick="setNotchFrequency(2000)" id="octave-btn-2000" class="octave-btn px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80 transition-all">2,000 Hz</button>
+          <button type="button" onclick="setNotchFrequency(4000)" id="octave-btn-4000" class="octave-btn px-3 py-1 rounded-lg bg-sky-500/20 text-sky-300 border border-sky-400/30 text-xs font-mono transition-all">4,000 Hz</button>
+          <button type="button" onclick="setNotchFrequency(6000)" id="octave-btn-6000" class="octave-btn px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80 transition-all">6,000 Hz</button>
+          <button type="button" onclick="setNotchFrequency(8000)" id="octave-btn-8000" class="octave-btn px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80 transition-all">8,000 Hz</button>
+          <button type="button" onclick="setNotchFrequency(12000)" id="octave-btn-12000" class="octave-btn px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80 transition-all">12,000 Hz</button>
+          <button type="button" onclick="setNotchFrequency(16000)" id="octave-btn-16000" class="octave-btn px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/80 transition-all">16,000 Hz</button>
         </div>
 
         <!-- Fine-Tuning Controls & Test Tone -->
@@ -1667,19 +1667,41 @@
       drawNotchCurve();
     }
 
+    const OCTAVE_PRESETS = [250, 500, 1000, 2000, 4000, 6000, 8000, 12000, 16000];
+
+    function updateOctaveButtons(currentHz) {
+      OCTAVE_PRESETS.forEach(f => {
+        const btn = document.getElementById(`octave-btn-${f}`);
+        if (btn) {
+          // Check if current frequency is within 5% of this preset
+          const isMatch = Math.abs(currentHz - f) / f < 0.05;
+          if (isMatch) {
+            btn.className = 'octave-btn px-3 py-1 rounded-lg bg-sky-500/25 text-sky-300 border border-sky-400/50 text-xs font-mono font-bold shadow-[0_0_12px_rgba(56,189,248,0.3)] transition-all';
+          } else {
+            btn.className = 'octave-btn px-3 py-1 rounded-lg bg-white/5 hover:bg-white/15 text-xs font-mono text-white/70 border border-transparent transition-all';
+          }
+        }
+      });
+    }
+
     function setNotchFrequency(hz) {
       initModularWebAudio();
       notchFrequency = Math.max(125, Math.min(16000, Math.round(hz)));
       if (notchFilter) notchFilter.frequency.value = notchFrequency;
+      if (testToneOsc) testToneOsc.frequency.value = notchFrequency;
 
-      document.getElementById('notch-freq-display').innerText = `${notchFrequency.toLocaleString()} Hz`;
-      document.getElementById('hud-notch-freq').innerText = `${notchFrequency.toLocaleString()} Hz`;
+      const disp = document.getElementById('notch-freq-display');
+      if (disp) disp.innerText = `${notchFrequency.toLocaleString()} Hz`;
+      const hudDisp = document.getElementById('hud-notch-freq');
+      if (hudDisp) hudDisp.innerText = `${notchFrequency.toLocaleString()} Hz`;
 
       // Map logarithmic frequency back to 0-1000 slider
       // f = 125 * (16000/125)^(val/1000)
       const ratio = Math.log(notchFrequency / 125) / Math.log(16000 / 125);
-      document.getElementById('notch-freq-slider').value = Math.round(ratio * 1000);
+      const slider = document.getElementById('notch-freq-slider');
+      if (slider) slider.value = Math.round(ratio * 1000);
 
+      updateOctaveButtons(notchFrequency);
       drawNotchCurve();
     }
 
@@ -2505,7 +2527,12 @@
         }
       });
       if (tab === 'mixer') ensureProceduralAudioEngine();
-      if (tab === 'notch') setTimeout(drawNotchCurve, 50);
+      if (tab === 'notch') {
+        setTimeout(() => {
+          drawNotchCurve();
+          updateOctaveButtons(notchFrequency);
+        }, 50);
+      }
     }
 
     function handleNewsletterSubmit(e) {
