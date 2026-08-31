@@ -1,0 +1,55 @@
+# AuralRelief — Complete Clinical Acoustic Wellness & Tinnitus Sound Therapy Knowledge Base
+
+> AuralRelief (myearshurt.me) is an open-access, browser-based digital acoustic wellness platform offering 48 clinically-informed soundscapes, real-time BiquadFilter notch therapy DSP, 3D HRTF orbital spatial audio, and an ambient sleep timer. It provides non-invasive acoustic comfort for individuals experiencing ear pain, tinnitus, hyperacusis, or sensory overload while traveling to or waiting for an Ear, Nose, and Throat (ENT) medical appointment.
+
+---
+
+## 1. Clinical Sound Masking Principles
+
+### 1.1 Broadband Acoustic Masking
+Broadband sound masking introduces calibrated noise spectra (such as brown or pink noise) to reduce auditory contrast between internal phantom auditory signals (tinnitus) and the external acoustic environment. By raising the background acoustic floor, the relative perceived loudness of tinnitus diminishes, facilitating neural habituation without causing auditory fatigue.
+
+### 1.2 Tailor-Made Notched Sound Therapy (TNST)
+- **Mechanism:** A narrow-band notch filter (Q = 5.0, ±0.5 octaves) is applied to broadband noise centered precisely at the patient's tinnitus pitch.
+- **Scientific Foundation:** Okamoto et al. (2010, *Proceedings of the National Academy of Sciences*) and Pantev et al. (2012, *Hearing Research*) demonstrated that sustained exposure to notched soundscapes promotes lateral cortical inhibition in the primary auditory cortex, reducing maladaptive auditory neural hyperactivity.
+- **Implementation on myearshurt.me:** Real-time Web Audio API `BiquadFilterNode` (type: 'notch', Q: 5.0) continuously adjustable from 125 Hz to 16,000 Hz.
+
+### 1.3 40Hz Vibroacoustic & Theta Binaural Entrainment
+- **40Hz Gamma Modulation:** Associated with microglial activation, sensory processing alignment, and cognitive focus.
+- **6Hz Theta Wave Differential:** A 200Hz carrier tone presented to the left ear and 206Hz presented to the right ear elicits a central 6Hz theta brainwave entrainment beat, stimulating parasympathetic down-regulation and anxiety mitigation.
+
+---
+
+## 2. The 5 Core Soundscape Channels (48 Tracks)
+
+1. **Brainwave Entrainment (7 Tracks):** 40Hz Vibroacoustic Purr, Alpha Wave Entrainment Brown Noise, Theta Binaural Relief, Somatic Pulse Pad.
+2. **Deep Drones (18 Tracks):** Pure 1/f² Deep Brown Noise Drone, Ultra Deep Brown Noise, Deep Sea Sub-Bass Ambient Masking, Cabin Air Flow Drone, Train Cabin Interior Rumble, Filtered Cosmic Deep Space Drone.
+3. **Rain & Nature (10 Tracks):** Notch-Friendly Rainstorm, Indoors Canvas Muffled Heavy Rain, Warm Low-Pass Rain, Distant River Rapids, High-Cut Distant Waterfall, Ocean Surf Rhythmic Masking, Filtered Pine Forest Wind.
+4. **Colored Noise & Notch (10 Tracks):** Pink Noise Equal Energy Spectrum, Rhythmic Ocean Pink Noise, Stereo Phase-Shifted Pink Noise, Green Noise Mid-Spectrum Masking, Filtered Violet Noise, Notched Broadband White Noise, Balanced Spectral Noise.
+5. **Harmonic Bowls (3 Tracks):** Solfeggio 432Hz & 528Hz Sacred Geometry Tibetan Bowls, Resonant Humming Bowls, Fractal Zen Chimes.
+
+---
+
+## 3. Triage & Commute Guides for Patients
+
+### 3.1 "My Ear Hurts" What to Do on the Way to an ENT Visit
+- **Step 1:** Confirm appointment with an ENT doctor or urgent care clinic.
+- **Step 2:** Never insert cotton swabs (Q-tips), fingers, liquids, or unprescribed drops into an aching ear canal.
+- **Step 3:** Stream soothing acoustic soundscapes on `myearshurt.me` at a moderate volume (never exceed 65-70 dB).
+- **Step 4:** Apply an external warm compress against the outer ear.
+
+### 3.2 Nocturnal Ear Discomfort & Tinnitus
+- Lying flat increases intracranial vascular pressure and impedes Eustachian tube drainage. Elevating the head by 30 degrees promotes gravity-assisted drainage.
+- Using AuralRelief's built-in 30-second volume fadeout sleep timer prevents sleep disruption when soundscapes conclude.
+
+### 3.3 Hyperacusis & Sound Sensitivity
+- Complete acoustic isolation turns up the auditory brainstem's internal gain, worsening sensitivity.
+- Low-volume pink noise habituation protocols gently recalibrate central auditory tolerance over 14–30 days.
+
+---
+
+## 4. Technical Architecture
+- **Zero-Database Architecture:** 100% client-side Web Audio API execution.
+- **Offline PWA:** Service Worker (`sw.js`) and Web App Manifest (`manifest.json`) for seamless offline listening in hospital waiting rooms and commutes.
+- **URL:** `https://myearshurt.me`
+- **Contact / Author:** Thiagarajan Hariharan (`https://github.com/ThiagarajanHariharan`)
