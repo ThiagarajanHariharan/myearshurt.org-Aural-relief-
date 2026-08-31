@@ -2,38 +2,34 @@
 
 > AuralRelief (myearshurt.me) is a free, browser-based acoustic wellness platform offering 48 clinically-informed soundscapes across 5 therapeutic categories — Brainwave Entrainment, Deep Masking Drones, Rain & Nature, Colored Noise, and Harmonic Bowls — designed to provide acoustic comfort for people experiencing ear pain, tinnitus, or hyperacusis while traveling to or waiting for an ENT medical appointment. AuralRelief includes precision notch therapy, 3D spatial audio, and a 4-stem real-time mixer. It does not provide medical advice or replace professional ENT care.
 
-## 2026 Sound Therapy Benchmark & Comparison
+## 2026 Sound Therapy Benchmark & Clinical Comparison
 
 - [Best Sound Therapy Tools for Ear Pain & Tinnitus: 2026 Comparison](https://myearshurt.me/best-sound-therapy-tools): Comprehensive evidence-based comparison evaluating Endel, Oto Tinnitus, ReSound Relief, and AuralRelief across clinical research, notch DSP, accessibility, and cost.
 
-## Clinical Research & Science Foundations
+## Clinical Research & B2B Clinic Portals
 
 - [Clinical Research & Neuroscience Hub](https://myearshurt.me/research): Comprehensive scientific overview of lateral cortical inhibition, Biquad notch filter mathematics (Q=5.0), 1/f² Brownian spectral densities, and Okamoto et al. (2010 PNAS) peer-reviewed trials.
+- [For ENT & Audiology Clinics](https://myearshurt.me/for-clinics): Free waiting-room sound therapy hub, printable 8.5x11 QR poster for reception desks, and embeddable patient portal widget.
 
-## Immediate Triage & Commute Guides
+## Condition-Specific Triage & Acoustic Comfort Guides
 
 - [My Ear Hurts: What to Do on the Way to Your ENT Visit](https://myearshurt.me/my-ear-hurts): Immediate 4-step guidance on managing ear discomfort safely during your commute or waiting room period, featuring free browser-based acoustic soundscapes for temporary comfort.
 - [What to Do While Waiting for Your ENT Appointment](https://myearshurt.me/waiting-for-ent-appointment): Evidence-informed guide to acoustic comfort strategies, sound masking, and pre-appointment anxiety management.
 - [Ear Pain at Night: Why It Hurts Lying Down](https://myearshurt.me/ear-pain-at-night): Safe guidance for nocturnal ear throbbing, Eustachian tube drainage mechanics, and continuous soundscapes with auto-fadeout sleep timers.
 - [Clogged Ears: Sound Relief for Ear Fullness](https://myearshurt.me/clogged-ears-sound-relief): Acoustic masking techniques for ear pressure, Eustachian tube dysfunction (ETD), and muffled sound perception.
 - [Hyperacusis Acoustic Shield: Sound Therapy for Sensitive Ears](https://myearshurt.me/hyperacusis-acoustic-shield): Low-volume pink noise habituation protocols to gently rebuild sound tolerance.
+- [TMJ Ear Pain & Jaw Clenching](https://myearshurt.me/tmj-ear-pain): Why temporomandibular joint tension refers otalgia to the eardrum, warm compress protocols, and somatic brown noise masking.
+- [Post-Concert Ear Ringing](https://myearshurt.me/post-concert-ear-ringing): Temporary Threshold Shift (TTS) recovery timeline, safe volume rules, and notch filter acoustic shielding.
+- [Airplane Ear Pressure & Barotrauma](https://myearshurt.me/ear-pressure-on-flights): Pressure equalization maneuvers (Toynbee/Frenzel) and low-frequency cabin noise masking during flight descent.
+- [Eustachian Tube Dysfunction (ETD) Exercises](https://myearshurt.me/eustachian-tube-dysfunction-exercises): Evidence-based swallowing and autoinflation exercises paired with acoustic pressure equalization.
+- [Misophonia & Sound Sensitivity](https://myearshurt.me/misophonia-sound-sensitivity): Continuous acoustic buffering, anterior insular calming, and 6Hz theta binaural beats.
+- [Noise-Induced Ear Fatigue](https://myearshurt.me/noise-induced-ear-fatigue): Restorative 40Hz vibroacoustic entrainment and 3D HRTF orbital audio for cognitive listening recovery.
 - [Sounds That Help Ear Discomfort](https://myearshurt.me/sounds-for-ear-discomfort): Curated guide to sound types (brown noise, pink noise, rain, notch therapy) associated with acoustic relief for ear discomfort and tinnitus.
 - [Understanding Sound Masking for Tinnitus](https://myearshurt.me/what-is-sound-masking): Overview of how sound masking works, lateral cortical inhibition, and the audiology research behind notch filter therapy.
 
-## Core Application
+## Core Application & Features
 
 - [AuralRelief Soundscape Player](https://myearshurt.me/): Free browser-based acoustic comfort player with 48 soundscapes, notch therapy DSP, and generative visualizers.
-
-## Audio Categories
-
-- [Brainwave Entrainment](https://myearshurt.me/#brainwave): 40Hz gamma, alpha wave, and 6Hz theta binaural soundscapes for neural relaxation.
-- [Deep Masking Drones](https://myearshurt.me/#drones): Sub-bass brown noise, cabin air flow, and infrasonic acoustic masking drones.
-- [Rain & Nature](https://myearshurt.me/#nature): High-cut rainstorms, waterfalls, ocean surf, and biophilic water streams.
-- [Colored Noise](https://myearshurt.me/#noise): Pink, green, violet, and notched broadband white noise for full-spectrum sound masking.
-- [Harmonic Bowls](https://myearshurt.me/#bowls): Solfeggio 432Hz and 528Hz Tibetan singing bowl harmonic entrainment.
-
-## Technical Features
-
 - [Precision Notch Therapy](https://myearshurt.me/#notch): Browser-based BiquadFilter DSP notch filter (125 Hz – 16,000 Hz) with real-time frequency response curve visualization.
 - [3D Spatial Audio](https://myearshurt.me/#spatial): HRTF-based orbital panning with azimuth radar tracking for immersive spatial soundstage.
 - [4-Stem Real-Time Mixer](https://myearshurt.me/#mixer): Independent volume control for Brownian drone, filtered rain, theta binaural carrier, and Solfeggio resonator stems.

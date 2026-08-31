@@ -10,6 +10,8 @@ KEY_LOCATION = f"https://{HOST}/{KEY}.txt"
 
 URL_LIST = [
     f"https://{HOST}/",
+    f"https://{HOST}/best-sound-therapy-tools",
+    f"https://{HOST}/for-clinics",
     f"https://{HOST}/research",
     f"https://{HOST}/my-ear-hurts",
     f"https://{HOST}/waiting-for-ent-appointment",
@@ -17,7 +19,13 @@ URL_LIST = [
     f"https://{HOST}/what-is-sound-masking",
     f"https://{HOST}/ear-pain-at-night",
     f"https://{HOST}/clogged-ears-sound-relief",
-    f"https://{HOST}/hyperacusis-acoustic-shield"
+    f"https://{HOST}/hyperacusis-acoustic-shield",
+    f"https://{HOST}/tmj-ear-pain",
+    f"https://{HOST}/post-concert-ear-ringing",
+    f"https://{HOST}/ear-pressure-on-flights",
+    f"https://{HOST}/eustachian-tube-dysfunction-exercises",
+    f"https://{HOST}/misophonia-sound-sensitivity",
+    f"https://{HOST}/noise-induced-ear-fatigue"
 ]
 
 payload = {

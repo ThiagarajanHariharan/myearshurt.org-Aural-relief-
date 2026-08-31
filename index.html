@@ -503,6 +503,7 @@
           <button onclick="setDrawerTab('spatial')" id="tab-btn-spatial" class="px-3 py-1.5 rounded-xl font-medium text-white/60 hover:text-white">3D Spatial</button>
           <button onclick="setDrawerTab('catalog')" id="tab-btn-catalog" class="px-3 py-1.5 rounded-xl font-medium text-white/60 hover:text-white">Catalog</button>
           <button onclick="setDrawerTab('checklist')" id="tab-btn-checklist" class="px-3 py-1.5 rounded-xl font-medium text-white/60 hover:text-white">ENT Checklist</button>
+          <button onclick="setDrawerTab('newsletter')" id="tab-btn-newsletter" class="px-3 py-1.5 rounded-xl font-medium text-white/60 hover:text-white">Weekly Audio</button>
         </div>
 
         <button onclick="toggleExploreDrawer()" class="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center text-white/80 hover:text-white hover:bg-white/20 transition-all flex-shrink-0">
@@ -777,6 +778,22 @@
           </div>
         </label>
       </div>
+    </div>
+
+    <!-- TAB 6: 💌 Weekly Soundscape Newsletter -->
+    <div id="drawer-tab-newsletter" class="hidden flex-col gap-4 max-w-xl mx-auto text-center py-4">
+      <div class="w-12 h-12 rounded-2xl bg-sky-500/20 border border-sky-400/30 flex items-center justify-center mx-auto text-2xl">💌</div>
+      <h3 class="text-xl font-bold text-white">One Soothing Soundscape Every Sunday</h3>
+      <p class="text-xs md:text-sm text-white/70 leading-relaxed">Join our free community of patients, clinicians, and auditory health advocates. Receive a curated clinical soundscape, research update, and acoustic comfort guide every week.</p>
+      
+      <form id="newsletter-form" onsubmit="handleNewsletterSubmit(event)" class="flex flex-col sm:flex-row gap-2 mt-2">
+        <input type="email" id="newsletter-email" required placeholder="Enter your email address..." class="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/15 text-white placeholder-white/40 text-sm focus:outline-none focus:border-sky-400">
+        <button type="submit" class="px-6 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-black font-bold text-sm transition-all shadow-lg">Subscribe Free</button>
+      </form>
+      <div id="newsletter-success" class="hidden p-4 rounded-xl bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold">
+        ✓ You're subscribed! Your first soothing soundscape will arrive this Sunday.
+      </div>
+      <p class="text-[10px] text-white/40">Zero spam. 100% Free. Unsubscribe at any time with one click.</p>
     </div>
 
   </div>
@@ -2329,7 +2346,7 @@
     }
 
     function setDrawerTab(tab) {
-      ['mixer', 'notch', 'spatial', 'catalog', 'checklist'].forEach(t => {
+      ['mixer', 'notch', 'spatial', 'catalog', 'checklist', 'newsletter'].forEach(t => {
         const div = document.getElementById(`drawer-tab-${t}`);
         const btn = document.getElementById(`tab-btn-${t}`);
         if (div && btn) {
@@ -2345,6 +2362,18 @@
         }
       });
       if (tab === 'notch') setTimeout(drawNotchCurve, 50);
+    }
+
+    function handleNewsletterSubmit(e) {
+      e.preventDefault();
+      const emailInput = document.getElementById('newsletter-email');
+      if (emailInput && emailInput.value) {
+        localStorage.setItem('auralrelief_subscriber_email', emailInput.value);
+        const form = document.getElementById('newsletter-form');
+        const success = document.getElementById('newsletter-success');
+        if (form) form.classList.add('hidden');
+        if (success) success.classList.remove('hidden');
+      }
     }
 
     // =========================================================================
