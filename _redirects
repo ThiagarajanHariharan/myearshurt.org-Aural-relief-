@@ -21,11 +21,3 @@
 /relax-before-ent-visit          /waiting-for-ent-appointment.html     200
 /acoustic-comfort                /sounds-for-ear-discomfort.html       200
 /tinnitus-relief-soundscapes     /what-is-sound-masking.html           200
-
-# Portfolio & 3D Heist routes
-/portfolio                    /portfolio/index.html                 200
-/portfolio/                   /portfolio/index.html                 200
-/portfolio/*                  /portfolio/:splat                     200
-/heist                        /portfolio/heist.html                 200
-/heist.html                   /portfolio/heist.html                 200
-/arcade                       /portfolio/contribution-blaster.html  200
