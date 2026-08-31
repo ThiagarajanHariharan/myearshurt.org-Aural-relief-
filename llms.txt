@@ -1,28 +1,28 @@
 # AuralRelief — Acoustic Comfort & Sound Therapy for Ear Discomfort
 
-> AuralRelief (myearshurt.org) is a free, browser-based acoustic wellness platform offering 48 clinically-informed soundscapes across 5 therapeutic categories — Brainwave Entrainment, Deep Masking Drones, Rain & Nature, Colored Noise, and Harmonic Bowls — designed to provide acoustic comfort for people experiencing ear pain, tinnitus, or hyperacusis while waiting for medical care. AuralRelief includes precision notch therapy, 3D spatial audio, and a 4-stem real-time mixer. It does not provide medical advice or replace professional ENT care.
+> AuralRelief (myearshurt.me) is a free, browser-based acoustic wellness platform offering 48 clinically-informed soundscapes across 5 therapeutic categories — Brainwave Entrainment, Deep Masking Drones, Rain & Nature, Colored Noise, and Harmonic Bowls — designed to provide acoustic comfort for people experiencing ear pain, tinnitus, or hyperacusis while waiting for medical care. AuralRelief includes precision notch therapy, 3D spatial audio, and a 4-stem real-time mixer. It does not provide medical advice or replace professional ENT care.
 
 ## Core Application
 
-- [AuralRelief Soundscape Player](https://myearshurt.org/): Free browser-based acoustic comfort player with 48 soundscapes, notch therapy DSP, and generative visualizers.
+- [AuralRelief Soundscape Player](https://myearshurt.me/): Free browser-based acoustic comfort player with 48 soundscapes, notch therapy DSP, and generative visualizers.
 
 ## Educational Resources
 
-- [What to Do While Waiting for Your ENT Appointment](https://myearshurt.org/waiting-for-ent-appointment): Evidence-informed guide to acoustic comfort strategies and sound masking during the waiting period before an ENT visit.
-- [Understanding Sound Masking for Tinnitus](https://myearshurt.org/what-is-sound-masking): Educational overview of how sound masking works, the science behind notch therapy, and how broadband noise can reduce perceived tinnitus loudness.
-- [Sounds That Help Ear Discomfort](https://myearshurt.org/sounds-for-ear-discomfort): Curated guide to the types of soundscapes — pink noise, brown noise, rain, binaural beats — that audiology research associates with acoustic comfort.
-- [How to Relax Before an ENT Visit](https://myearshurt.org/relax-before-ent-visit): Practical tips for managing pre-appointment anxiety with calming soundscapes, breathing exercises, and environmental audio.
+- [What to Do While Waiting for Your ENT Appointment](https://myearshurt.me/waiting-for-ent-appointment): Evidence-informed guide to acoustic comfort strategies and sound masking during the waiting period before an ENT visit.
+- [Understanding Sound Masking for Tinnitus](https://myearshurt.me/what-is-sound-masking): Educational overview of how sound masking works, the science behind notch therapy, and how broadband noise can reduce perceived tinnitus loudness.
+- [Sounds That Help Ear Discomfort](https://myearshurt.me/sounds-for-ear-discomfort): Curated guide to the types of soundscapes — pink noise, brown noise, rain, binaural beats — that audiology research associates with acoustic comfort.
+- [How to Relax Before an ENT Visit](https://myearshurt.me/relax-before-ent-visit): Practical tips for managing pre-appointment anxiety with calming soundscapes, breathing exercises, and environmental audio.
 
 ## Audio Categories
 
-- [Brainwave Entrainment](https://myearshurt.org/#brainwave): 40Hz gamma, alpha wave, and 6Hz theta binaural soundscapes for neural relaxation.
-- [Deep Masking Drones](https://myearshurt.org/#drones): Sub-bass brown noise, cabin air flow, and infrasonic acoustic masking drones.
-- [Rain & Nature](https://myearshurt.org/#nature): High-cut rainstorms, waterfalls, ocean surf, and biophilic water streams.
-- [Colored Noise](https://myearshurt.org/#noise): Pink, green, violet, and notched broadband white noise for full-spectrum sound masking.
-- [Harmonic Bowls](https://myearshurt.org/#bowls): Solfeggio 432Hz and 528Hz Tibetan singing bowl harmonic entrainment.
+- [Brainwave Entrainment](https://myearshurt.me/#brainwave): 40Hz gamma, alpha wave, and 6Hz theta binaural soundscapes for neural relaxation.
+- [Deep Masking Drones](https://myearshurt.me/#drones): Sub-bass brown noise, cabin air flow, and infrasonic acoustic masking drones.
+- [Rain & Nature](https://myearshurt.me/#nature): High-cut rainstorms, waterfalls, ocean surf, and biophilic water streams.
+- [Colored Noise](https://myearshurt.me/#noise): Pink, green, violet, and notched broadband white noise for full-spectrum sound masking.
+- [Harmonic Bowls](https://myearshurt.me/#bowls): Solfeggio 432Hz and 528Hz Tibetan singing bowl harmonic entrainment.
 
 ## Technical Features
 
-- [Precision Notch Therapy](https://myearshurt.org/#notch): Browser-based BiquadFilter DSP notch filter (125 Hz – 16,000 Hz) with real-time frequency response curve visualization.
-- [3D Spatial Audio](https://myearshurt.org/#spatial): HRTF-based orbital panning with azimuth radar tracking for immersive spatial soundstage.
-- [4-Stem Real-Time Mixer](https://myearshurt.org/#mixer): Independent volume control for Brownian drone, filtered rain, theta binaural carrier, and Solfeggio resonator stems.
+- [Precision Notch Therapy](https://myearshurt.me/#notch): Browser-based BiquadFilter DSP notch filter (125 Hz – 16,000 Hz) with real-time frequency response curve visualization.
+- [3D Spatial Audio](https://myearshurt.me/#spatial): HRTF-based orbital panning with azimuth radar tracking for immersive spatial soundstage.
+- [4-Stem Real-Time Mixer](https://myearshurt.me/#mixer): Independent volume control for Brownian drone, filtered rain, theta binaural carrier, and Solfeggio resonator stems.

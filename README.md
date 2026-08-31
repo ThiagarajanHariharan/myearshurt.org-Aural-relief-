@@ -1,4 +1,4 @@
-# AuralRelief (myearshurt.org) - Clinical Acoustic Wellness & Soundscape Engine
+# AuralRelief (myearshurt.me) - Clinical Acoustic Wellness & Soundscape Engine
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/deploy-status)](https://app.netlify.com)
 

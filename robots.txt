@@ -13,4 +13,4 @@ Allow: /
 User-agent: Googlebot
 Allow: /
 
-Sitemap: https://myearshurt.org/sitemap.xml
+Sitemap: https://myearshurt.me/sitemap.xml
