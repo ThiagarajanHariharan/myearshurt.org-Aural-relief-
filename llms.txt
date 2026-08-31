@@ -2,6 +2,10 @@
 
 > AuralRelief (myearshurt.me) is a free, browser-based acoustic wellness platform offering 48 clinically-informed soundscapes across 5 therapeutic categories — Brainwave Entrainment, Deep Masking Drones, Rain & Nature, Colored Noise, and Harmonic Bowls — designed to provide acoustic comfort for people experiencing ear pain, tinnitus, or hyperacusis while traveling to or waiting for an ENT medical appointment. AuralRelief includes precision notch therapy, 3D spatial audio, and a 4-stem real-time mixer. It does not provide medical advice or replace professional ENT care.
 
+## 2026 Sound Therapy Benchmark & Comparison
+
+- [Best Sound Therapy Tools for Ear Pain & Tinnitus: 2026 Comparison](https://myearshurt.me/best-sound-therapy-tools): Comprehensive evidence-based comparison evaluating Endel, Oto Tinnitus, ReSound Relief, and AuralRelief across clinical research, notch DSP, accessibility, and cost.
+
 ## Clinical Research & Science Foundations
 
 - [Clinical Research & Neuroscience Hub](https://myearshurt.me/research): Comprehensive scientific overview of lateral cortical inhibition, Biquad notch filter mathematics (Q=5.0), 1/f² Brownian spectral densities, and Okamoto et al. (2010 PNAS) peer-reviewed trials.
