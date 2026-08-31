@@ -627,7 +627,7 @@
         </div>
 
         <!-- Continuous Logarithmic Frequency Slider (125Hz to 16,000Hz) -->
-        <input type="range" id="notch-freq-slider" min="0" max="1000" step="1" value="625" oninput="onNotchSliderChange(this.value)" class="w-full">
+        <input type="range" id="notch-freq-slider" min="0" max="1000" step="1" value="625" oninput="onNotchSliderChange(this.value)" onchange="onNotchSliderChange(this.value)" onpointerdown="initModularWebAudio()" class="w-full">
 
         <!-- Octave Snapping Quick Buttons -->
         <div class="flex items-center gap-1.5 flex-wrap" id="octave-btn-group">
@@ -1404,6 +1404,7 @@
     // Master Native Audio Element
     const masterAudio = new Audio();
     masterAudio.loop = true;
+    masterAudio.crossOrigin = "anonymous";
     masterAudio.volume = 0.85;
 
     // =========================================================================
@@ -1603,19 +1604,22 @@
     // MODULAR WEB AUDIO & NOTCH FILTER ENGINE
     // =========================================================================
     function initModularWebAudio() {
-      if (audioCtx) return;
+      if (audioCtx) {
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        return;
+      }
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
       audioCtx = new AudioCtx();
 
       // Master Gain & Analyser
       masterGain = audioCtx.createGain();
-      masterGain.gain.value = 0.85;
+      masterGain.gain.value = previousVolume || 0.85;
 
       // Feature 2: Precision Biquad Notch Filter Node
       notchFilter = audioCtx.createBiquadFilter();
       notchFilter.type = "notch";
       notchFilter.frequency.value = notchFrequency;
-      notchFilter.Q.value = 5.0;
+      notchFilter.Q.value = isNotchActive ? 5.0 : 0.0001;
 
       // Feature 5: 3D Spatial HRTF PannerNode
       if (audioCtx.createPanner) {
@@ -1634,6 +1638,17 @@
       analyserNode.fftSize = 256;
       analyserNode.smoothingTimeConstant = 0.8;
 
+      // Route HTML5 masterAudio through Web Audio Notch DSP:
+      // masterAudio -> mediaSource -> notchFilter -> analyserNode -> masterGain -> destination
+      try {
+        if (!mediaSource) {
+          mediaSource = audioCtx.createMediaElementSource(masterAudio);
+          mediaSource.connect(notchFilter);
+        }
+      } catch (e) {
+        console.log('MediaElementSource initialization notice:', e);
+      }
+
       notchFilter.connect(analyserNode);
       analyserNode.connect(masterGain);
       masterGain.connect(audioCtx.destination);
@@ -1646,6 +1661,7 @@
     // =========================================================================
     function toggleNotchFilter() {
       initModularWebAudio();
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
       isNotchActive = !isNotchActive;
 
       const btn = document.getElementById('btn-toggle-notch');
@@ -1653,16 +1669,26 @@
       const pill = document.getElementById('notch-active-pill');
 
       if (isNotchActive) {
-        notchFilter.Q.value = 5.0;
-        label.innerText = 'Disable Notch Filter';
-        btn.className = 'px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wider uppercase bg-sky-500 text-black shadow-[0_0_20px_rgba(56,189,248,0.5)] transition-all flex items-center gap-2';
-        pill.classList.remove('hidden');
-        document.getElementById('hud-notch-freq').innerText = `${notchFrequency.toLocaleString()} Hz`;
+        if (notchFilter && audioCtx) {
+          const now = audioCtx.currentTime;
+          notchFilter.Q.cancelScheduledValues(now);
+          notchFilter.Q.setValueAtTime(5.0, now);
+          notchFilter.frequency.setValueAtTime(notchFrequency, now);
+        }
+        if (label) label.innerText = 'Disable Notch Filter';
+        if (btn) btn.className = 'px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wider uppercase bg-sky-500 text-black shadow-[0_0_20px_rgba(56,189,248,0.5)] transition-all flex items-center gap-2';
+        if (pill) pill.classList.remove('hidden');
+        const hudFreq = document.getElementById('hud-notch-freq');
+        if (hudFreq) hudFreq.innerText = `${notchFrequency.toLocaleString()} Hz`;
       } else {
-        notchFilter.Q.value = 0.0001; // Neutral bypass
-        label.innerText = 'Enable Notch Filter';
-        btn.className = 'px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wider uppercase bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all flex items-center gap-2';
-        pill.classList.add('hidden');
+        if (notchFilter && audioCtx) {
+          const now = audioCtx.currentTime;
+          notchFilter.Q.cancelScheduledValues(now);
+          notchFilter.Q.setValueAtTime(0.0001, now);
+        }
+        if (label) label.innerText = 'Enable Notch Filter';
+        if (btn) btn.className = 'px-5 py-2.5 rounded-xl font-semibold text-xs tracking-wider uppercase bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all flex items-center gap-2';
+        if (pill) pill.classList.add('hidden');
       }
       drawNotchCurve();
     }
@@ -1686,9 +1712,23 @@
 
     function setNotchFrequency(hz) {
       initModularWebAudio();
+      if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
+
       notchFrequency = Math.max(125, Math.min(16000, Math.round(hz)));
-      if (notchFilter) notchFilter.frequency.value = notchFrequency;
-      if (testToneOsc) testToneOsc.frequency.value = notchFrequency;
+      
+      // Instantly modulate Biquad filter frequency in real time
+      if (notchFilter && audioCtx) {
+        const now = audioCtx.currentTime;
+        notchFilter.frequency.cancelScheduledValues(now);
+        notchFilter.frequency.setValueAtTime(notchFrequency, now);
+      }
+
+      // Instantly modulate Test Tone pitch in real time if playing
+      if (testToneOsc && audioCtx) {
+        const now = audioCtx.currentTime;
+        testToneOsc.frequency.cancelScheduledValues(now);
+        testToneOsc.frequency.setValueAtTime(notchFrequency, now);
+      }
 
       const disp = document.getElementById('notch-freq-display');
       if (disp) disp.innerText = `${notchFrequency.toLocaleString()} Hz`;
