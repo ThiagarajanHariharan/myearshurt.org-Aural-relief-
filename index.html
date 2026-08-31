@@ -879,6 +879,71 @@
 
     </div>
   </div>
+
+  <!-- ========================================================================= -->
+  <!-- 3.6 5-MINUTE ENGAGEMENT FEEDBACK MODAL -->
+  <!-- ========================================================================= -->
+  <div id="engagement-feedback-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+    <div class="w-[92vw] max-w-md bg-[#0d0f15]/95 border border-sky-400/30 rounded-[32px] p-6 md:p-8 backdrop-blur-3xl shadow-2xl flex flex-col gap-5 relative">
+      
+      <!-- Close Button -->
+      <button onclick="dismissFeedbackModal()" class="absolute top-5 right-5 w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/20 transition-all">
+        <span class="material-symbols-outlined text-sm">close</span>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-2xl bg-sky-500/20 border border-sky-400/30 flex items-center justify-center text-xl">
+          🎧
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-white leading-tight">How's the acoustic comfort?</h3>
+          <p class="text-xs text-white/50">You've been using AuralRelief for 5 minutes</p>
+        </div>
+      </div>
+
+      <!-- Quick Reaction Selector -->
+      <div id="feedback-form-rating" class="flex flex-col gap-2">
+        <span class="text-xs font-semibold text-white/80">Do you like the experience?</span>
+        <div class="grid grid-cols-3 gap-2" id="feedback-rating-group">
+          <button type="button" onclick="setFeedbackRating('love')" id="rating-love" class="py-2.5 px-3 rounded-xl bg-sky-500/20 border border-sky-400/40 text-xs font-semibold text-sky-300 flex items-center justify-center gap-1.5 transition-all">
+            <span>✨</span> Love it
+          </button>
+          <button type="button" onclick="setFeedbackRating('helpful')" id="rating-helpful" class="py-2.5 px-3 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-medium text-white flex items-center justify-center gap-1.5 transition-all">
+            <span>👍</span> Helpful
+          </button>
+          <button type="button" onclick="setFeedbackRating('needs_work')" id="rating-needs_work" class="py-2.5 px-3 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-medium text-white flex items-center justify-center gap-1.5 transition-all">
+            <span>🤔</span> Needs work
+          </button>
+        </div>
+      </div>
+
+      <!-- Open Ended Text Box -->
+      <div id="feedback-form-comment" class="flex flex-col gap-2">
+        <label for="feedback-text" class="text-xs font-semibold text-white/80">Any suggestions or sounds you'd like added?</label>
+        <textarea id="feedback-text" rows="3" placeholder="Tell us what you think or what we can improve..." class="w-full px-4 py-3 rounded-2xl bg-white/5 border border-white/15 text-white placeholder-white/40 text-xs focus:outline-none focus:border-sky-400 resize-none"></textarea>
+      </div>
+
+      <!-- Actions -->
+      <div id="feedback-form-actions" class="flex items-center gap-2 pt-2">
+        <button onclick="dismissFeedbackModal()" class="flex-1 py-3 rounded-xl bg-white/5 hover:bg-white/10 text-white/60 hover:text-white text-xs font-semibold transition-all">
+          Maybe later
+        </button>
+        <button onclick="submitFeedback()" class="flex-1 py-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-black text-xs font-bold transition-all shadow-lg">
+          Send Feedback
+        </button>
+      </div>
+
+      <!-- Success State -->
+      <div id="feedback-success-state" class="hidden flex-col items-center justify-center py-6 text-center gap-2">
+        <div class="w-12 h-12 rounded-full bg-emerald-500/20 border border-emerald-400/30 flex items-center justify-center text-emerald-300 text-xl">✓</div>
+        <p class="text-base font-bold text-white">Thank you for your feedback!</p>
+        <p class="text-xs text-white/60 max-w-xs mx-auto">Your thoughts directly help us build better acoustic relief.</p>
+      </div>
+
+    </div>
+  </div>
+
   <script>
     // 10 Clinical Soundscapes exactly matching files on disk
     const SOUNDSCAPES = [
@@ -2754,6 +2819,90 @@
       } catch(e) {}
     }
 
+    // =========================================================================
+    // 5-MINUTE ENGAGEMENT FEEDBACK TRACKER
+    // =========================================================================
+    let activeSessionSeconds = 0;
+    let feedbackCheckInterval = null;
+    let selectedFeedbackRating = 'love';
+
+    function initFeedbackEngagementTracker() {
+      if (localStorage.getItem('auralrelief_feedback_submitted') || localStorage.getItem('auralrelief_feedback_dismissed')) {
+        return;
+      }
+      
+      feedbackCheckInterval = setInterval(() => {
+        // Increment session time
+        activeSessionSeconds++;
+        if (activeSessionSeconds >= 300) { // 5 minutes (300s)
+          clearInterval(feedbackCheckInterval);
+          showEngagementFeedbackModal();
+        }
+      }, 1000);
+    }
+
+    function showEngagementFeedbackModal() {
+      if (localStorage.getItem('auralrelief_feedback_submitted') || localStorage.getItem('auralrelief_feedback_dismissed')) return;
+      const modal = document.getElementById('engagement-feedback-modal');
+      if (modal) {
+        modal.classList.remove('opacity-0', 'pointer-events-none');
+      }
+    }
+
+    function dismissFeedbackModal() {
+      const modal = document.getElementById('engagement-feedback-modal');
+      if (modal) {
+        modal.classList.add('opacity-0', 'pointer-events-none');
+      }
+      localStorage.setItem('auralrelief_feedback_dismissed', Date.now());
+    }
+
+    function setFeedbackRating(rating) {
+      selectedFeedbackRating = rating;
+      ['love', 'helpful', 'needs_work'].forEach(r => {
+        const btn = document.getElementById(`rating-${r}`);
+        if (btn) {
+          if (r === rating) {
+            btn.className = 'py-2.5 px-3 rounded-xl bg-sky-500/20 border border-sky-400/40 text-xs font-semibold text-sky-300 flex items-center justify-center gap-1.5 transition-all';
+          } else {
+            btn.className = 'py-2.5 px-3 rounded-xl bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-medium text-white flex items-center justify-center gap-1.5 transition-all';
+          }
+        }
+      });
+    }
+
+    function submitFeedback() {
+      const textInput = document.getElementById('feedback-text');
+      const feedbackValue = textInput ? textInput.value.trim() : '';
+      
+      const payload = {
+        rating: selectedFeedbackRating,
+        comment: feedbackValue,
+        timestamp: new Date().toISOString(),
+        sessionSeconds: activeSessionSeconds
+      };
+      
+      localStorage.setItem('auralrelief_feedback_submitted', JSON.stringify(payload));
+      
+      // Hide form elements and show success
+      const rGroup = document.getElementById('feedback-form-rating');
+      const cGroup = document.getElementById('feedback-form-comment');
+      const aGroup = document.getElementById('feedback-form-actions');
+      if (rGroup) rGroup.classList.add('hidden');
+      if (cGroup) cGroup.classList.add('hidden');
+      if (aGroup) aGroup.classList.add('hidden');
+      
+      const successState = document.getElementById('feedback-success-state');
+      if (successState) {
+        successState.classList.remove('hidden');
+        successState.classList.add('flex');
+      }
+      
+      setTimeout(() => {
+        dismissFeedbackModal();
+      }, 2500);
+    }
+
     // Auto-save session periodically
     setInterval(saveSession, 15000);
     window.addEventListener('beforeunload', saveSession);
@@ -2763,6 +2912,7 @@
       restoreSession();
       renderCategoryStationsUI();
       renderDrawerGrid();
+      initFeedbackEngagementTracker();
 
       const sound = SOUNDSCAPES[currentIdx];
       masterAudio.src = `music/${sound.audioFile}`;
