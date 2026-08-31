@@ -10,6 +10,7 @@ KEY_LOCATION = f"https://{HOST}/{KEY}.txt"
 
 URL_LIST = [
     f"https://{HOST}/",
+    f"https://{HOST}/research",
     f"https://{HOST}/my-ear-hurts",
     f"https://{HOST}/waiting-for-ent-appointment",
     f"https://{HOST}/sounds-for-ear-discomfort",
