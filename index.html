@@ -81,8 +81,12 @@
   }
   </script>
 
-  <!-- Tailwind CSS (lightweight browser build) & Google Fonts -->
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!-- Tailwind CSS (v3 CDN with minimal config) & Google Fonts -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Minimal Tailwind config to reduce runtime scanning overhead
+    tailwind.config = { corePlugins: { preflight: false } };
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Lexend:wght@300;400;500;600;700&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet"/>
@@ -1938,12 +1942,11 @@
     let width, height, dpr;
 
     function resizeCanvas() {
-      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+      dpr = 1;
       width = window.innerWidth;
       height = window.innerHeight;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
-      visualCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      canvas.width = width;
+      canvas.height = height;
     }
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
@@ -1976,7 +1979,7 @@
         visualCtx.beginPath();
         visualCtx.strokeStyle = w.color;
         visualCtx.lineWidth = w.width;
-        for (let x = 0; x <= width; x += 5) {
+        for (let x = 0; x <= width; x += 10) {
           const theta = x * w.freq + t * w.speed;
           const y = cy + Math.sin(theta) * w.amp + Math.cos(theta * 0.5) * (w.amp * 0.4);
           if (x === 0) visualCtx.moveTo(x, y);
@@ -1986,7 +1989,7 @@
       });
 
       // Orbiting Synaptic Node Constellation
-      const numNodes = 14;
+      const numNodes = 8;
       const baseR = 130 * audioPulse;
       for (let i = 0; i < numNodes; i++) {
         const angle = (i / numNodes) * Math.PI * 2 + t * 0.006;
@@ -2084,7 +2087,7 @@
 
     // 3. RAIN & NATURE: Slanted Rain Streaks & Expanding Floor Impact Ripples
     function drawEndelRain(t) {
-      const numDrops = 60;
+      const numDrops = 30;
       visualCtx.strokeStyle = 'rgba(255, 255, 255, 0.45)';
       visualCtx.lineWidth = 1.2;
 
@@ -2125,7 +2128,7 @@
         const speed = 0.015 + i * 0.005;
         const amp = 24 + i * 12;
 
-        for (let x = 0; x <= width + 8; x += 8) {
+        for (let x = 0; x <= width + 16; x += 16) {
           const y = cy + Math.sin(x * freq + t * speed) * amp + Math.cos(x * freq * 0.5 - t * speed * 0.7) * (amp * 0.35);
           if (x === 0) visualCtx.moveTo(x, y);
           else visualCtx.lineTo(x, y);
@@ -2138,7 +2141,7 @@
     function drawEndelNoise(t) {
       const cx = width / 2;
       const cy = height / 2;
-      const numParticles = 42;
+      const numParticles = 24;
       const points = [];
 
       // Generate 3D rotating quantum points
@@ -2185,7 +2188,7 @@
       const cx = width / 2;
       const cy = height / 2;
       const baseR = 165;
-      const numBars = 64;
+      const numBars = 32;
 
       // 1. Expanding Solfeggio Standing-Wave Resonance Rings
       for (let r = 1; r <= 4; r++) {
@@ -2244,10 +2247,18 @@
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let reducedMotionFrame = 0;
 
+    let _frameSkip = 0;
     function mainVisualLoop() {
+      // Cap to ~30fps by skipping every other frame
+      _frameSkip++;
+      if (_frameSkip % 2 !== 0) {
+        requestAnimationFrame(mainVisualLoop);
+        return;
+      }
+
       if (prefersReducedMotion.matches) {
         reducedMotionFrame++;
-        if (reducedMotionFrame % 60 !== 0) {
+        if (reducedMotionFrame % 30 !== 0) {
           requestAnimationFrame(mainVisualLoop);
           return;
         }
