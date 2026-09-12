@@ -1867,7 +1867,10 @@
 
         const deg = Math.round(((spatialAngle * 180 / Math.PI) % 360 + 360) % 360);
         const txt = document.getElementById('spatial-angle-text');
-        if (txt) txt.innerText = `Azimuth Angle: ${deg}°`;
+        if (txt && txt.dataset.lastDeg != deg) {
+          txt.textContent = `Azimuth Angle: ${deg}°`;
+          txt.dataset.lastDeg = deg;
+        }
 
         drawSpatialRadar(x, z);
       }
@@ -1921,7 +1924,7 @@
     let width, height, dpr;
 
     function resizeCanvas() {
-      dpr = window.devicePixelRatio || 1;
+      dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       width = window.innerWidth;
       height = window.innerHeight;
       canvas.width = width * dpr;
@@ -2254,8 +2257,9 @@
           const dataArray = new Uint8Array(analyserNode.frequencyBinCount);
           analyserNode.getByteFrequencyData(dataArray);
           let sum = 0;
-          for (let i = 0; i < dataArray.length; i++) sum += dataArray[i];
-          const avgEnergy = sum / dataArray.length / 255;
+          const step = 8;
+          for (let i = 0; i < dataArray.length; i += step) sum += dataArray[i];
+          const avgEnergy = (sum / (dataArray.length / step)) / 255;
           const glowAlpha = avgEnergy * 0.08;
           visualCtx.fillStyle = `rgba(255, 255, 255, ${glowAlpha})`;
           visualCtx.fillRect(0, 0, width, height);
