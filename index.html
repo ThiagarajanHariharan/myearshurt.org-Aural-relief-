@@ -2815,7 +2815,7 @@
         timerSeconds--;
 
         // Gentle 30s Volume Fadeout
-        const optFadeout = document.getElementById('timer-opt-fadeout').checked;
+        const optFadeout = document.getElementById('timer-opt-fadeout')?.checked ?? true;
         if (optFadeout && timerSeconds <= 30 && timerSeconds > 0) {
           const fadeRatio = timerSeconds / 30;
           const targetVol = (previousVolume || 0.85) * fadeRatio;
@@ -2836,7 +2836,7 @@
           updatePlayButtonUI(false);
 
           // Ending Chime if enabled
-          const optChime = document.getElementById('timer-opt-chime').checked;
+          const optChime = document.getElementById('timer-opt-chime')?.checked ?? true;
           if (optChime) playEndingChime();
 
           // Volume is restored on next explicit play (toggleAudioPlayback)
