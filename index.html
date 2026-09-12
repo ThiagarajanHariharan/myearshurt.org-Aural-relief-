@@ -123,6 +123,138 @@
       transition: opacity 0.5s ease;
     }
 
+    /* ========== CSS-ONLY AMBIENT BACKGROUNDS (GPU-ACCELERATED) ========== */
+    #css-visual-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+      background: #000;
+    }
+
+    #css-visual-bg .orb {
+      position: absolute;
+      border-radius: 50%;
+      will-change: transform, opacity;
+    }
+
+    /* Neural / Brainwave - Cyan pulsing orbs */
+    .visual-neural .orb-1 {
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(56,189,248,0.3) 0%, transparent 70%);
+      top: 20%; left: 30%;
+      animation: float1 8s ease-in-out infinite;
+    }
+    .visual-neural .orb-2 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(125,211,252,0.2) 0%, transparent 70%);
+      top: 50%; right: 20%;
+      animation: float2 10s ease-in-out infinite;
+    }
+    .visual-neural .orb-3 {
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
+      bottom: 20%; left: 50%;
+      animation: float3 12s ease-in-out infinite;
+    }
+
+    /* Drone / Deep - Purple/indigo slow drift */
+    .visual-drone .orb-1 {
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(99,102,241,0.25) 0%, transparent 70%);
+      top: 30%; left: 20%;
+      animation: float1 12s ease-in-out infinite;
+    }
+    .visual-drone .orb-2 {
+      width: 350px; height: 350px;
+      background: radial-gradient(circle, rgba(139,92,246,0.2) 0%, transparent 70%);
+      bottom: 20%; right: 25%;
+      animation: float2 15s ease-in-out infinite;
+    }
+    .visual-drone .orb-3 {
+      width: 250px; height: 250px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      top: 60%; left: 60%;
+      animation: float3 18s ease-in-out infinite;
+    }
+
+    /* Nature / Rain - Green/teal gentle sway */
+    .visual-nature .orb-1 {
+      width: 450px; height: 450px;
+      background: radial-gradient(circle, rgba(52,211,153,0.2) 0%, transparent 70%);
+      top: 25%; left: 35%;
+      animation: float1 10s ease-in-out infinite;
+    }
+    .visual-nature .orb-2 {
+      width: 320px; height: 320px;
+      background: radial-gradient(circle, rgba(110,231,183,0.15) 0%, transparent 70%);
+      bottom: 30%; right: 30%;
+      animation: float2 13s ease-in-out infinite;
+    }
+    .visual-nature .orb-3 {
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      top: 55%; left: 15%;
+      animation: float3 16s ease-in-out infinite;
+    }
+
+    /* Noise / Colored - White/silver minimal */
+    .visual-noise .orb-1 {
+      width: 380px; height: 380px;
+      background: radial-gradient(circle, rgba(255,255,255,0.12) 0%, transparent 70%);
+      top: 35%; left: 25%;
+      animation: float1 9s ease-in-out infinite;
+    }
+    .visual-noise .orb-2 {
+      width: 280px; height: 280px;
+      background: radial-gradient(circle, rgba(200,200,220,0.1) 0%, transparent 70%);
+      bottom: 25%; right: 35%;
+      animation: float2 11s ease-in-out infinite;
+    }
+    .visual-noise .orb-3 {
+      width: 200px; height: 200px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+      top: 15%; right: 15%;
+      animation: float3 14s ease-in-out infinite;
+    }
+
+    /* Harmonic / Bowls - Amber/gold warm glow */
+    .visual-harmonic .orb-1 {
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, rgba(251,191,36,0.2) 0%, transparent 70%);
+      top: 30%; left: 30%;
+      animation: float1 11s ease-in-out infinite;
+    }
+    .visual-harmonic .orb-2 {
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(245,158,11,0.15) 0%, transparent 70%);
+      bottom: 25%; right: 25%;
+      animation: float2 14s ease-in-out infinite;
+    }
+    .visual-harmonic .orb-3 {
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      top: 60%; left: 55%;
+      animation: float3 17s ease-in-out infinite;
+    }
+
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.6; }
+      33% { transform: translate(60px, -40px) scale(1.1); opacity: 0.8; }
+      66% { transform: translate(-30px, 30px) scale(0.95); opacity: 0.5; }
+    }
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.5; }
+      50% { transform: translate(-50px, -60px) scale(1.15); opacity: 0.7; }
+    }
+    @keyframes float3 {
+      0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.4; }
+      25% { transform: translate(40px, 50px) scale(1.05); opacity: 0.6; }
+      75% { transform: translate(-60px, -20px) scale(0.9); opacity: 0.35; }
+    }
+
     /* Endel Minimalist Glass HUD */
     .endel-hud {
       position: fixed;
@@ -363,10 +495,14 @@
 </head>
 <body class="w-screen h-screen bg-black relative" onclick="dismissAutoplayGate()">
 
+  <!-- 1. FULLSCREEN CSS AMBIENT VISUAL BACKGROUND (GPU-ACCELERATED) -->
   <!-- ========================================================================= -->
-  <!-- 1. FULLSCREEN GENERATIVE CODE VISUAL CANVAS (100% MAIN FOCUS) -->
-  <!-- ========================================================================= -->
-  <canvas id="visual-canvas" style="opacity: 1;"></canvas>
+  <canvas id="visual-canvas" style="display: none;"></canvas>
+  <div id="css-visual-bg" class="visual-neural">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
 
   <!-- Autoplay Click-To-Start Overlay -->
   <div id="autoplay-gate" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 cursor-pointer">
@@ -1395,7 +1531,7 @@
 ];
 
     let currentIdx = 0;
-    let visualEngineMode = 'code'; // Permanently in Generative Code Mode
+    let visualEngineMode = 'css'; // CSS-only mode for GPU-accelerated ambient backgrounds
     let timerSeconds = 0;
     let timerInterval = null;
     let previousVolume = 0.85;
@@ -2367,6 +2503,11 @@
       if (audioCtx && audioCtx.state === 'suspended') audioCtx.resume();
 
       const catObj = CATEGORIES.find(c => c.id === sound.category) || CATEGORIES[0];
+
+      const cssBg = document.getElementById('css-visual-bg');
+      if (cssBg) {
+        cssBg.className = `visual-${sound.category}`;
+      }
 
       // Update Center HUD Display (Distraction-Free: Only category channel and acoustic subtitle)
       document.getElementById('hud-top-filename').innerText = `${catObj.name.toUpperCase()} // AURAL RELIEF`;
