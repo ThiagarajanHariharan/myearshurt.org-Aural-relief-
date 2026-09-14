@@ -1,0 +1,24 @@
+---
+description: "Automatically applies relevant skills based on task context without explicit user commands."
+alwaysApply: false
+---
+
+# Autonomous Skill Routing
+
+When the user's request matches any of the following triggers, automatically load and apply the associated skill before generating output:
+
+## Design & UI/UX
+- **Trigger:** Build UI, fix CSS, critique layout, design advice.
+- **Route:** Apply `ui-ux-pro-max-skill` (baseline), `taste-skill` (aesthetics), `impeccable` (polish). For marketing pages, pull from 21st.dev blocks.
+
+## Writing & Communication
+- **Trigger:** Write email, blog post, copy, dialogue.
+- **Route:** Apply `humanizer` to ensure natural, non-AI tone.
+
+## Diagrams & Slides
+- **Trigger:** Workflow explanation, presentation, pitch deck.
+- **Route:** Apply `diagram-design` for diagrams, `frontend-slides` for presentations.
+
+## Reasoning Quality
+- **Trigger:** Long-form response, complex reasoning, user complains of "generic" output.
+- **Route:** Apply `stop-slop` to eliminate filler and improve depth.
