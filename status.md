@@ -29,4 +29,4 @@
 ## Last Updated
 
 - **When:** 2026-09-14
-- **By:** Cursor (initial scaffold)
+- **By:** Cursor (CUR-1 / CUR-2 complete)

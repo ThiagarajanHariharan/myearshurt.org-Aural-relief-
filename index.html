@@ -399,6 +399,60 @@
     input[type="range"]::-webkit-slider-thumb:hover {
       transform: scale(1.3);
     }
+    input[type="range"]::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+      border: none;
+      border-radius: 50%;
+      background: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    }
+
+    /* Explore Drawer: horizontal tab scroll + touch-friendly controls */
+    #drawer-tab-bar {
+      display: flex;
+      flex-wrap: nowrap;
+      align-items: center;
+      gap: 0.25rem;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      max-width: 100%;
+      min-width: 0;
+    }
+    #drawer-tab-bar::-webkit-scrollbar { display: none; }
+    #drawer-tab-bar > button,
+    #drawer-tab-bar > a { flex-shrink: 0; white-space: nowrap; }
+
+    #explore-drawer input[type="range"] {
+      height: 8px;
+      margin: 14px 0;
+      touch-action: pan-y;
+    }
+    #explore-drawer input[type="range"]::-webkit-slider-thumb {
+      width: 26px;
+      height: 26px;
+      margin-top: -9px;
+    }
+    #explore-drawer input[type="range"]::-moz-range-thumb {
+      width: 26px;
+      height: 26px;
+    }
+
+    #spatial-radar-wrap {
+      width: 100%;
+      max-width: 220px;
+      aspect-ratio: 1 / 1;
+    }
+    #spatial-radar-canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      max-width: 220px;
+    }
 
     /* Set Timer Pill */
     .timer-pill {
@@ -484,6 +538,11 @@
       .explore-btn { padding: 12px 32px; }
       .timer-pill { padding: 10px 20px; }
       #endel-hud { padding: 18px 14px 14px 14px; }
+      #explore-drawer { padding: 1rem 1rem 1.5rem; border-radius: 28px 28px 0 0; }
+      #drawer-tab-bar { padding-bottom: 2px; }
+      #drawer-tab-bar > button,
+      #drawer-tab-bar > a { min-height: 44px; padding-left: 0.875rem; padding-right: 0.875rem; }
+      #spatial-radar-wrap { max-width: min(220px, calc(100vw - 4rem)); }
     }
 
     /* P2 Issue 16: Allow text selection in content areas */
@@ -621,7 +680,7 @@
   <!-- ========================================================================= -->
   <!-- 3. SLIDE-UP EXPLORE DRAWER: 4-STEM MIXER, NOTCH THERAPY & 3D SPATIAL -->
   <!-- ========================================================================= -->
-  <div id="explore-drawer" class="fixed inset-x-0 bottom-0 z-50 max-h-[88vh] bg-[#090b10]/98 border-t border-white/15 rounded-t-[36px] p-6 md:p-10 flex flex-col gap-6 shadow-2xl overflow-y-auto">
+  <div id="explore-drawer" class="fixed inset-x-0 bottom-0 z-50 max-h-[88vh] bg-[#090b10]/98 border-t border-white/15 rounded-t-[36px] p-4 sm:p-6 md:p-10 flex flex-col gap-6 shadow-2xl overflow-y-auto overflow-x-hidden">
     
     <!-- Drawer Header with Nav Tabs -->
     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/10">
@@ -630,9 +689,9 @@
         <p class="text-xs text-white/50 mt-0.5">4-Stem Mixer • Precision Notch DSP • 3D HRTF Spatial Audio • ENT Intake</p>
       </div>
 
-      <div class="flex items-center gap-2 flex-wrap">
+      <div class="flex items-center gap-2 flex-nowrap min-w-0 w-full sm:w-auto">
         <!-- Drawer Tabs -->
-        <div class="flex items-center gap-1 bg-white/5 p-1 rounded-2xl border border-white/10 text-xs">
+        <div id="drawer-tab-bar" class="bg-white/5 p-1 rounded-2xl border border-white/10 text-xs min-w-0 flex-1 sm:flex-initial">
           <button onclick="setDrawerTab('mixer')" id="tab-btn-mixer" class="px-3 py-1.5 rounded-xl font-medium text-white bg-white/15">4-Stem Mixer</button>
           <button onclick="setDrawerTab('notch')" id="tab-btn-notch" class="px-3 py-1.5 rounded-xl font-medium text-white/60 hover:text-white">Notch Therapy</button>
           <button onclick="setDrawerTab('spatial')" id="tab-btn-spatial" class="px-3 py-1.5 rounded-xl font-medium text-white/60 hover:text-white">3D Spatial</button>
@@ -832,9 +891,11 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         
         <!-- Interactive 360° Orbit Radar Canvas -->
-        <div class="p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col items-center justify-center gap-3">
-          <span class="text-xs font-bold text-white/80 uppercase tracking-wider">360° Horizontal Azimuth Radar</span>
-          <canvas id="spatial-radar-canvas" width="220" height="220" class="rounded-full bg-black/60 border border-white/15"></canvas>
+        <div class="p-5 rounded-2xl bg-white/5 border border-white/10 flex flex-col items-center justify-center gap-3 min-w-0 w-full">
+          <span class="text-xs font-bold text-white/80 uppercase tracking-wider text-center">360° Horizontal Azimuth Radar</span>
+          <div id="spatial-radar-wrap" class="mx-auto">
+            <canvas id="spatial-radar-canvas" width="220" height="220" class="rounded-full bg-black/60 border border-white/15"></canvas>
+          </div>
           <span id="spatial-angle-text" class="text-xs font-mono text-emerald-400">Azimuth Angle: 0°</span>
         </div>
 

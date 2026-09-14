@@ -23,15 +23,7 @@
 
 ## @Cursor
 
-*(Queue empty — add tasks below.)*
-
-<!-- Example (commented out — do not treat as real work):
-
-- [ ] **Example: Extract notch panel constants** — Move magic numbers to a CONFIG object at top of script
-  - Files: `index.html`
-  - Notes: No behavior change; prep for preset chips
-
--->
+*(Queue empty.)*
 
 ---
 
@@ -39,18 +31,17 @@
 
 *(Queue empty — add tasks below.)*
 
-<!-- Example (commented out):
-
-- [ ] **Example: Draft landing page copy** — Write hero section for hyperacusis page
-  - Files: `hyperacusis-acoustic-shield.html`
-
--->
-
 ---
 
 ## Done
 
-*(No completed tasks yet.)*
+- [x] **CUR-1: Polish Explore Drawer (`#explore-drawer`) for Mobile** — Horizontal tab scroll, touch-friendly mixer/notch sliders, responsive spatial radar canvas
+  - Files: `index.html`
+  - Completed: 2026-09-14 by Cursor
+
+- [x] **CUR-2: Polish Content Subpages on Mobile** — Responsive content-container padding, heading wrap, table/callout overflow fixes
+  - Files: `tmj-ear-pain.html`, `waiting-for-ent-appointment.html`, `what-is-sound-masking.html`
+  - Completed: 2026-09-14 by Cursor
 
 ---
 
