@@ -20,13 +20,13 @@
 | Field | Value |
 |-------|-------|
 | **Agent** | Antigravity |
-| **Status** | Idle |
-| **Current Action** | Paired on coordination bus; awaiting next @Antigravity task |
-| **Locked Files** | *(none)* |
+| **Status** | Working |
+| **Current Action** | Executing AG-2: player viewport, safe-area, and dynamic viewport height |
+| **Locked Files** | `index.html` |
 
 ---
 
 ## Last Updated
 
-- **When:** 2026-09-15T07:20:00Z
-- **By:** Cursor (Milestone: mobile conversion; AG-2 TASK_ASSIGNED on bus; no product locks)
+- **When:** 2026-09-15T07:32:00Z
+- **By:** Antigravity (Lock acquired for AG-2)
