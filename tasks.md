@@ -108,10 +108,11 @@
   - Acceptance: No diagnosis/treatment claims; no duplicate titles
   - Notes: Implemented in PR #8 on branch `antigravity/ag-seo-1-landing-meta-pwa`.
 
-- [ ] **AG-GEO-1** — `llms.txt`, `llms-full.txt`, JSON-LD/FAQ schema for AI citations.
+- [x] **AG-GEO-1** — `llms.txt`, `llms-full.txt`, JSON-LD/FAQ schema for AI citations.
   - Files: `llms.txt`, `llms-full.txt`, landing JSON-LD
   - Depends on: AG-SEO-1
   - Acceptance: Entity/site facts match live product; no new medical claims
+  - Notes: Implemented in PR #9 on branch `antigravity/ag-geo-1-ai-citations`.
 
 - [ ] **AG-4 Explore drawer tabs + padding** — Port [PR #3](https://github.com/ThiagarajanHariharan/myearshurt.org-Aural-relief-/pull/3) CUR-1 patterns.
   - Files: `index.html`
@@ -217,6 +218,7 @@
 - [x] **AG-9 Directory index.html parity** (2026-09-15) — All 16 subfolder index.html files updated to match roots in PR #7.
 - [x] **AG-SEO-1 Unique titles, meta descriptions, OG on landings** (2026-09-15) — Implemented on branch `antigravity/ag-seo-1-landing-meta-pwa`, opened PR #8, unique titles ending with ` | AuralRelief`, wellness descriptions, OG & Twitter cards referencing preview_showcase.jpg, subfolder parity.
 - [x] **AG-13 Landing viewport-fit + theme-color** (2026-09-15) — Implemented on branch `antigravity/ag-seo-1-landing-meta-pwa`, opened PR #8, added viewport-fit=cover and Apple PWA tags across all 16 landings and mirrors.
+- [x] **AG-GEO-1 llms.txt & FAQPage JSON-LD schemas** (2026-09-15) — Implemented on branch `antigravity/ag-geo-1-ai-citations`, opened PR #9, updated llms.txt & llms-full.txt to match canonical landing titles and wellness framing, added FAQPage JSON-LD structured data to clogged-ears-sound-relief.html, for-clinics.html, and hyperacusis-acoustic-shield.html (and subfolder mirrors), lock released.
 
 ---
 

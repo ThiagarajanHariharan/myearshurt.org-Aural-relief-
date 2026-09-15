@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-09-15T15:43:00Z",
+  "updated_at": "2026-09-15T16:04:00Z",
   "updated_by": "antigravity",
-  "state_version": 25,
+  "state_version": 26,
   "agents": {
     "cursor": {
       "status": "idle",
@@ -11,28 +11,13 @@
       "active_lock_id": null
     },
     "antigravity": {
-      "status": "working",
-      "last_heartbeat": "2026-09-15T15:43:00Z",
-      "current_action": "AG-GEO-1: llms.txt, llms-full.txt, FAQ schema for AI citations",
-      "active_lock_id": "lock_ag_geo1"
+      "status": "idle",
+      "last_heartbeat": "2026-09-15T16:04:00Z",
+      "current_action": null,
+      "active_lock_id": null
     }
   },
-  "locks": [
-    {
-      "id": "lock_ag_geo1",
-      "agent": "antigravity",
-      "files": [
-        "llms.txt",
-        "llms-full.txt",
-        "clogged-ears-sound-relief.html",
-        "for-clinics.html",
-        "hyperacusis-acoustic-shield.html"
-      ],
-      "acquired_at": "2026-09-15T15:43:00Z",
-      "expires_at": "2026-09-15T17:43:00Z",
-      "reason": "AG-GEO-1: llms.txt, llms-full.txt, and FAQPage JSON-LD schema for AI citations"
-    }
-  ],
+  "locks": [],
   "open_questions": [],
   "open_blockers": []
 }

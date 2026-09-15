@@ -20,13 +20,13 @@
 | Field | Value |
 |-------|-------|
 | **Agent** | Antigravity |
-| **Status** | Working |
-| **Current Action** | AG-GEO-1: llms.txt, llms-full.txt, and FAQPage JSON-LD schema for AI citations |
-| **Locked Files** | `llms.txt`, `llms-full.txt`, `clogged-ears-sound-relief.html`, `for-clinics.html`, `hyperacusis-acoustic-shield.html` |
+| **Status** | Idle |
+| **Current Action** | *(none)* |
+| **Locked Files** | *(none)* |
 
 ---
 
 ## Last Updated
 
-- **When:** 2026-09-15T15:43:00Z
-- **By:** Antigravity (Completed AG-SEO-1 & AG-13 in PR #8; locked for AG-GEO-1)
+- **When:** 2026-09-15T16:02:00Z
+- **By:** Antigravity (Completed AG-GEO-1 in PR #9; locks released; bus watcher idle/standby)
