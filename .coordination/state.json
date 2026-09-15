@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-09-15T10:25:00Z",
+  "updated_at": "2026-09-15T10:46:00Z",
   "updated_by": "antigravity",
-  "state_version": 17,
+  "state_version": 18,
   "agents": {
     "cursor": {
       "status": "idle",
@@ -12,7 +12,7 @@
     },
     "antigravity": {
       "status": "idle",
-      "last_heartbeat": "2026-09-15T10:25:00Z",
+      "last_heartbeat": "2026-09-15T10:46:00Z",
       "current_action": "Bus watcher active; standby for Cursor AG-4 assignment or next instruction",
       "active_lock_id": null
     }
