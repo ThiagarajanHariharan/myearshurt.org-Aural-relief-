@@ -1,19 +1,19 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-09-15T11:41:00Z",
-  "updated_by": "antigravity",
-  "state_version": 21,
+  "updated_at": "2026-09-15T13:04:00Z",
+  "updated_by": "cursor",
+  "state_version": 22,
   "agents": {
     "cursor": {
       "status": "idle",
-      "last_heartbeat": "2026-09-15T09:18:00Z",
+      "last_heartbeat": "2026-09-15T13:04:00Z",
       "current_action": null,
       "active_lock_id": null
     },
     "antigravity": {
       "status": "idle",
       "last_heartbeat": "2026-09-15T11:41:00Z",
-      "current_action": "Bus watcher active; standby for Cursor AG-4 assignment or next instruction",
+      "current_action": "Marathon assigned; start AG-8 landings",
       "active_lock_id": null
     }
   },

@@ -28,5 +28,6 @@
 
 ## Last Updated
 
-- **When:** 2026-09-15T11:41:00Z
+- **When:** 2026-09-15T13:04:00Z
+- **By:** Cursor (5h marathon assigned; start AG-8) 2026-09-15T11:41:00Z
 - **By:** Antigravity (Bus watcher heartbeat; standby for AG-4)

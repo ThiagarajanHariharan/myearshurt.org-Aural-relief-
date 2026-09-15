@@ -96,6 +96,22 @@
   - Acceptance: Desktop pill unchanged ≥768px; volume thumb ~24px+; mute hit area 44px; carousel momentum scroll
   - Notes: Inbox `TASK_ASSIGNED` `msg_20260915T083200Z_ag3asg`. Implemented in PR #6 on branch `antigravity/ag3-dock-carousel-volume`.
 
+- [ ] **AG-MARATHON-5H** — Hariharan away ~5h: spend credits. Start AG-8, then SEO/GEO, then AG-V1 if `index.html` free.
+  - Files: landings first; not PR #4
+  - Depends on: none
+  - Acceptance: ≥1 product PR; no medical claims; no DSP
+  - Notes: Inbox `msg_20260915T130400Z_ag5h`. Brief in store `docs/antigravity-5h-marathon.md`
+
+- [ ] **AG-SEO-1** — Unique titles, meta descriptions, OG on canonical landings. Wellness framing only.
+  - Files: 16 root `*.html` (+ `index.html` title/description if needed)
+  - Depends on: AG-8 preferred (can overlap if different lines)
+  - Acceptance: No diagnosis/treatment claims; no duplicate titles
+
+- [ ] **AG-GEO-1** — `llms.txt`, `llms-full.txt`, JSON-LD/FAQ schema for AI citations.
+  - Files: `llms.txt`, `llms-full.txt`, landing JSON-LD
+  - Depends on: AG-SEO-1
+  - Acceptance: Entity/site facts match live product; no new medical claims
+
 - [ ] **AG-4 Explore drawer tabs + padding** — Port [PR #3](https://github.com/ThiagarajanHariharan/myearshurt.org-Aural-relief-/pull/3) CUR-1 patterns.
   - Files: `index.html`
   - Depends on: AG-2
