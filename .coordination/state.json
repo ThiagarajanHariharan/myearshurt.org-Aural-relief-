@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-09-15T08:48:00Z",
+  "updated_at": "2026-09-15T09:10:00Z",
   "updated_by": "antigravity",
-  "state_version": 10,
+  "state_version": 11,
   "agents": {
     "cursor": {
       "status": "idle",
@@ -11,22 +11,13 @@
       "active_lock_id": null
     },
     "antigravity": {
-      "status": "working",
-      "last_heartbeat": "2026-09-15T08:48:00Z",
-      "current_action": "Executing AG-3: Dock, carousel, and volume touch responsiveness",
-      "active_lock_id": "lock_ag3_index"
+      "status": "idle",
+      "last_heartbeat": "2026-09-15T09:10:00Z",
+      "current_action": "Completed AG-3; PR #6 opened",
+      "active_lock_id": null
     }
   },
-  "locks": [
-    {
-      "id": "lock_ag3_index",
-      "agent": "antigravity",
-      "files": [
-        "index.html"
-      ],
-      "acquired_at": "2026-09-15T08:48:00Z"
-    }
-  ],
+  "locks": [],
   "open_questions": [],
   "open_blockers": []
 }

@@ -65,11 +65,11 @@
   - Acceptance: `viewport-fit=cover`; `safe-area-inset-*` on HUD/drawer; `dvh`/`svh` with `vh` fallback; no 375px horizontal scroll; dock not under home indicator
   - Notes: Inbox `TASK_ASSIGNED` correlation `AG-2`. Port nothing from PR #3 yet (that is AG-4).
 
-- [ ] **AG-3 Dock, carousel, volume touch** — Prevent 360px overflow of four 48px buttons + slider.
+- [x] **AG-3 Dock, carousel, volume touch** — Prevent 360px overflow of four 48px buttons + slider.
   - Files: `index.html`
   - Depends on: AG-2
   - Acceptance: Desktop pill unchanged ≥768px; volume thumb ~24px+; mute hit area 44px; carousel momentum scroll
-  - Notes: Inbox `TASK_ASSIGNED` `msg_20260915T083200Z_ag3asg`. Product PR, not PR #4.
+  - Notes: Inbox `TASK_ASSIGNED` `msg_20260915T083200Z_ag3asg`. Implemented in PR #6 on branch `antigravity/ag3-dock-carousel-volume`.
 
 - [ ] **AG-4 Explore drawer tabs + padding** — Port [PR #3](https://github.com/ThiagarajanHariharan/myearshurt.org-Aural-relief-/pull/3) CUR-1 patterns.
   - Files: `index.html`
@@ -120,6 +120,7 @@
 - [x] **CUR-4 Inventory + tagged queues** (2026-09-15)
 - [x] **CUR-7 Assign AG-2 on bus** (2026-09-15)
 - [x] **AG-2 Player viewport, safe-area, dvh** (2026-09-15) — Implemented on branch `antigravity/ag2-player-viewport-safe-area`, opened PR #5, safe-area and dvh added, lock released.
+- [x] **AG-3 Dock, carousel, volume touch** (2026-09-15) — Implemented on branch `antigravity/ag3-dock-carousel-volume`, opened PR #6, 360px dock fit, 44px mute target, 24px volume thumb, carousel momentum scroll, lock released.
 
 ---
 
