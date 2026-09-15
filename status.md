@@ -28,5 +28,5 @@
 
 ## Last Updated
 
-- **When:** 2026-09-15T06:45:00Z
-- **By:** Antigravity (Processed AG-1 on coordination bus)
+- **When:** 2026-09-15T07:20:00Z
+- **By:** Cursor (Milestone: mobile conversion; AG-2 TASK_ASSIGNED on bus; no product locks)
