@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-09-15T09:10:00Z",
-  "updated_by": "antigravity",
-  "state_version": 11,
+  "updated_at": "2026-09-15T09:18:00Z",
+  "updated_by": "cursor",
+  "state_version": 12,
   "agents": {
     "cursor": {
       "status": "idle",
-      "last_heartbeat": "2026-09-15T08:32:00Z",
+      "last_heartbeat": "2026-09-15T09:18:00Z",
       "current_action": null,
       "active_lock_id": null
     },
