@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Free Waiting Room Sound Therapy for ENT & Audiology Clinics | AuralRelief</title>
   <meta name="description" content="Provide your ENT or audiology clinic patients with free, ad-free waiting room acoustic soundscapes. Printable QR poster & embeddable patient portal widget.">
   <meta name="theme-color" content="#000000">
@@ -11,7 +11,17 @@
   <meta property="og:url" content="https://myearshurt.me/for-clinics">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="AuralRelief">
+  <meta property="og:image" content="https://myearshurt.me/preview_showcase.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Waiting Room Sound Therapy for ENT & Audiology Clinics | AuralRelief">
+  <meta name="twitter:description" content="Provide your ENT or audiology clinic patients with free, ad-free waiting room acoustic soundscapes. Printable QR poster & embeddable patient portal widget.">
+  <meta name="twitter:image" content="https://myearshurt.me/preview_showcase.jpg">
   <link rel="canonical" href="https://myearshurt.me/for-clinics">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AuralRelief">
+  <link rel="describedby" href="/llms.txt" type="text/markdown">
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -32,12 +42,34 @@
     "dateModified": "2026-08-31"
   }
   </script>
+  <link rel="stylesheet" href="/tailwind-static.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
+    html, body { overflow-x: hidden; }
     body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #050508; color: #e2e8f0; }
-    .content-container { max-width: 820px; margin: 0 auto; }
+    .content-container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+      min-width: 0;
+    }
+    @media (min-width: 768px) {
+      .content-container { padding: 3rem 1.25rem; }
+    }
+    h1, h2, h3 {
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      hyphens: none;
+      -webkit-hyphens: none;
+    }
+    .overflow-x-auto {
+      -webkit-overflow-scrolling: touch;
+      max-width: 100%;
+    }
+    table { min-width: 0; }
+    td, th { word-break: break-word; hyphens: none; -webkit-hyphens: none; }
     .mono { font-family: 'JetBrains Mono', monospace; }
     a { color: #38bdf8; text-decoration: underline; text-underline-offset: 3px; }
     a:hover { color: #7dd3fc; }
@@ -45,7 +77,7 @@
     .step-badge { background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.3); }
   </style>
 </head>
-<body class="min-h-screen px-5 py-12 md:py-20">
+<body class="min-h-screen overflow-x-hidden">
   <article class="content-container">
 
     <!-- Breadcrumb -->
