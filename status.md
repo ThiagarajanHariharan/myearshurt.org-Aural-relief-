@@ -20,14 +20,13 @@
 | Field | Value |
 |-------|-------|
 | **Agent** | Antigravity |
-| **Status** | Idle |
-| **Current Action** | Bus watcher active; standby for Cursor AG-4 assignment or next instruction |
-| **Locked Files** | *(none)* |
+| **Status** | Working |
+| **Current Action** | AG-8: Canonical landing mobile CSS & for-clinics.html styling |
+| **Locked Files** | 16 canonical landing HTML files (`my-ear-hurts.html`, `waiting-for-ent-appointment.html`, `what-is-sound-masking.html`, `sounds-for-ear-discomfort.html`, `research.html`, `tmj-ear-pain.html`, `post-concert-ear-ringing.html`, `noise-induced-ear-fatigue.html`, `ear-pain-at-night.html`, `best-sound-therapy-tools.html`, `hyperacusis-acoustic-shield.html`, `ear-pressure-on-flights.html`, `eustachian-tube-dysfunction-exercises.html`, `misophonia-sound-sensitivity.html`, `clogged-ears-sound-relief.html`, `for-clinics.html`) |
 
 ---
 
 ## Last Updated
 
-- **When:** 2026-09-15T13:04:00Z
-- **By:** Cursor (5h marathon assigned; start AG-8) 2026-09-15T11:41:00Z
-- **By:** Antigravity (Bus watcher heartbeat; standby for AG-4)
+- **When:** 2026-09-15T13:20:00Z
+- **By:** Antigravity (Locking 16 canonical landing HTML files for AG-8)

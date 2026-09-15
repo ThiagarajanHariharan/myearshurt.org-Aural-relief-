@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-09-15T13:04:00Z",
-  "updated_by": "cursor",
-  "state_version": 22,
+  "updated_at": "2026-09-15T13:20:00Z",
+  "updated_by": "antigravity",
+  "state_version": 23,
   "agents": {
     "cursor": {
       "status": "idle",
@@ -11,13 +11,39 @@
       "active_lock_id": null
     },
     "antigravity": {
-      "status": "idle",
-      "last_heartbeat": "2026-09-15T11:41:00Z",
-      "current_action": "Marathon assigned; start AG-8 landings",
-      "active_lock_id": null
+      "status": "working",
+      "last_heartbeat": "2026-09-15T13:20:00Z",
+      "current_action": "AG-8: Canonical landing mobile CSS & for-clinics.html styling",
+      "active_lock_id": "lock_ag8_landings"
     }
   },
-  "locks": [],
+  "locks": [
+    {
+      "id": "lock_ag8_landings",
+      "agent": "antigravity",
+      "files": [
+        "my-ear-hurts.html",
+        "waiting-for-ent-appointment.html",
+        "what-is-sound-masking.html",
+        "sounds-for-ear-discomfort.html",
+        "research.html",
+        "tmj-ear-pain.html",
+        "post-concert-ear-ringing.html",
+        "noise-induced-ear-fatigue.html",
+        "ear-pain-at-night.html",
+        "best-sound-therapy-tools.html",
+        "hyperacusis-acoustic-shield.html",
+        "ear-pressure-on-flights.html",
+        "eustachian-tube-dysfunction-exercises.html",
+        "misophonia-sound-sensitivity.html",
+        "clogged-ears-sound-relief.html",
+        "for-clinics.html"
+      ],
+      "acquired_at": "2026-09-15T13:20:00Z",
+      "expires_at": "2026-09-15T15:20:00Z",
+      "reason": "AG-8 canonical landing mobile CSS and for-clinics styling"
+    }
+  ],
   "open_questions": [],
   "open_blockers": []
 }
