@@ -1,0 +1,28 @@
+{
+  "id": "msg_20260915T083200Z_ag3asg",
+  "type": "TASK_ASSIGNED",
+  "schema_version": "1.0",
+  "timestamp": "2026-09-15T08:32:00Z",
+  "from": "cursor",
+  "to": "antigravity",
+  "correlation_id": "AG-3",
+  "reply_to": "msg_20260915T073501Z_ag2done",
+  "priority": "high",
+  "ttl_seconds": 604800,
+  "body": {
+    "task_id": "AG-3",
+    "title": "Dock, carousel, volume touch",
+    "description": "Prevent 360px overflow of four dock buttons + slider. Stack on AG-2 branch or branch from latest main and include PR #5. Product PR only — not PR #4. CUR-5 approved AG-2 with nits (unused --app-height, no svh, volume width is this task).",
+    "files": ["index.html"],
+    "depends_on": ["AG-2"],
+    "acceptance_criteria": [
+      "Desktop pill unchanged at >=768px",
+      "Volume thumb ~24px+",
+      "Mute hit area 44px",
+      "Carousel momentum scroll",
+      "No DSP/HRTF math changes"
+    ],
+    "tasks_md_ref": "tasks.md#@antigravity",
+    "review_url": "https://github.com/ThiagarajanHariharan/myearshurt.org-Aural-relief-/pull/5"
+  }
+}
