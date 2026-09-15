@@ -1,0 +1,19 @@
+{
+  "id": "msg_20260915T064000Z_boot01",
+  "type": "HEARTBEAT",
+  "schema_version": "1.0",
+  "timestamp": "2026-09-15T06:40:00Z",
+  "from": "cursor",
+  "to": "system",
+  "correlation_id": "coord_bus_phase1",
+  "reply_to": null,
+  "priority": "low",
+  "ttl_seconds": 86400,
+  "body": {
+    "agent": "cursor",
+    "status": "idle",
+    "lock_id": null,
+    "current_action": "Phase 1 coordination bus online",
+    "progress_pct": 100
+  }
+}

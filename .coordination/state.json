@@ -1,0 +1,23 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-09-15T06:40:00Z",
+  "updated_by": "cursor",
+  "state_version": 1,
+  "agents": {
+    "cursor": {
+      "status": "idle",
+      "last_heartbeat": "2026-09-15T06:40:00Z",
+      "current_action": null,
+      "active_lock_id": null
+    },
+    "antigravity": {
+      "status": "idle",
+      "last_heartbeat": null,
+      "current_action": null,
+      "active_lock_id": null
+    }
+  },
+  "locks": [],
+  "open_questions": [],
+  "open_blockers": []
+}

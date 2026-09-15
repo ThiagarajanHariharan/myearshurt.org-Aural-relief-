@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://myearshurt.local/coordination/message-v1.json",
+  "title": "Dual-agent coordination message v1",
+  "type": "object",
+  "required": [
+    "id",
+    "type",
+    "schema_version",
+    "timestamp",
+    "from",
+    "to",
+    "correlation_id",
+    "priority",
+    "body"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": {
+      "type": "string",
+      "pattern": "^msg_[0-9]{8}T[0-9]{6}Z_[A-Za-z0-9]+$"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "TASK_ASSIGNED",
+        "TASK_COMPLETE",
+        "LOCK_REQUEST",
+        "LOCK_RELEASE",
+        "HANDOFF",
+        "BLOCKED",
+        "QUESTION",
+        "DECISION",
+        "HEARTBEAT"
+      ]
+    },
+    "schema_version": { "type": "string", "const": "1.0" },
+    "timestamp": { "type": "string", "format": "date-time" },
+    "from": {
+      "type": "string",
+      "enum": ["cursor", "antigravity", "user", "system"]
+    },
+    "to": {
+      "type": "string",
+      "enum": ["cursor", "antigravity", "user", "system"]
+    },
+    "correlation_id": { "type": "string", "minLength": 1 },
+    "reply_to": { "type": ["string", "null"] },
+    "priority": {
+      "type": "string",
+      "enum": ["low", "normal", "high", "urgent"]
+    },
+    "ttl_seconds": { "type": ["integer", "null"], "minimum": 1 },
+    "body": { "type": "object" }
+  }
+}
