@@ -102,10 +102,11 @@
   - Acceptance: ≥1 product PR; no medical claims; no DSP
   - Notes: Inbox `msg_20260915T130400Z_ag5h`. Brief in store `docs/antigravity-5h-marathon.md`
 
-- [ ] **AG-SEO-1** — Unique titles, meta descriptions, OG on canonical landings. Wellness framing only.
+- [x] **AG-SEO-1** — Unique titles, meta descriptions, OG on canonical landings. Wellness framing only.
   - Files: 16 root `*.html` (+ `index.html` title/description if needed)
   - Depends on: AG-8 preferred (can overlap if different lines)
   - Acceptance: No diagnosis/treatment claims; no duplicate titles
+  - Notes: Implemented in PR #8 on branch `antigravity/ag-seo-1-landing-meta-pwa`.
 
 - [ ] **AG-GEO-1** — `llms.txt`, `llms-full.txt`, JSON-LD/FAQ schema for AI citations.
   - Files: `llms.txt`, `llms-full.txt`, landing JSON-LD
@@ -159,10 +160,11 @@
   - Depends on: AG-3
   - Acceptance: `prefers-reduced-motion: reduce` visibly calmer; play still works; no DSP change
 
-- [ ] **AG-13 Landing viewport-fit + theme-color** — Match player PWA chrome on canonical landings (`viewport-fit=cover`, theme-color, apple-mobile-web-app where player has it).
+- [x] **AG-13 Landing viewport-fit + theme-color** — Match player PWA chrome on canonical landings (`viewport-fit=cover`, theme-color, apple-mobile-web-app where player has it).
   - Files: 16 root landing HTML files (not `index.html` unless already done)
   - Depends on: AG-8
   - Acceptance: iPhone notch does not cover headings; no new medical copy
+  - Notes: Implemented in PR #8 on branch `antigravity/ag-seo-1-landing-meta-pwa`.
 
 - [ ] **AG-14 Landscape HUD smoke** — Dock/title still usable at ~844×390; no double-scroll on body.
   - Files: `index.html`
@@ -213,6 +215,8 @@
 - [x] **AG-3 Dock, carousel, volume touch** (2026-09-15) — Implemented on branch `antigravity/ag3-dock-carousel-volume`, opened PR #6, 360px dock fit, 44px mute target, 24px volume thumb, carousel momentum scroll, lock released.
 - [x] **AG-8 Canonical landing mobile CSS (16 roots)** (2026-09-15) — Implemented on branch `antigravity/ag8-canonical-landing-mobile-css`, opened PR #7, table scroll, word wrap, and clinic stylesheet added.
 - [x] **AG-9 Directory index.html parity** (2026-09-15) — All 16 subfolder index.html files updated to match roots in PR #7.
+- [x] **AG-SEO-1 Unique titles, meta descriptions, OG on landings** (2026-09-15) — Implemented on branch `antigravity/ag-seo-1-landing-meta-pwa`, opened PR #8, unique titles ending with ` | AuralRelief`, wellness descriptions, OG & Twitter cards referencing preview_showcase.jpg, subfolder parity.
+- [x] **AG-13 Landing viewport-fit + theme-color** (2026-09-15) — Implemented on branch `antigravity/ag-seo-1-landing-meta-pwa`, opened PR #8, added viewport-fit=cover and Apple PWA tags across all 16 landings and mirrors.
 
 ---
 

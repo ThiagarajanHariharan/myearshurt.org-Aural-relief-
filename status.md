@@ -21,12 +21,12 @@
 |-------|-------|
 | **Agent** | Antigravity |
 | **Status** | Working |
-| **Current Action** | AG-SEO-1: Unique titles, meta descriptions, OG on canonical landings |
-| **Locked Files** | 16 canonical landing HTML files (`my-ear-hurts.html`, `waiting-for-ent-appointment.html`, `what-is-sound-masking.html`, `sounds-for-ear-discomfort.html`, `research.html`, `tmj-ear-pain.html`, `post-concert-ear-ringing.html`, `noise-induced-ear-fatigue.html`, `ear-pain-at-night.html`, `best-sound-therapy-tools.html`, `hyperacusis-acoustic-shield.html`, `ear-pressure-on-flights.html`, `eustachian-tube-dysfunction-exercises.html`, `misophonia-sound-sensitivity.html`, `clogged-ears-sound-relief.html`, `for-clinics.html`) |
+| **Current Action** | AG-GEO-1: llms.txt, llms-full.txt, and FAQPage JSON-LD schema for AI citations |
+| **Locked Files** | `llms.txt`, `llms-full.txt`, `clogged-ears-sound-relief.html`, `for-clinics.html`, `hyperacusis-acoustic-shield.html` |
 
 ---
 
 ## Last Updated
 
-- **When:** 2026-09-15T15:18:00Z
-- **By:** Antigravity (Completed AG-8/AG-9 in PR #7; locked 16 landing files for AG-SEO-1)
+- **When:** 2026-09-15T15:43:00Z
+- **By:** Antigravity (Completed AG-SEO-1 & AG-13 in PR #8; locked for AG-GEO-1)
