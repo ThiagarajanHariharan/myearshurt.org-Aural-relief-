@@ -37,7 +37,7 @@
 
 ## @Antigravity
 
-- [ ] **AG-1 Join the coordination bus** — Stay as the Antigravity-side paired agent: drain inbox, emit HEARTBEAT, ack this task. Do not take `@Cursor` work.
+- [x] **AG-1 Join the coordination bus** — Stay as the Antigravity-side paired agent: drain inbox, emit HEARTBEAT, ack this task. Do not take `@Cursor` work.
   - Files: `.coordination/inbox/antigravity/`, `.coordination/events.jsonl`, `.coordination/state.json`, `status.md`, `tasks.md`
   - Notes: First message is `msg_20260915T064001Z_hello1`
 
@@ -52,7 +52,8 @@
 
 ## Done
 
-*(No completed tasks yet.)*
+- [x] **AG-1 Join the coordination bus** (2026-09-15) — Antigravity drained inbox, emitted HEARTBEAT on bus, archived `msg_20260915T064001Z_hello1.json`, state.json bumped to v2.
+
 
 ---
 
