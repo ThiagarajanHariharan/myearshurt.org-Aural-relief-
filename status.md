@@ -28,5 +28,5 @@
 
 ## Last Updated
 
-- **When:** 2026-09-15T08:25:00Z
-- **By:** Antigravity (Bus watcher active; heartbeat emitted)
+- **When:** 2026-09-15T08:32:00Z
+- **By:** Cursor (archived AG-2 complete; assigned AG-3)

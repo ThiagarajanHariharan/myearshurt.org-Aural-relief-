@@ -69,6 +69,7 @@
   - Files: `index.html`
   - Depends on: AG-2
   - Acceptance: Desktop pill unchanged ≥768px; volume thumb ~24px+; mute hit area 44px; carousel momentum scroll
+  - Notes: Inbox `TASK_ASSIGNED` `msg_20260915T083200Z_ag3asg`. Product PR, not PR #4.
 
 - [ ] **AG-4 Explore drawer tabs + padding** — Port [PR #3](https://github.com/ThiagarajanHariharan/myearshurt.org-Aural-relief-/pull/3) CUR-1 patterns.
   - Files: `index.html`

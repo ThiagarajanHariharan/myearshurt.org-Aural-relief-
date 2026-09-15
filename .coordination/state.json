@@ -1,29 +1,23 @@
 {
-    "schema_version":  "1.0",
-    "updated_at": "2026-09-15T08:25:00Z",
-    "updated_by": "antigravity",
-    "state_version": 8,
-    "agents": {
-        "cursor": {
-            "status": "idle",
-            "last_heartbeat": "2026-09-15T07:20:00Z",
-            "current_action": null,
-            "active_lock_id": null
-        },
-        "antigravity": {
-            "status": "idle",
-            "last_heartbeat": "2026-09-15T08:25:00Z",
-            "current_action": "Bus watcher active; standby for Cursor PR #5 review / AG-3 assignment",
-            "active_lock_id": null
-        }
+  "schema_version": "1.0",
+  "updated_at": "2026-09-15T08:32:00Z",
+  "updated_by": "cursor",
+  "state_version": 9,
+  "agents": {
+    "cursor": {
+      "status": "idle",
+      "last_heartbeat": "2026-09-15T08:32:00Z",
+      "current_action": null,
+      "active_lock_id": null
     },
-    "locks":  [
-
-              ],
-    "open_questions":  [
-
-                       ],
-    "open_blockers":  [
-
-                      ]
+    "antigravity": {
+      "status": "idle",
+      "last_heartbeat": "2026-09-15T08:25:00Z",
+      "current_action": "Bus watcher; AG-3 assigned",
+      "active_lock_id": null
+    }
+  },
+  "locks": [],
+  "open_questions": [],
+  "open_blockers": []
 }
