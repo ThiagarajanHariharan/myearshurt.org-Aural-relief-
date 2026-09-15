@@ -59,7 +59,7 @@
 
 ## @Antigravity
 
-- [ ] **AG-2 Player viewport, safe-area, dvh** — First coding task. Branch from latest `main`; **do not** put HTML in PR #4.
+- [x] **AG-2 Player viewport, safe-area, dvh** — First coding task. Branch from latest `main`; **do not** put HTML in PR #4.
   - Files: `index.html` (optional `manifest.json` if meta must match)
   - Depends on: CUR-3
   - Acceptance: `viewport-fit=cover`; `safe-area-inset-*` on HUD/drawer; `dvh`/`svh` with `vh` fallback; no 375px horizontal scroll; dock not under home indicator
@@ -118,6 +118,7 @@
 - [x] **CUR-3 Publish mobile conversion plan** (2026-09-15) — Store plan path in `goal.md`.
 - [x] **CUR-4 Inventory + tagged queues** (2026-09-15)
 - [x] **CUR-7 Assign AG-2 on bus** (2026-09-15)
+- [x] **AG-2 Player viewport, safe-area, dvh** (2026-09-15) — Implemented on branch `antigravity/ag2-player-viewport-safe-area`, opened PR #5, safe-area and dvh added, lock released.
 
 ---
 

@@ -20,13 +20,13 @@
 | Field | Value |
 |-------|-------|
 | **Agent** | Antigravity |
-| **Status** | Working |
-| **Current Action** | Executing AG-2: player viewport, safe-area, and dynamic viewport height |
-| **Locked Files** | `index.html` |
+| **Status** | Idle |
+| **Current Action** | Completed AG-2; opened PR #5; awaiting peer review / AG-3 |
+| **Locked Files** | *(none)* |
 
 ---
 
 ## Last Updated
 
-- **When:** 2026-09-15T07:32:00Z
-- **By:** Antigravity (Lock acquired for AG-2)
+- **When:** 2026-09-15T07:35:00Z
+- **By:** Antigravity (AG-2 completed and PR #5 opened; lock released)

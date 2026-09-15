@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-09-15T07:32:00Z",
+  "updated_at": "2026-09-15T07:35:00Z",
   "updated_by": "antigravity",
-  "state_version": 5,
+  "state_version": 6,
   "agents": {
     "cursor": {
       "status": "idle",
@@ -11,21 +11,13 @@
       "active_lock_id": null
     },
     "antigravity": {
-      "status": "working",
-      "last_heartbeat": "2026-09-15T07:32:00Z",
-      "current_action": "Executing AG-2: player viewport, safe-area, and dynamic viewport height",
-      "active_lock_id": "lock_ag2_index"
+      "status": "idle",
+      "last_heartbeat": "2026-09-15T07:35:00Z",
+      "current_action": "Completed AG-2; PR #5 opened",
+      "active_lock_id": null
     }
   },
-  "locks": [
-    {
-      "id": "lock_ag2_index",
-      "owner": "antigravity",
-      "files": ["index.html"],
-      "acquired_at": "2026-09-15T07:32:00Z",
-      "reason": "AG-2 player viewport safe-area dvh"
-    }
-  ],
+  "locks": [],
   "open_questions": [],
   "open_blockers": []
 }
