@@ -132,16 +132,17 @@
   - Depends on: AG-3
   - Acceptance: Full-overlay tap still unlocks audio; presets usable
 
-- [ ] **AG-8 Canonical landing mobile CSS (16 roots)** — Wrap, table scroll, heading overflow; fix `for-clinics.html` missing stylesheet (prefer `/tailwind-static.css`).
+- [x] **AG-8 Canonical landing mobile CSS (16 roots)** — Wrap, table scroll, heading overflow; fix `for-clinics.html` missing stylesheet (prefer `/tailwind-static.css`).
   - Files: `my-ear-hurts.html`, `waiting-for-ent-appointment.html`, `what-is-sound-masking.html`, `sounds-for-ear-discomfort.html`, `research.html`, `tmj-ear-pain.html`, `post-concert-ear-ringing.html`, `noise-induced-ear-fatigue.html`, `ear-pain-at-night.html`, `best-sound-therapy-tools.html`, `hyperacusis-acoustic-shield.html`, `ear-pressure-on-flights.html`, `eustachian-tube-dysfunction-exercises.html`, `misophonia-sound-sensitivity.html`, `clogged-ears-sound-relief.html`, `for-clinics.html`
   - Depends on: CUR-3 (disjoint from `index.html` — lock landings only)
   - Acceptance: No page-level horizontal overflow; PR #3 three pages included
-  - Notes: **Can start now** while player PRs are open. Do not lock `index.html`.
+  - Notes: Implemented in PR #7 on branch `antigravity/ag8-canonical-landing-mobile-css`.
 
-- [ ] **AG-9 Directory index.html parity** — Same CSS as matching root files.
+- [x] **AG-9 Directory index.html parity** — Same CSS as matching root files.
   - Files: `*/index.html` duplicates of the AG-8 list
   - Depends on: AG-8
   - Acceptance: Copies match canonical roots
+  - Notes: Implemented in PR #7 on branch `antigravity/ag8-canonical-landing-mobile-css`.
 
 - [ ] **AG-10 Web Audio resume + visualizer discipline** — Resume both contexts on gesture and on tab return; no-op hidden canvas resize. **No DSP redesign.**
   - Files: `index.html` (script)
@@ -210,6 +211,8 @@
 - [x] **CUR-7 Assign AG-2 on bus** (2026-09-15)
 - [x] **AG-2 Player viewport, safe-area, dvh** (2026-09-15) — Implemented on branch `antigravity/ag2-player-viewport-safe-area`, opened PR #5, safe-area and dvh added, lock released.
 - [x] **AG-3 Dock, carousel, volume touch** (2026-09-15) — Implemented on branch `antigravity/ag3-dock-carousel-volume`, opened PR #6, 360px dock fit, 44px mute target, 24px volume thumb, carousel momentum scroll, lock released.
+- [x] **AG-8 Canonical landing mobile CSS (16 roots)** (2026-09-15) — Implemented on branch `antigravity/ag8-canonical-landing-mobile-css`, opened PR #7, table scroll, word wrap, and clinic stylesheet added.
+- [x] **AG-9 Directory index.html parity** (2026-09-15) — All 16 subfolder index.html files updated to match roots in PR #7.
 
 ---
 

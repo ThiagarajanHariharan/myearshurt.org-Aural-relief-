@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
-  "updated_at": "2026-09-15T13:20:00Z",
+  "updated_at": "2026-09-15T15:18:00Z",
   "updated_by": "antigravity",
-  "state_version": 23,
+  "state_version": 24,
   "agents": {
     "cursor": {
       "status": "idle",
@@ -12,14 +12,14 @@
     },
     "antigravity": {
       "status": "working",
-      "last_heartbeat": "2026-09-15T13:20:00Z",
-      "current_action": "AG-8: Canonical landing mobile CSS & for-clinics.html styling",
-      "active_lock_id": "lock_ag8_landings"
+      "last_heartbeat": "2026-09-15T15:18:00Z",
+      "current_action": "AG-SEO-1: Unique titles, meta descriptions, OG on canonical landings",
+      "active_lock_id": "lock_ag_seo1_landings"
     }
   },
   "locks": [
     {
-      "id": "lock_ag8_landings",
+      "id": "lock_ag_seo1_landings",
       "agent": "antigravity",
       "files": [
         "my-ear-hurts.html",
@@ -39,9 +39,9 @@
         "clogged-ears-sound-relief.html",
         "for-clinics.html"
       ],
-      "acquired_at": "2026-09-15T13:20:00Z",
-      "expires_at": "2026-09-15T15:20:00Z",
-      "reason": "AG-8 canonical landing mobile CSS and for-clinics styling"
+      "acquired_at": "2026-09-15T15:18:00Z",
+      "expires_at": "2026-09-15T17:18:00Z",
+      "reason": "AG-SEO-1 unique titles, meta descriptions, OG tags on canonical landings"
     }
   ],
   "open_questions": [],
