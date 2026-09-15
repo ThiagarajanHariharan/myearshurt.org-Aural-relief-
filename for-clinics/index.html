@@ -42,7 +42,42 @@
     "dateModified": "2026-08-31"
   }
   </script>
-  <link rel="stylesheet" href="/tailwind-static.css">
+
+  <!-- FAQPage Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How can ENT and audiology clinics use AuralRelief in waiting rooms?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Clinics can display the free printable QR poster at reception desks or embed the AuralRelief soundscape player in patient portals to provide waiting patients with immediate, ad-free acoustic comfort before their consultation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does AuralRelief require any clinic software installation?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. AuralRelief runs entirely in the modern mobile or desktop web browser using the standard Web Audio API, requiring no software installation, logins, or app store downloads."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is AuralRelief free for clinical practices?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. AuralRelief is completely free, open-access, and ad-free for both clinical practices and their patients."
+        }
+      }
+    ]
+  }
+  </script>
+
+<link rel="stylesheet" href="/tailwind-static.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">

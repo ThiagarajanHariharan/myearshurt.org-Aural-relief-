@@ -51,7 +51,41 @@
   }
   </script>
 
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FAQPage Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What sounds help with clogged ears or ear fullness?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Low-frequency acoustic soundscapes like brown noise, filtered rainfall, and ambient drones provide acoustic comfort by filling the auditory silence created by muffled hearing, reducing fixation on ear fullness while awaiting an ENT consultation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does sound therapy cure clogged ears?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. Sound therapy does not clear physical fluid, dissolve cerumen (earwax), or treat middle ear infections. It is a non-medical acoustic comfort tool designed to provide temporary relief from auditory contrast while you await professional medical evaluation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can sound masking help while waiting for an ENT visit?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Streaming continuous, low-pass broadband noise helps normalize auditory perception, reducing the sensation of silence and auditory contrast caused by aural fullness."
+        }
+      }
+    ]
+  }
+  </script>
+
+<script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     html, body { overflow-x: hidden; }
