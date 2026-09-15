@@ -55,6 +55,27 @@
   - Depends on: AG-7
   - Acceptance: No new medical claims
 
+- [ ] **CUR-9 Merge order for player PRs** — Decide: merge [PR #6](https://github.com/ThiagarajanHariharan/myearshurt.org-Aural-relief-/pull/6) (includes AG-2 work) and close or rebase [PR #5](https://github.com/ThiagarajanHariharan/myearshurt.org-Aural-relief-/pull/5). Tell Hariharan; do not merge without him.
+  - Files: none
+  - Depends on: AG-3
+  - Acceptance: One linear player history on `main`; no double-merge conflict
+
+- [ ] **CUR-10 Watcher hygiene** — Instruct Antigravity schedule: no HEARTBEAT commit if inbox empty; exit if `status.md` Working; cron `*/15 * * * *`. Pause extra watcher chats (screenshot pile-up).
+  - Files: store `docs/talk-to-antigravity-when-idle.md` (prompt text)
+  - Depends on: none
+  - Acceptance: Empty ticks do not spam [PR #4](https://github.com/ThiagarajanHariharan/myearshurt.org-Aural-relief-/pull/4)
+
+- [ ] **CUR-11 Review landing PRs** — Same as CUR-6 when AG-8/AG-9 open.
+  - Files: review only
+  - Depends on: AG-8
+  - Acceptance: `for-clinics` has CSS; tables scroll; no overflow at 375px
+
+- [ ] **CUR-12 Review a11y / motion PRs** — AG-12, AG-15.
+  - Files: review only
+  - Depends on: AG-12, AG-15
+  - Acceptance: No DSP changes; reduced-motion does not break audio unlock
+
+
 ---
 
 ## @Antigravity
@@ -95,6 +116,7 @@
   - Files: `my-ear-hurts.html`, `waiting-for-ent-appointment.html`, `what-is-sound-masking.html`, `sounds-for-ear-discomfort.html`, `research.html`, `tmj-ear-pain.html`, `post-concert-ear-ringing.html`, `noise-induced-ear-fatigue.html`, `ear-pain-at-night.html`, `best-sound-therapy-tools.html`, `hyperacusis-acoustic-shield.html`, `ear-pressure-on-flights.html`, `eustachian-tube-dysfunction-exercises.html`, `misophonia-sound-sensitivity.html`, `clogged-ears-sound-relief.html`, `for-clinics.html`
   - Depends on: CUR-3 (disjoint from `index.html` — lock landings only)
   - Acceptance: No page-level horizontal overflow; PR #3 three pages included
+  - Notes: **Can start now** while player PRs are open. Do not lock `index.html`.
 
 - [ ] **AG-9 Directory index.html parity** — Same CSS as matching root files.
   - Files: `*/index.html` duplicates of the AG-8 list
@@ -110,6 +132,31 @@
   - Files: none (screenshots on product PR)
   - Depends on: AG-3, AG-6, AG-8, AG-10
   - Acceptance: Residual issues listed honestly
+
+- [ ] **AG-12 prefers-reduced-motion** — Tone down HUD/orb animation when the OS asks; audio still starts on tap.
+  - Files: `index.html` (CSS; JS only if needed to pause CSS orbs)
+  - Depends on: AG-3
+  - Acceptance: `prefers-reduced-motion: reduce` visibly calmer; play still works; no DSP change
+
+- [ ] **AG-13 Landing viewport-fit + theme-color** — Match player PWA chrome on canonical landings (`viewport-fit=cover`, theme-color, apple-mobile-web-app where player has it).
+  - Files: 16 root landing HTML files (not `index.html` unless already done)
+  - Depends on: AG-8
+  - Acceptance: iPhone notch does not cover headings; no new medical copy
+
+- [ ] **AG-14 Landscape HUD smoke** — Dock/title still usable at ~844×390; no double-scroll on body.
+  - Files: `index.html`
+  - Depends on: AG-3, AG-4
+  - Acceptance: Screenshot on product PR; no HRTF change
+
+- [ ] **AG-15 Focus rings + mute button keyboard** — Visible focus on dock controls; mute `<button>` already in PR #6 stays keyboard-operable.
+  - Files: `index.html`
+  - Depends on: AG-3
+  - Acceptance: Tab order reaches mute, volume, explore; `:focus-visible` not removed
+
+- [ ] **AG-16 Watcher: empty inbox is a no-op** — If the scheduled prompt still commits HEARTBEAT with empty inbox, stop that in the **schedule prompt** (Hariharan edits the task). Code change only if a tiny `.coordination` README note helps.
+  - Files: `.coordination/README.md`
+  - Depends on: CUR-10
+  - Acceptance: Empty ticks = no git commit
 
 ---
 
