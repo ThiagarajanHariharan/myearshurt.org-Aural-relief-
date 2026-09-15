@@ -75,6 +75,10 @@
   - Depends on: AG-12, AG-15
   - Acceptance: No DSP changes; reduced-motion does not break audio unlock
 
+- [ ] **CUR-V Review zero-lag animation PRs** — Reject canvas re-enable, DSP diffs, missing orb `prefers-reduced-motion`.
+  - Files: review `index.html` only
+  - Depends on: AG-V1…AG-V3
+  - Acceptance: Plan `/cursor/stores/bc-010aff67-9608-48ff-84d1-805258b75a4e/docs/zero-lag-background-animations-plan.md`
 
 ---
 
@@ -157,6 +161,28 @@
   - Files: `.coordination/README.md`
   - Depends on: CUR-10
   - Acceptance: Empty ticks = no git commit
+
+- [ ] **AG-V1 Kill competing JS in CSS visual mode** — Stop `mainVisualLoop` drawing/resizing hidden canvas; don’t drive HRTF off a 60fps visual rAF.
+  - Files: `index.html`
+  - Depends on: lock `index.html` (not while AG-4–7/10 in flight)
+  - Acceptance: CSS mode = no canvas 2D work; `#visual-canvas` stays hidden; no DSP change
+  - Notes: Plan `docs/zero-lag-background-animations-plan.md`
+
+- [ ] **AG-V2 Compositor orbs + reduced motion + hidden tab** — `transform`/`opacity` only; pause orbs on `prefers-reduced-motion` and `document.hidden`. Fold AG-12 intent here if one PR.
+  - Files: `index.html`
+  - Depends on: AG-V1
+  - Acceptance: No `filter`/`blur` on orbs; background tab pauses motion
+
+- [ ] **AG-V3 Hitless palette switch** — Category colors via CSS variables; do not reset `className` in a way that restarts keyframes.
+  - Files: `index.html`
+  - Depends on: AG-V2
+  - Acceptance: Station change does not flash/restart orb animation
+
+- [ ] **AG-V4 Optional static landing wash** — Cheap static glow only; no orbs on SEO pages.
+  - Files: 16 root landings
+  - Depends on: AG-8
+  - Acceptance: No scroll jank; no extra JS loop
+
 
 ---
 
