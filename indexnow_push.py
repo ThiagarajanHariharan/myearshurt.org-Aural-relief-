@@ -14,6 +14,7 @@ URL_LIST = [
     f"https://{HOST}/for-clinics",
     f"https://{HOST}/research",
     f"https://{HOST}/my-ear-hurts",
+    f"https://{HOST}/ears-ringing-sound-relief",
     f"https://{HOST}/waiting-for-ent-appointment",
     f"https://{HOST}/sounds-for-ear-discomfort",
     f"https://{HOST}/what-is-sound-masking",
