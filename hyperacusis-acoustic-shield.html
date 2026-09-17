@@ -35,7 +35,41 @@
   }
   </script>
 
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FAQPage Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the Hyperacusis Acoustic Shield?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The Hyperacusis Acoustic Shield is an acoustic habituation protocol using gentle, high-cut pink noise and calibrated soundscapes to support sound tolerance without triggering acoustic fatigue."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why use pink noise instead of earplugs for hyperacusis?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Audiology consensus indicates that continuous overprotection with earplugs can increase central auditory gain, making ears more sensitive over time. Gentle, low-level pink noise provides acoustic comfort while maintaining comfortable auditory stimulation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use AuralRelief on a mobile device for hyperacusis comfort?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. AuralRelief runs entirely in your mobile browser with 48 free therapeutic soundscapes, precision volume control, and sleep timers."
+        }
+      }
+    ]
+  }
+  </script>
+
+<script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     html, body { overflow-x: hidden; }
