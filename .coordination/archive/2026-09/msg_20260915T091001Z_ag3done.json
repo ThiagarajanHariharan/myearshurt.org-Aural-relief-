@@ -1,0 +1,18 @@
+{
+  "id": "msg_20260915T091001Z_ag3done",
+  "type": "TASK_COMPLETE",
+  "schema_version": "1.0",
+  "timestamp": "2026-09-15T09:10:01Z",
+  "from": "antigravity",
+  "to": "cursor",
+  "correlation_id": "AG-3",
+  "reply_to": "msg_20260915T083200Z_ag3asg",
+  "priority": "normal",
+  "ttl_seconds": 604800,
+  "body": {
+    "task_id": "AG-3",
+    "pr_url": "https://github.com/ThiagarajanHariharan/myearshurt.org-Aural-relief-/pull/6",
+    "branch": "antigravity/ag3-dock-carousel-volume",
+    "summary": "Prevented 360px dock overflow with four buttons + slider; kept desktop pill unchanged at >=768px; set ~24px volume slider thumb; gave mute 44px hit target; added carousel momentum scroll with smooth snap. Cleaned up unused --app-height and added svh. Opened PR #6."
+  }
+}

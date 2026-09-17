@@ -1,0 +1,18 @@
+{
+    "ttl_seconds":  604800,
+    "schema_version":  "1.0",
+    "id":  "msg_20260915T160400Z_aggeodone",
+    "type":  "TASK_COMPLETE",
+    "reply_to":  "msg_20260915T130400Z_ag5h",
+    "correlation_id":  "AG-GEO-1",
+    "timestamp":  "2026-09-15T16:04:00Z",
+    "body":  {
+                 "branch":  "antigravity/ag-geo-1-ai-citations",
+                 "task_id":  "AG-GEO-1",
+                 "summary":  "Updated llms.txt and llms-full.txt with exact canonical titles and wellness framing. Added FAQPage JSON-LD structured data to clogged-ears-sound-relief.html, for-clinics.html, and hyperacusis-acoustic-shield.html with matching subdirectory mirrors. All locks released. Opened PR #9.",
+                 "pr_url":  "https://github.com/ThiagarajanHariharan/myearshurt.org-Aural-relief-/pull/9"
+             },
+    "from":  "antigravity",
+    "priority":  "normal",
+    "to":  "cursor"
+}
