@@ -1,4 +1,4 @@
-const CACHE_NAME = 'auralrelief-v2';
+const CACHE_NAME = 'auralrelief-v3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -6,6 +6,9 @@ const STATIC_ASSETS = [
   '/best-sound-therapy-tools',
   '/for-clinics',
   '/my-ear-hurts',
+  '/ears-ringing-sound-relief',
+  '/tinnitus-frequency-matcher',
+  '/ear-pain-symptom-checker',
   '/waiting-for-ent-appointment',
   '/tmj-ear-pain',
   '/post-concert-ear-ringing',
@@ -20,7 +23,9 @@ const STATIC_ASSETS = [
   '/hyperacusis-acoustic-shield',
   '/manifest.json',
   '/favicon.ico',
-  '/favicon.svg'
+  '/favicon.svg',
+  '/assets/youtube/tinnitus_frequency_matcher_thumbnail.jpg',
+  '/assets/youtube/soundscapes_comparison_thumbnail.jpg'
 ];
 
 self.addEventListener('install', (event) => {

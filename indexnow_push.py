@@ -16,6 +16,7 @@ URL_LIST = [
     f"https://{HOST}/my-ear-hurts",
     f"https://{HOST}/ears-ringing-sound-relief",
     f"https://{HOST}/tinnitus-frequency-matcher",
+    f"https://{HOST}/ear-pain-symptom-checker",
     f"https://{HOST}/waiting-for-ent-appointment",
     f"https://{HOST}/sounds-for-ear-discomfort",
     f"https://{HOST}/what-is-sound-masking",

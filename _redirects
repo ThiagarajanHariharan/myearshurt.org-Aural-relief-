@@ -30,5 +30,9 @@
 /tinnitus-pitch-test             /tinnitus-frequency-matcher.html      200
 /frequency-matcher               /tinnitus-frequency-matcher.html      200
 /what-frequency-is-my-tinnitus   /tinnitus-frequency-matcher.html      200
+/ear-pain-symptom-checker        /ear-pain-symptom-checker.html        200
+/ear-symptom-checker             /ear-pain-symptom-checker.html        200
+/earache-triage                  /ear-pain-symptom-checker.html        200
+/why-do-my-ears-hurt             /ear-pain-symptom-checker.html        200
 /.well-known/llms.txt            /llms.txt                             200
 

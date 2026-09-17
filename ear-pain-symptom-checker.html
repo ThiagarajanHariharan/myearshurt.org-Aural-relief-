@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ear Pain Symptom Checker: Safe Acoustic Comfort & ENT Triage | AuralRelief</title>
+    <meta name="description" content="Free online ear pain symptom checker and triage tool. Identify your discomfort, screen for urgent red flags, and find safe acoustic comfort while awaiting professional ENT medical care.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        background: '#050508',
+                        textPrimary: '#e2e8f0',
+                        textSecondary: '#94a3b8',
+                        accent: '#38bdf8',
+                        accentHover: '#0284c7'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { background-color: #050508; color: #e2e8f0; font-family: 'Inter', sans-serif; }
+        .glass-card { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 1rem; }
+        .wizard-step { display: none; }
+        .wizard-step.active { display: block; animation: fadeIn 0.4s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .option-btn { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 0.75rem; padding: 1rem; text-align: left; transition: all 0.2s; cursor: pointer; width: 100%; margin-bottom: 0.75rem; }
+        .option-btn:hover { background: rgba(56, 189, 248, 0.1); border-color: #38bdf8; }
+        .option-btn.selected { background: rgba(56, 189, 248, 0.2); border-color: #38bdf8; box-shadow: 0 0 10px rgba(56,189,248,0.2); }
+        .checkbox-container { display: flex; align-items: center; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 0.75rem; padding: 1rem; margin-bottom: 0.75rem; cursor: pointer; transition: all 0.2s; }
+        .checkbox-container:hover { border-color: #38bdf8; }
+        .checkbox-container input { margin-right: 1rem; width: 1.2rem; height: 1.2rem; accent-color: #38bdf8; }
+        #toast { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); background: #10b981; color: white; padding: 10px 20px; border-radius: 8px; opacity: 0; transition: opacity 0.3s; pointer-events: none; z-index: 1000; }
+        #toast.show { opacity: 1; }
+    </style>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://myearshurt.me/" },
+            { "@type": "ListItem", "position": 2, "name": "Ear Pain Symptom Checker", "item": "https://myearshurt.me/ear-pain-symptom-checker" }
+          ]
+        },
+        {
+          "@type": "WebApplication",
+          "name": "Ear Discomfort Symptom Checker & Comfort Navigator",
+          "applicationCategory": "HealthApplication",
+          "operatingSystem": "Any (Browser-based)",
+          "offers": { "@type": "Offer", "price": "0" },
+          "featureList": [
+            "4-Step Progressive Symptom Triage Wizard",
+            "Red-flag clinical otology emergency screening",
+            "Customized acoustic soundscape matching (Brown noise, Rain, Notch therapy)",
+            "Exportable ENT clinic intake acoustic summary",
+            "Contextual guidance for flight barotrauma, TMJ, concert fatigue, and ETD"
+          ]
+        },
+        {
+          "@type": "MedicalWebPage",
+          "name": "Ear Discomfort Symptom Navigator & Non-Invasive Comfort Triage",
+          "about": [ { "@type": "MedicalCondition", "name": "Otalgia and Ear Discomfort", "code": { "@type": "MedicalCode", "codeValue": "H92.0", "codingSystem": "ICD-10" } } ],
+          "audience": { "@type": "MedicalAudience", "audienceType": "Adults experiencing ear pain, fullness, pressure, or ringing" },
+          "author": { "@type": "Person", "name": "Thiagarajan Hariharan", "url": "https://www.linkedin.com/in/thiagarajan-hariharan-274b48374" }
+        },
+        {
+          "@type": "HowTo",
+          "name": "How to Triage Ear Discomfort Before Your ENT Appointment",
+          "step": [
+            { "@type": "HowToStep", "text": "Step 1: Identify symptom character (sharp, dull, waterlogged fullness, ringing)" },
+            { "@type": "HowToStep", "text": "Step 2: Screen for urgent medical red flags (fever, discharge, vertigo, sudden hearing drop)" },
+            { "@type": "HowToStep", "text": "Step 3: Map primary environmental trigger (noise exposure, barotrauma, cold, jaw clenching)" },
+            { "@type": "HowToStep", "text": "Step 4: Stream non-invasive comforting soundscapes while awaiting your doctor visit" }
+          ]
+        },
+        {
+          "@type": "FAQPage",
+          "mainEntity": [
+            { "@type": "Question", "name": "Why do my ears hurt without an infection?", "acceptedAnswer": { "@type": "Answer", "text": "Common causes include Jaw clenching/TMJ, Eustachian tube dysfunction, and acoustic strain." } },
+            { "@type": "Question", "name": "What should I do right now for ear pain at home?", "acceptedAnswer": { "@type": "Answer", "text": "Practice acoustic rest, avoid loud sound or complete silence, apply a warm compress, and book an ENT appointment." } },
+            { "@type": "Question", "name": "When is ear pain a medical emergency?", "acceptedAnswer": { "@type": "Answer", "text": "Seek immediate care for sudden hearing loss, fluid/blood drainage, high fever, or severe vertigo." } },
+            { "@type": "Question", "name": "Can sound therapy relieve ear discomfort?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, acoustic masking reduces central auditory contrast and calms nervous system arousal." } },
+            { "@type": "Question", "name": "Is this ear symptom checker free?", "acceptedAnswer": { "@type": "Answer", "text": "Yes, it is 100% free, browser-based, with no sign-up or app download required." } }
+          ]
+        },
+        {
+          "@type": "WebPage",
+          "speakable": { "@type": "SpeakableSpecification", "cssSelector": [".ai-summary-extract", "h1"] }
+        },
+        {
+          "@type": "Organization",
+          "name": "AuralRelief",
+          "url": "https://myearshurt.me",
+          "sameAs": [
+            "https://github.com/ThiagarajanHariharan",
+            "https://www.linkedin.com/in/thiagarajan-hariharan-274b48374",
+            "https://buymeacoffee.com/hariharan07"
+          ]
+        }
+      ]
+    }
+    </script>
+</head>
+<body class="antialiased min-h-screen pb-20">
+    <div class="max-w-[740px] mx-auto px-4 pt-8">
+        <!-- Breadcrumb navigation -->
+        <nav class="text-sm text-textSecondary mb-6" aria-label="Breadcrumb">
+            <ol class="list-none p-0 inline-flex">
+                <li class="flex items-center">
+                    <a href="/" class="hover:text-accent transition">Home</a>
+                    <svg class="w-3 h-3 mx-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg>
+                </li>
+                <li class="flex items-center text-textPrimary">
+                    <span aria-current="page">Ear Pain Symptom Checker</span>
+                </li>
+            </ol>
+        </nav>
+
+        <!-- Header & AI Summary -->
+        <h1 class="text-3xl md:text-4xl font-bold mb-4 text-white leading-tight">Ear Pain Symptom Checker: Safe Acoustic Comfort & ENT Triage</h1>
+        
+        <div class="flex items-center gap-3 mb-8">
+            <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center text-accent font-bold">TH</div>
+            <div class="text-sm">
+                <p class="text-textPrimary font-medium">Thiagarajan Hariharan</p>
+                <p class="text-textSecondary">Creator, AuralRelief</p>
+            </div>
+        </div>
+
+        <div class="glass-card p-6 mb-10 border-l-4 border-l-accent">
+            <p class="ai-summary-extract text-textSecondary leading-relaxed">
+                <strong class="text-white">Summary:</strong> This interactive ear discomfort symptom checker and comfort navigator helps you triage common earaches, pressure, and ringing safely from home. It screens for critical red-flag symptoms like sudden hearing loss or vertigo that require immediate medical attention, while providing non-invasive acoustic soundscapes (like brown noise or notch therapy) to soothe your nervous system as you await professional ENT care. <em>Note: This tool does not diagnose conditions or prescribe treatments.</em>
+            </p>
+        </div>
+
+        <!-- Interactive 4-Step Wizard Container -->
+        <div class="glass-card p-6 mb-12 relative overflow-hidden" id="wizard-container">
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="flex justify-between text-sm mb-2">
+                    <span class="text-textSecondary" id="step-indicator">Step 1 of 4</span>
+                    <span class="text-accent font-medium" id="step-title-indicator">Symptom</span>
+                </div>
+                <div class="w-full bg-white/10 rounded-full h-1.5">
+                    <div class="bg-accent h-1.5 rounded-full transition-all duration-300 w-1/4" id="progress-bar"></div>
+                </div>
+            </div>
+
+            <!-- Step 1 -->
+            <div class="wizard-step active" id="step-1">
+                <h2 class="text-xl font-semibold mb-4 text-white">What does your ear discomfort feel like?</h2>
+                <div class="space-y-3">
+                    <button class="option-btn" onclick="selectOption(1, 'Dull deep aching or throbbing')">A. Dull deep aching or throbbing</button>
+                    <button class="option-btn" onclick="selectOption(1, 'Sharp, shooting, or stabbing pain')">B. Sharp, shooting, or stabbing pain</button>
+                    <button class="option-btn" onclick="selectOption(1, 'Muffled fullness or waterlogged pressure')">C. Muffled fullness or waterlogged pressure</button>
+                    <button class="option-btn" onclick="selectOption(1, 'High-pitched ringing, buzzing, or hissing')">D. High-pitched ringing, buzzing, or hissing</button>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="wizard-step" id="step-2">
+                <h2 class="text-xl font-semibold mb-4 text-white">When did this symptom begin?</h2>
+                <div class="space-y-3">
+                    <button class="option-btn" onclick="selectOption(2, 'After attending a loud concert or noisy environment')">A. After attending a loud concert or noisy environment</button>
+                    <button class="option-btn" onclick="selectOption(2, 'During or after an airplane flight or rapid descent')">B. During or after an airplane flight or rapid descent</button>
+                    <button class="option-btn" onclick="selectOption(2, 'Following a head cold, sinus congestion, or flu')">C. Following a head cold, sinus congestion, or flu</button>
+                    <button class="option-btn" onclick="selectOption(2, 'Waking up in the morning / after jaw clenching or stress')">D. Waking up in the morning / after jaw clenching or stress</button>
+                    <button class="option-btn" onclick="selectOption(2, 'Spontaneous / gradual onset')">E. Spontaneous / gradual onset</button>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="wizard-step" id="step-3">
+                <h2 class="text-xl font-semibold mb-4 text-white">Which ear is affected?</h2>
+                <div class="space-y-3">
+                    <button class="option-btn" onclick="selectOption(3, 'Left ear only')">Left ear only</button>
+                    <button class="option-btn" onclick="selectOption(3, 'Right ear only')">Right ear only</button>
+                    <button class="option-btn" onclick="selectOption(3, 'Both ears equally')">Both ears equally</button>
+                    <button class="option-btn" onclick="selectOption(3, 'Radiating to jaw, temple, or neck')">Radiating to jaw, temple, or neck</button>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="wizard-step" id="step-4">
+                <h2 class="text-xl font-semibold mb-4 text-white">Any urgent red-flag symptoms?</h2>
+                <p class="text-sm text-textSecondary mb-4">Please check all that apply.</p>
+                <div class="space-y-3">
+                    <label class="checkbox-container">
+                        <input type="checkbox" class="red-flag" value="Sudden significant hearing loss">
+                        <span>Sudden significant hearing loss in one ear (within 72 hours)</span>
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" class="red-flag" value="Clear fluid, pus, or blood draining">
+                        <span>Clear fluid, pus, or blood draining from ear</span>
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" class="red-flag" value="Severe spinning dizziness / vertigo">
+                        <span>Severe spinning dizziness / vertigo</span>
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" class="red-flag" value="High fever or facial weakness">
+                        <span>High fever (> 101°F / 38.3°C) or facial weakness</span>
+                    </label>
+                    <label class="checkbox-container" id="none-above-label">
+                        <input type="checkbox" id="none-above" onchange="toggleNoneAbove()">
+                        <span>None of the above</span>
+                    </label>
+                </div>
+                <div class="mt-6 flex gap-4">
+                    <button onclick="prevStep()" class="px-6 py-2.5 rounded-xl border border-white/20 hover:bg-white/5 transition text-white">Back</button>
+                    <button onclick="calculateResult()" class="flex-1 bg-accent hover:bg-accentHover text-background font-semibold py-2.5 px-6 rounded-xl transition">Calculate Comfort Plan</button>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons (Steps 1-3) -->
+            <div class="mt-8 flex justify-between" id="nav-buttons">
+                <button onclick="prevStep()" id="btn-prev" class="px-6 py-2.5 rounded-xl border border-white/20 hover:bg-white/5 transition text-white opacity-0 pointer-events-none">Back</button>
+                <button onclick="nextStep()" id="btn-next" class="px-6 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 transition text-white" disabled>Next Step</button>
+            </div>
+        </div>
+
+        <!-- Dynamic Outcome Result Card -->
+        <div id="result-container" class="hidden mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-white text-center">Your Comfort & Triage Plan</h2>
+            
+            <div id="red-flag-warning" class="hidden glass-card p-6 mb-6 border-l-4 border-l-red-500 bg-red-500/10">
+                <h3 class="text-red-400 font-bold text-lg mb-2 flex items-center">
+                    <span class="mr-2 text-xl">⚠️</span> Seek Urgent ENT / Medical Care
+                </h3>
+                <p class="text-red-200/80 mb-3 text-sm">You selected symptoms that require prompt medical evaluation to rule out serious conditions or prevent permanent damage.</p>
+                <ul id="red-flags-list" class="list-disc list-inside text-red-200/90 text-sm space-y-1 mb-4"></ul>
+                <p class="text-xs text-red-200/60 mt-2 border-t border-red-500/20 pt-2">Do not rely on sound therapy or home remedies until a physician has cleared you.</p>
+            </div>
+
+            <div id="safe-plan" class="glass-card p-6 mb-6 hidden">
+                <h3 class="text-accent font-bold text-lg mb-3">Clinical Insight</h3>
+                <p id="insight-text" class="text-textPrimary mb-6">Based on your input, you may be experiencing discomfort from common environmental triggers.</p>
+                
+                <h3 class="text-white font-semibold mb-3 border-t border-white/10 pt-4">Recommended Acoustic Comfort</h3>
+                <div class="bg-black/30 rounded-xl p-4 mb-6 border border-white/5 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div>
+                        <h4 id="sound-mode" class="font-medium text-accent">Brown Noise + Gentle Rain</h4>
+                        <p id="sound-reason" class="text-sm text-textSecondary mt-1">Helps mask ringing and soothe the nervous system.</p>
+                    </div>
+                    <a href="/" id="launch-btn" class="shrink-0 bg-accent hover:bg-accentHover text-background font-semibold py-2 px-5 rounded-lg transition whitespace-nowrap">
+                        Launch Soundscape
+                    </a>
+                </div>
+
+                <h3 class="text-white font-semibold mb-3">Suggested Reading</h3>
+                <a href="/my-ear-hurts" id="deep-guide-link" class="block bg-white/5 hover:bg-white/10 p-3 rounded-lg border border-white/10 transition text-sm text-textPrimary hover:text-accent mb-6">
+                    Read the Guide: Why Do My Ears Hurt? &rarr;
+                </a>
+
+                <div class="border-t border-white/10 pt-6">
+                    <button onclick="copyHistory()" class="w-full py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/20 transition text-white flex justify-center items-center gap-2">
+                        <span>📋</span> Copy Acoustic History for Your Doctor
+                    </button>
+                    <p class="text-xs text-center text-textSecondary mt-3">Easily paste this into your clinic's intake form.</p>
+                </div>
+            </div>
+            
+            <button onclick="resetWizard()" class="w-full text-center text-sm text-textSecondary hover:text-white transition mt-4 underline">Start Over</button>
+        </div>
+
+        <!-- Informational Section -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-white">Understanding the 4 Mechanisms of Ear Discomfort</h2>
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="glass-card p-5">
+                    <h3 class="text-accent font-semibold mb-2">1. Otalgia (Direct Ear Pain)</h3>
+                    <p class="text-sm text-textSecondary">Pain originating from the ear structures themselves, often due to infections (otitis media), inflammation, or trauma to the eardrum.</p>
+                </div>
+                <div class="glass-card p-5">
+                    <h3 class="text-accent font-semibold mb-2">2. Barotrauma & ETD</h3>
+                    <p class="text-sm text-textSecondary">Pressure changes (flights, diving) combined with Eustachian Tube Dysfunction cause a vacuum effect, leading to fullness and muffled hearing.</p>
+                </div>
+                <div class="glass-card p-5">
+                    <h3 class="text-accent font-semibold mb-2">3. Somatosensory TMJ</h3>
+                    <p class="text-sm text-textSecondary">Referred pain from the jaw joint (TMJ) or neck muscles due to clenching/stress, which often mimics a deep earache.</p>
+                </div>
+                <div class="glass-card p-5">
+                    <h3 class="text-accent font-semibold mb-2">4. Auditory Gain & Strain</h3>
+                    <p class="text-sm text-textSecondary">After loud noise exposure, the brain's "auditory gain" increases, leading to ringing (tinnitus) and hypersensitivity (hyperacusis).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQs Section -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold mb-6 text-white">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+                <details class="glass-card p-4 cursor-pointer group">
+                    <summary class="font-medium text-white group-hover:text-accent transition outline-none">Why do my ears hurt without an infection?</summary>
+                    <p class="text-sm text-textSecondary mt-3 leading-relaxed">Common causes include Jaw clenching/TMJ (referred pain), Eustachian tube dysfunction (pressure imbalance), and acoustic strain from loud environments.</p>
+                </details>
+                <details class="glass-card p-4 cursor-pointer group">
+                    <summary class="font-medium text-white group-hover:text-accent transition outline-none">What should I do right now for ear pain at home?</summary>
+                    <p class="text-sm text-textSecondary mt-3 leading-relaxed">Practice acoustic rest, avoid extremely loud sounds or complete silence (which amplifies ringing), apply a warm compress to the jaw/ear, and book an appointment with an ENT specialist.</p>
+                </details>
+                <details class="glass-card p-4 cursor-pointer group">
+                    <summary class="font-medium text-white group-hover:text-accent transition outline-none">When is ear pain a medical emergency?</summary>
+                    <p class="text-sm text-textSecondary mt-3 leading-relaxed">Seek immediate care for sudden hearing loss (within hours/days), fluid/blood drainage from the ear canal, high fever, or severe spinning vertigo.</p>
+                </details>
+                <details class="glass-card p-4 cursor-pointer group">
+                    <summary class="font-medium text-white group-hover:text-accent transition outline-none">Can sound therapy relieve ear discomfort?</summary>
+                    <p class="text-sm text-textSecondary mt-3 leading-relaxed">Yes, specific frequencies like brown noise or notch therapy can provide acoustic masking, which reduces central auditory contrast and calms nervous system arousal.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- Emergency Warning Box -->
+        <div class="bg-red-500/10 border border-red-500/20 rounded-xl p-5 mb-12">
+            <h3 class="text-red-400 font-bold mb-2">Emergency Disclaimer</h3>
+            <p class="text-sm text-red-200/80">If you experience sudden hearing loss, severe dizziness, facial droop, or high fever alongside ear pain, go to an emergency room immediately. Time is critical for preserving hearing and nerve function.</p>
+        </div>
+
+        <!-- Footer -->
+        <footer class="border-t border-white/10 pt-8 pb-4 text-center">
+            <div class="flex flex-wrap justify-center gap-4 text-sm text-accent mb-6">
+                <a href="/clogged-ears-sound-relief" class="hover:underline">Clogged Ears Relief</a>
+                <a href="/tmj-ear-pain" class="hover:underline">TMJ Ear Pain</a>
+                <a href="/post-concert-ear-ringing" class="hover:underline">Post-Concert Ringing</a>
+            </div>
+            <p class="text-xs text-textSecondary max-w-2xl mx-auto leading-relaxed">
+                <strong>Medical Disclaimer:</strong> AuralRelief and this symptom checker provide general acoustic wellness information and soundscapes. We do not provide medical diagnoses, treatments, or prescriptions. Always consult a qualified healthcare professional (ENT) for medical concerns.
+            </p>
+            <p class="text-xs text-textSecondary mt-4">&copy; 2024 AuralRelief by Thiagarajan Hariharan. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <div id="toast">📋 History copied to clipboard!</div>
+
+    <!-- Inline JavaScript -->
+    <script>
+        const state = { step: 1, selections: { 1: '', 2: '', 3: '' }, redFlags: [] };
+        
+        function updateUI() {
+            // Update steps visibility
+            document.querySelectorAll('.wizard-step').forEach(el => el.classList.remove('active'));
+            document.getElementById(`step-${state.step}`).classList.add('active');
+            
+            // Update progress bar
+            document.getElementById('progress-bar').style.width = `${(state.step / 4) * 100}%`;
+            document.getElementById('step-indicator').textContent = `Step ${state.step} of 4`;
+            
+            const titles = ['Symptom', 'Onset', 'Location', 'Red Flags'];
+            document.getElementById('step-title-indicator').textContent = titles[state.step - 1];
+
+            // Nav buttons
+            const nav = document.getElementById('nav-buttons');
+            const prev = document.getElementById('btn-prev');
+            const next = document.getElementById('btn-next');
+            
+            if(state.step === 4) {
+                nav.classList.add('hidden');
+            } else {
+                nav.classList.remove('hidden');
+                prev.style.opacity = state.step > 1 ? '1' : '0';
+                prev.style.pointerEvents = state.step > 1 ? 'auto' : 'none';
+                
+                next.disabled = !state.selections[state.step];
+                next.className = state.selections[state.step] 
+                    ? "px-6 py-2.5 rounded-xl bg-accent hover:bg-accentHover transition text-background font-semibold" 
+                    : "px-6 py-2.5 rounded-xl bg-white/10 text-white/50 cursor-not-allowed";
+            }
+        }
+
+        function selectOption(step, value) {
+            state.selections[step] = value;
+            const container = document.getElementById(`step-${step}`);
+            container.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('selected');
+                if(btn.textContent.includes(value)) btn.classList.add('selected');
+            });
+            updateUI();
+            
+            // Auto advance on selection for first 3 steps
+            setTimeout(() => { if(state.step < 4) nextStep(); }, 300);
+        }
+
+        function nextStep() { if (state.step < 4) { state.step++; updateUI(); } }
+        function prevStep() { if (state.step > 1) { state.step--; updateUI(); } }
+
+        function toggleNoneAbove() {
+            const noneCheckbox = document.getElementById('none-above');
+            const flagCheckboxes = document.querySelectorAll('.red-flag');
+            if(noneCheckbox.checked) {
+                flagCheckboxes.forEach(cb => { cb.checked = false; cb.disabled = true; });
+            } else {
+                flagCheckboxes.forEach(cb => { cb.disabled = false; });
+            }
+        }
+
+        function calculateResult() {
+            // Gather red flags
+            const flags = [];
+            document.querySelectorAll('.red-flag:checked').forEach(cb => flags.push(cb.value));
+            state.redFlags = flags;
+
+            document.getElementById('wizard-container').classList.add('hidden');
+            document.getElementById('result-container').classList.remove('hidden');
+
+            const rfWarning = document.getElementById('red-flag-warning');
+            const safePlan = document.getElementById('safe-plan');
+            const rfList = document.getElementById('red-flags-list');
+
+            if (flags.length > 0) {
+                rfWarning.classList.remove('hidden');
+                safePlan.classList.add('hidden');
+                rfList.innerHTML = flags.map(f => `<li>${f}</li>`).join('');
+            } else {
+                rfWarning.classList.add('hidden');
+                safePlan.classList.remove('hidden');
+                
+                // Dynamic Logic based on selections
+                const sym = state.selections[1];
+                const onset = state.selections[2];
+                let condition = "Likely General Ear Discomfort";
+                let soundMode = "Broadband Brown Noise";
+                let soundReason = "Provides gentle acoustic masking and relaxation.";
+                let guideLink = "/my-ear-hurts";
+                let cta = "Launch AuralRelief";
+
+                if (sym.includes('ringing') || onset.includes('concert')) {
+                    condition = "Likely Acoustic Fatigue / Mild Tinnitus";
+                    soundMode = "Notch Therapy / High-Frequency Rain";
+                    soundReason = "Helps blend high-pitched ringing and reduces auditory contrast.";
+                    guideLink = "/post-concert-ear-ringing";
+                    cta = "Launch Notch Therapy";
+                } else if (sym.includes('Muffled') || onset.includes('flight') || onset.includes('cold')) {
+                    condition = "Likely Eustachian Tube Dysfunction / Barotrauma";
+                    soundMode = "Low-Frequency Infrasonic Drone";
+                    soundReason = "Deep, steady tones help distract from the feeling of internal pressure.";
+                    guideLink = "/clogged-ears-sound-relief";
+                    cta = "Launch Drone Station";
+                } else if (onset.includes('jaw') || sym.includes('aching')) {
+                    condition = "Likely Somatosensory TMJ Tension";
+                    soundMode = "Calm Nature & Gentle River";
+                    soundReason = "Focuses on nervous system down-regulation to reduce involuntary jaw clenching.";
+                    guideLink = "/tmj-ear-pain";
+                    cta = "Launch Nature Soundscape";
+                }
+
+                document.getElementById('insight-text').innerHTML = `<strong>Insight:</strong> Based on your symptoms, this appears to be <strong>${condition}</strong>.`;
+                document.getElementById('sound-mode').textContent = soundMode;
+                document.getElementById('sound-reason').textContent = soundReason;
+                document.getElementById('launch-btn').textContent = cta;
+                
+                const link = document.getElementById('deep-guide-link');
+                link.href = guideLink;
+                link.innerHTML = `Read the Guide: Understanding ${condition.replace('Likely ', '')} &rarr;`;
+            }
+        }
+
+        function resetWizard() {
+            state.step = 1;
+            state.selections = { 1: '', 2: '', 3: '' };
+            state.redFlags = [];
+            
+            document.querySelectorAll('.option-btn').forEach(btn => btn.classList.remove('selected'));
+            document.querySelectorAll('input[type="checkbox"]').forEach(cb => { cb.checked = false; cb.disabled = false; });
+            
+            document.getElementById('result-container').classList.add('hidden');
+            document.getElementById('wizard-container').classList.remove('hidden');
+            updateUI();
+        }
+
+        function copyHistory() {
+            const text = `Patient Acoustic & Symptom History (via AuralRelief)\n` +
+                         `-------------------------------------------------\n` +
+                         `1. Primary Symptom: ${state.selections[1]}\n` +
+                         `2. Onset / Trigger: ${state.selections[2]}\n` +
+                         `3. Location: ${state.selections[3]}\n` +
+                         `4. Urgent Red Flags: None Reported\n`;
+            
+            navigator.clipboard.writeText(text).then(() => {
+                const toast = document.getElementById('toast');
+                toast.classList.add('show');
+                setTimeout(() => toast.classList.remove('show'), 3000);
+            });
+        }
+
+        // Initialize UI
+        updateUI();
+    </script>
+</body>
+</html>

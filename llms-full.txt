@@ -39,6 +39,7 @@
 - `https://myearshurt.me/my-ear-hurts` — My Ear Hurts: Practical Comfort Steps While Awaiting ENT Care.
 - `https://myearshurt.me/ears-ringing-sound-relief` — My Ears Are Ringing: Evidence-Informed Acoustic Relief & Habituation.
 - `https://myearshurt.me/tinnitus-frequency-matcher` — Tinnitus Frequency Matcher: Free Online Pitch Test. Interactive Web Audio tool using octave bracketing, logarithmic sweep, and ±1 Hz precision stepping to identify tinnitus frequency and generate custom notched soundscapes.
+- `https://myearshurt.me/ear-pain-symptom-checker` — Ear Discomfort Symptom Checker & Triage Navigator: Interactive 4-step acoustic history tool helping patients categorize ear pain, fullness, or ringing before an ENT appointment, offering red-flag screening and custom sound therapy.
 - `https://myearshurt.me/waiting-for-ent-appointment` — What to Do While Waiting for Your ENT Appointment: pre-appointment acoustic comfort guide.
 - `https://myearshurt.me/tmj-ear-pain` — TMJ Ear Pain: Why Jaw Clenching Causes Earaches & Acoustic Relief.
 - `https://myearshurt.me/post-concert-ear-ringing` — Post-Concert Ear Ringing: Acoustic Recovery & Safe Volume Guide.
