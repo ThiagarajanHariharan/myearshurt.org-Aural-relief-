@@ -31,6 +31,7 @@
 ## Core Application & Features
 
 - [AuralRelief Soundscape Player](https://myearshurt.me/): Free browser-based acoustic comfort player with 48 soundscapes, notch therapy DSP, and generative visualizers.
+- [Tinnitus Frequency Matcher: Free Online Pitch Test](https://myearshurt.me/tinnitus-frequency-matcher): Interactive Web Audio tool to identify your tinnitus frequency using octave bracketing, logarithmic sweep, and ±1 Hz precision stepping. Generates custom notched soundscapes matched to your exact ringing pitch.
 - [Precision Notch Therapy](https://myearshurt.me/#notch): Browser-based BiquadFilter DSP notch filter (125 Hz – 16,000 Hz) with real-time frequency response curve visualization.
 - [3D Spatial Audio](https://myearshurt.me/#spatial): HRTF-based orbital panning with azimuth radar tracking for immersive spatial soundstage.
 - [4-Stem Real-Time Mixer](https://myearshurt.me/#mixer): Independent volume control for Brownian drone, filtered rain, theta binaural carrier, and Solfeggio resonator stems.

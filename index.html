@@ -1066,6 +1066,17 @@
         <canvas id="notch-curve-canvas" class="w-full h-24 rounded-xl bg-black/50"></canvas>
       </div>
 
+      <!-- Link to Dedicated Tinnitus Frequency Matcher -->
+      <div class="p-4 rounded-xl bg-sky-500/10 border border-sky-400/20 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <div class="text-xs font-bold text-sky-300">Don't know your exact tinnitus pitch?</div>
+          <div class="text-[11px] text-white/60">Use our step-by-step interactive pitch test to bracket, sweep, and lock your ringing frequency.</div>
+        </div>
+        <a href="/tinnitus-frequency-matcher" class="inline-flex items-center justify-center px-4 py-2 rounded-lg bg-sky-500 hover:bg-sky-400 text-black font-semibold text-xs transition-all no-underline shrink-0">
+          Open Frequency Matcher →
+        </a>
+      </div>
+
     </div>
 
     <!-- ======================================================================= -->
@@ -3483,6 +3494,27 @@
       document.getElementById('hud-top-filename').innerText = `${catObj.name.toUpperCase()} // AURAL RELIEF`;
       document.getElementById('hud-track-title').innerText = catObj.name;
       document.getElementById('hud-track-subtitle').innerText = catObj.subtitle;
+
+      // Handle ?notchFreq= URL parameter from frequency matcher or deep links
+      try {
+        const urlParams = new URLSearchParams(window.location.search);
+        const qNotch = urlParams.get('notchFreq');
+        if (qNotch) {
+          const parsedHz = parseInt(qNotch, 10);
+          if (!isNaN(parsedHz) && parsedHz >= 125 && parsedHz <= 16000) {
+            setNotchFrequency(parsedHz);
+            if (!isNotchActive) {
+              toggleNotchFilter();
+            }
+            // Automatically open drawer to the notch therapy calibration tab
+            setTimeout(() => {
+              openDrawerTab('notch');
+            }, 300);
+          }
+        }
+      } catch (err) {
+        console.warn('Could not parse notchFreq param:', err);
+      }
     });
   </script>
 </body>

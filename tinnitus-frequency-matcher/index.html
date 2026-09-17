@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Find Your Tinnitus Frequency: Free Online Pitch Matcher | AuralRelief</title>
+  <meta name="description" content="Free online tinnitus frequency test. Match your ear ringing pitch with octave bracketing, logarithmic sweep, and ±1 Hz precision. Generate custom notched soundscapes on myearshurt.me.">
+  <meta name="theme-color" content="#000000">
+  <meta property="og:title" content="Find Your Tinnitus Frequency: Free Online Pitch Matcher | AuralRelief">
+  <meta property="og:description" content="Free browser-based tinnitus pitch test. Find your exact ringing frequency and generate custom notched sound therapy.">
+  <meta property="og:url" content="https://myearshurt.me/tinnitus-frequency-matcher">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="AuralRelief">
+  <meta property="og:image" content="https://myearshurt.me/preview_showcase.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Find Your Tinnitus Frequency: Free Online Pitch Matcher | AuralRelief">
+  <meta name="twitter:description" content="Free tinnitus pitch test. Match your ringing frequency and generate notched soundscapes.">
+  <meta name="twitter:image" content="https://myearshurt.me/preview_showcase.jpg">
+  <link rel="canonical" href="https://myearshurt.me/tinnitus-frequency-matcher">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="AuralRelief">
+  <link rel="describedby" href="/llms.txt" type="text/markdown">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [{
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://myearshurt.me/"
+    },{
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Tinnitus Frequency Matcher",
+      "item": "https://myearshurt.me/tinnitus-frequency-matcher"
+    }]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Tinnitus Frequency Matcher",
+    "url": "https://myearshurt.me/tinnitus-frequency-matcher",
+    "applicationCategory": "HealthApplication",
+    "operatingSystem": "Any (Browser-based)",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "featureList": [
+      "Real-time sine tone generator (125–16,000 Hz)",
+      "Logarithmic frequency sweep slider",
+      "Octave-snap preset buttons",
+      "±1 Hz precision stepper",
+      "Live notch filter frequency response curve",
+      "Custom 30-minute notched WAV generator"
+    ],
+    "author": { "@type": "Person", "name": "Thiagarajan Hariharan", "url": "https://github.com/ThiagarajanHariharan" }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "How to Find Your Tinnitus Frequency",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Bracket your pitch with octave presets",
+        "text": "Tap the 9 octave buttons (250 Hz to 16,000 Hz) while listening. Find the two adjacent buttons that bracket your ringing pitch."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Sweep to match",
+        "text": "Use the logarithmic slider to sweep between those two octaves. Stop when the test tone matches your internal ringing."
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Lock with precision stepping",
+        "text": "Use the ±1 Hz stepper buttons to fine-tune until the external tone blends perfectly with your tinnitus."
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How do I find the frequency of my tinnitus?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use AuralRelief's free Tinnitus Frequency Matcher at myearshurt.me/tinnitus-frequency-matcher. Start by tapping octave preset buttons (250 Hz to 16,000 Hz) to bracket your ringing pitch. Then sweep the logarithmic slider to narrow down, and use ±1 Hz precision steppers to lock your exact frequency. The tool plays a real-time sine tone you compare against your internal ringing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What Hz is normal tinnitus?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Most tinnitus occurs between 2,000 Hz and 8,000 Hz, with 4,000 Hz being the single most common tinnitus frequency. This corresponds to the frequency range where the human ear is most sensitive and where noise-induced cochlear damage typically begins."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I test my tinnitus pitch at home?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. AuralRelief's Tinnitus Frequency Matcher runs entirely in your web browser with no app install or account required. It uses the Web Audio API to generate precision sine tones from 125 Hz to 16,000 Hz that you match against your perceived ringing."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is notch therapy and how does it use my tinnitus frequency?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Notch therapy removes a narrow frequency band matching your tinnitus pitch from background audio. Research by Okamoto et al. (2010 PNAS) demonstrated that this stimulates adjacent auditory cortex neurons while starving the hyperactive tinnitus neurons, inducing lateral cortical inhibition that reduces perceived ringing loudness over time."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is the tinnitus frequency matcher free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The Tinnitus Frequency Matcher on AuralRelief (myearshurt.me) is 100% free, requires no account registration, no app download, and contains no advertisements. It runs entirely in your browser using the Web Audio API."
+        }
+      }
+    ]
+  }
+  </script>
+  <!-- Speakable Schema for Voice AI (Google Assistant, Siri, Gemini) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Tinnitus Frequency Matcher",
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": [".ai-summary-extract", "h1"]
+    },
+    "url": "https://myearshurt.me/tinnitus-frequency-matcher"
+  }
+  </script>
+  <!-- Organization Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "AuralRelief",
+    "url": "https://myearshurt.me/",
+    "logo": "https://myearshurt.me/preview_showcase.jpg",
+    "sameAs": [
+      "https://github.com/ThiagarajanHariharan/myearshurt.org-Aural-relief-",
+      "https://www.linkedin.com/in/thiagarajan-hariharan-274b48374",
+      "https://buymeacoffee.com/hariharan07"
+    ]
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html, body { overflow-x: hidden; }
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: #050508; color: #e2e8f0; }
+    .content-container { max-width: 740px; margin: 0 auto; padding: 2rem 1rem; min-width: 0; }
+    @media (min-width: 768px) { .content-container { padding: 3rem 1.25rem; } }
+    h1, h2, h3 { overflow-wrap: break-word; word-wrap: break-word; hyphens: none; -webkit-hyphens: none; }
+    a { color: #38bdf8; text-decoration: underline; text-underline-offset: 3px; }
+    a:hover { color: #7dd3fc; }
+    .cta-card { background: linear-gradient(135deg, rgba(56,189,248,0.12) 0%, rgba(56,189,248,0.04) 100%); border: 1px solid rgba(56,189,248,0.25); }
+    .step-badge { background: rgba(56,189,248,0.15); color: #38bdf8; border: 1px solid rgba(56,189,248,0.3); }
+    
+    .octave-btn {
+      min-height: 48px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.75rem;
+      transition: all 0.2s ease;
+      color: #e2e8f0;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+    .octave-btn:hover { background: rgba(255, 255, 255, 0.1); }
+    .octave-btn.active {
+      background: rgba(14, 165, 233, 0.2);
+      border-color: rgba(56, 189, 248, 0.4);
+      color: #7dd3fc;
+    }
+    
+    #freq-canvas {
+      width: 100%;
+      height: 200px;
+      display: block;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    input[type=range] {
+      -webkit-appearance: none;
+      width: 100%;
+      background: transparent;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      height: 24px;
+      width: 24px;
+      border-radius: 50%;
+      background: #38bdf8;
+      cursor: pointer;
+      margin-top: -8px;
+      box-shadow: 0 0 10px rgba(56,189,248,0.5);
+    }
+    input[type=range]::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 8px;
+      cursor: pointer;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+  <article class="content-container">
+    <nav class="text-sm text-white/40 mb-8 flex items-center gap-2">
+      <a href="/" class="text-white/50 no-underline hover:text-white/80">AuralRelief (myearshurt.me)</a>
+      <span>›</span>
+      <span class="text-white/70">Tinnitus Frequency Matcher</span>
+    </nav>
+
+    <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4">
+      Find Your Tinnitus Frequency: Free Online Pitch Matcher
+    </h1>
+
+    <div class="flex flex-wrap items-center gap-4 text-sm text-white/60 mb-8 pb-8 border-b border-white/10">
+      <div class="flex items-center gap-2">
+        <div class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center overflow-hidden">
+          <svg class="w-4 h-4 text-white/50" fill="currentColor" viewBox="0 0 20 20"><path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"></path></svg>
+        </div>
+        <div>
+          <span class="block text-white/80 font-medium">Thiagarajan Hariharan</span>
+          <span class="block text-xs">Web Audio DSP Developer</span>
+        </div>
+      </div>
+      <div class="flex items-center gap-3 ml-auto">
+        <a href="https://github.com/ThiagarajanHariharan" target="_blank" rel="noopener" class="text-white/50 hover:text-white">GitHub</a>
+        <a href="https://www.linkedin.com/in/thiagarajan-hariharan-274b48374" target="_blank" rel="noopener" class="text-white/50 hover:text-white">LinkedIn</a>
+        <a href="https://buymeacoffee.com/hariharan07" target="_blank" rel="noopener" class="text-white/50 hover:text-white">Support</a>
+      </div>
+    </div>
+
+    <div class="ai-summary-extract bg-white/5 border border-white/10 rounded-xl p-6 mb-12 text-white/80 leading-relaxed">
+      The Tinnitus Frequency Matcher is a free browser-based Web Audio tool that identifies the exact pitch of your ear ringing (tinnitus) through a three-step calibration process. First, tap octave preset buttons spanning 250 Hz to 16,000 Hz to bracket your ringing range. Then sweep a logarithmic slider to narrow the match within that octave. Finally, use ±1 Hz precision steppers to lock your exact tinnitus frequency. The tool generates a real-time sine tone via the Web Audio API OscillatorNode that you compare against your perceived internal ringing. Once matched, AuralRelief applies this frequency to its precision notch therapy filter — a BiquadFilterNode (Q=5.0, type notch) that removes acoustic energy at your tinnitus pitch from background soundscapes. Clinical research published in PNAS (Okamoto et al., 2010) demonstrates that this notched audio approach induces lateral cortical inhibition, suppressing hyperactive auditory neurons responsible for the phantom ringing sensation.
+    </div>
+
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-white mb-6">Interactive Pitch Matcher</h2>
+      
+      <div class="bg-white/5 border border-white/10 rounded-2xl p-6 md:p-8 mb-8">
+        <div class="mb-8">
+          <h3 class="text-xl font-bold text-white mb-2"><span class="step-badge px-2 py-1 rounded text-sm mr-2">Step 1</span> Find Your Octave Range</h3>
+          <p class="text-white/60 text-sm mb-4">Tap each button below. A test tone will play at that frequency. Find the two adjacent buttons that bracket your ringing pitch — one slightly below, one slightly above.</p>
+          <div class="grid grid-cols-3 md:grid-cols-5 gap-3">
+            <button class="octave-btn" data-hz="250" onclick="playTone(250)">250 Hz</button>
+            <button class="octave-btn" data-hz="500" onclick="playTone(500)">500 Hz</button>
+            <button class="octave-btn" data-hz="1000" onclick="playTone(1000)">1 kHz</button>
+            <button class="octave-btn" data-hz="2000" onclick="playTone(2000)">2 kHz</button>
+            <button class="octave-btn active" data-hz="4000" onclick="playTone(4000)">4 kHz</button>
+            <button class="octave-btn" data-hz="6000" onclick="playTone(6000)">6 kHz</button>
+            <button class="octave-btn" data-hz="8000" onclick="playTone(8000)">8 kHz</button>
+            <button class="octave-btn" data-hz="12000" onclick="playTone(12000)">12 kHz</button>
+            <button class="octave-btn" data-hz="16000" onclick="playTone(16000)">16 kHz</button>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <h3 class="text-xl font-bold text-white mb-2"><span class="step-badge px-2 py-1 rounded text-sm mr-2">Step 2</span> Sweep to Match</h3>
+          <p class="text-white/60 text-sm mb-6">Drag the slider slowly. The tone changes in real-time. Stop when it matches your ringing.</p>
+          <input type="range" id="freq-slider" min="0" max="1000" step="1" value="716" oninput="onSliderInput(this.value)">
+        </div>
+
+        <div class="mb-6 text-center">
+          <h3 class="text-xl font-bold text-white mb-2"><span class="step-badge px-2 py-1 rounded text-sm mr-2">Step 3</span> Fine-Tune ±1 Hz</h3>
+          
+          <div class="flex flex-col items-center justify-center mt-6">
+            <div class="flex items-center justify-center gap-4 mb-6">
+              <div class="flex flex-col gap-2">
+                <button onclick="adjustFreq(-10)" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-white font-medium border border-white/10 transition-colors">−10 Hz</button>
+                <button onclick="adjustFreq(-1)" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-white font-medium border border-white/10 transition-colors">−1 Hz</button>
+              </div>
+              
+              <div class="px-8 text-center min-w-[200px]">
+                <span id="freq-display" class="text-4xl font-bold text-sky-400 block mb-2">4,000 Hz</span>
+                <button onclick="stopTone()" class="text-sm px-4 py-1.5 bg-red-500/20 hover:bg-red-500/30 text-red-400 rounded-full transition-colors border border-red-500/30">Stop Tone</button>
+              </div>
+              
+              <div class="flex flex-col gap-2">
+                <button onclick="adjustFreq(10)" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-white font-medium border border-white/10 transition-colors">+10 Hz</button>
+                <button onclick="adjustFreq(1)" class="px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-white font-medium border border-white/10 transition-colors">+1 Hz</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mb-8">
+        <h3 class="text-lg font-bold text-white mb-3">Live Notch Filter Response</h3>
+        <div class="w-full relative">
+          <canvas id="freq-canvas"></canvas>
+        </div>
+      </div>
+
+      <div class="cta-card rounded-2xl p-6 md:p-8 text-center shadow-2xl">
+        <p class="text-sm text-sky-400 uppercase tracking-widest font-bold mb-2">Your Matched Tinnitus Frequency</p>
+        <p id="result-freq" class="text-5xl font-extrabold text-white mb-2">4,000 Hz</p>
+        <p class="text-sm text-white/60 mb-8">This is the frequency AuralRelief will notch-filter from your soundscapes.</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a id="launch-btn" href="/?notchFreq=4000" class="inline-flex items-center justify-center px-6 py-4 rounded-xl bg-sky-500 hover:bg-sky-400 text-black font-semibold text-sm transition-all shadow-lg shadow-sky-500/25 no-underline">
+            Launch AuralRelief with Notch at <span id="launch-freq" class="ml-1 mr-1">4,000</span> Hz →
+          </a>
+          <button id="gen-wav-btn" onclick="generateNotchedWAV()" class="inline-flex items-center justify-center px-6 py-4 rounded-xl bg-white/10 hover:bg-white/15 text-white font-semibold text-sm transition-all border border-white/20 no-underline text-center">
+            ↓ Download 5-min Notched Audio
+          </button>
+        </div>
+        <p class="text-xs text-white/40 mt-4">Note: Audio generation may take 5-15 seconds and produces a large file (~50 MB).</p>
+      </div>
+    </section>
+
+    <section class="mb-16 prose prose-invert max-w-none">
+      <h2 class="text-2xl font-bold text-white mb-6">How Notch Therapy Works</h2>
+      <p class="text-white/80 mb-4 leading-relaxed">
+        Notch therapy is an acoustic treatment approach that removes a very specific frequency band—matching your tinnitus pitch—from background sounds or music. When you listen to this "notched" audio, your auditory system receives stimulation at all frequencies <em>except</em> the one where your tinnitus rings.
+      </p>
+      <p class="text-white/80 mb-4 leading-relaxed">
+        Research suggests that this selective deprivation harnesses <strong>lateral cortical inhibition</strong>. The stimulated neurons surrounding the notched frequency actively suppress the hyperactive neurons within the notch that are responsible for the phantom ringing. Over time, regular listening can help train the brain to ignore the tinnitus signal and reduce its perceived loudness.
+      </p>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="text-2xl font-bold text-white mb-6">Frequently Asked Questions</h2>
+      <div class="space-y-4">
+        <div class="bg-white/5 border border-white/10 rounded-xl p-5">
+          <h3 class="font-bold text-white mb-2">How do I find the frequency of my tinnitus?</h3>
+          <p class="text-white/70 text-sm">Use AuralRelief's free Tinnitus Frequency Matcher at myearshurt.me/tinnitus-frequency-matcher. Start by tapping octave preset buttons (250 Hz to 16,000 Hz) to bracket your ringing pitch. Then sweep the logarithmic slider to narrow down, and use ±1 Hz precision steppers to lock your exact frequency. The tool plays a real-time sine tone you compare against your internal ringing.</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-xl p-5">
+          <h3 class="font-bold text-white mb-2">What Hz is normal tinnitus?</h3>
+          <p class="text-white/70 text-sm">Most tinnitus occurs between 2,000 Hz and 8,000 Hz, with 4,000 Hz being the single most common tinnitus frequency. This corresponds to the frequency range where the human ear is most sensitive and where noise-induced cochlear damage typically begins.</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-xl p-5">
+          <h3 class="font-bold text-white mb-2">Can I test my tinnitus pitch at home?</h3>
+          <p class="text-white/70 text-sm">Yes. AuralRelief's Tinnitus Frequency Matcher runs entirely in your web browser with no app install or account required. It uses the Web Audio API to generate precision sine tones from 125 Hz to 16,000 Hz that you match against your perceived ringing.</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-xl p-5">
+          <h3 class="font-bold text-white mb-2">What is notch therapy and how does it use my tinnitus frequency?</h3>
+          <p class="text-white/70 text-sm">Notch therapy removes a narrow frequency band matching your tinnitus pitch from background audio. Research by Okamoto et al. (2010 PNAS) demonstrated that this stimulates adjacent auditory cortex neurons while starving the hyperactive tinnitus neurons, inducing lateral cortical inhibition that reduces perceived ringing loudness over time.</p>
+        </div>
+        <div class="bg-white/5 border border-white/10 rounded-xl p-5">
+          <h3 class="font-bold text-white mb-2">Is the tinnitus frequency matcher free?</h3>
+          <p class="text-white/70 text-sm">Yes. The Tinnitus Frequency Matcher on AuralRelief (myearshurt.me) is 100% free, requires no account registration, no app download, and contains no advertisements. It runs entirely in your browser using the Web Audio API.</p>
+        </div>
+      </div>
+    </section>
+
+    <div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-6 mb-16 text-amber-100">
+      <h3 class="text-amber-400 font-bold mb-2 flex items-center gap-2">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+        When to See a Doctor
+      </h3>
+      <p class="text-sm leading-relaxed mb-0">Tinnitus can occasionally indicate an underlying medical condition. Seek immediate medical attention if your tinnitus is pulsatile (beats with your pulse), occurs with sudden hearing loss, is accompanied by dizziness or balance problems, affects only one ear, or begins after a head injury.</p>
+    </div>
+
+    <footer class="border-t border-white/10 pt-12 pb-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div>
+          <h3 class="text-white font-bold mb-4">Related Guides</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/ears-ringing-sound-relief">Ears Ringing Sound Relief</a></li>
+            <li><a href="/post-concert-ear-ringing">Post-Concert Ear Ringing</a></li>
+            <li><a href="/what-is-sound-masking">What is Sound Masking?</a></li>
+            <li><a href="/noise-induced-ear-fatigue">Noise-Induced Ear Fatigue</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-white font-bold mb-4">Resources</h3>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/research">Clinical Research</a></li>
+            <li><a href="/for-clinics">For Clinics</a></li>
+            <li><a href="/">AuralRelief App</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="text-xs text-white/40 leading-relaxed text-center">
+        <p class="mb-2"><strong>Medical Disclaimer:</strong> The information and tools provided on AuralRelief (myearshurt.me) are for educational and non-clinical acoustic comfort purposes only. They are not intended as a substitute for professional medical advice, diagnosis, or treatment. Always seek the advice of your physician, audiologist, or other qualified health provider with any questions you may have regarding a medical condition.</p>
+        <p>&copy; 2026 AuralRelief. Built by Thiagarajan Hariharan.</p>
+      </div>
+    </footer>
+  </article>
+
+  <script>
+    // Core state
+    let matcherCtx = null;
+    let activeTone = null;
+    let toneGain = null;
+    let matchedFrequency = 4000;
+    const OCTAVE_PRESETS = [250, 500, 1000, 2000, 4000, 6000, 8000, 12000, 16000];
+
+    function ensureAudioContext() {
+      if (!matcherCtx) {
+        matcherCtx = new (window.AudioContext || window.webkitAudioContext)();
+        toneGain = matcherCtx.createGain();
+        toneGain.gain.value = 0.04;
+        toneGain.connect(matcherCtx.destination);
+      }
+      if (matcherCtx.state === 'suspended') matcherCtx.resume();
+    }
+
+    function playTone(hz) {
+      ensureAudioContext();
+      stopTone();
+      activeTone = matcherCtx.createOscillator();
+      activeTone.type = 'sine';
+      activeTone.frequency.setValueAtTime(hz, matcherCtx.currentTime);
+      activeTone.connect(toneGain);
+      activeTone.start();
+      matchedFrequency = Math.round(hz);
+      updateAllDisplays();
+      drawNotchCurve();
+    }
+
+    function stopTone() {
+      if (activeTone) { try { activeTone.stop(); } catch(e) {} activeTone = null; }
+    }
+
+    function updateAllDisplays() {
+      const fmt = matchedFrequency >= 1000 
+        ? (matchedFrequency / 1000).toFixed(matchedFrequency % 1000 === 0 ? 0 : 1) + ' kHz'
+        : matchedFrequency.toLocaleString() + ' Hz';
+      const hzFmt = matchedFrequency.toLocaleString() + ' Hz';
+      document.getElementById('freq-display').textContent = hzFmt;
+      document.getElementById('result-freq').textContent = hzFmt;
+      document.getElementById('launch-freq').textContent = matchedFrequency.toLocaleString();
+      document.getElementById('launch-btn').href = '/?notchFreq=' + matchedFrequency;
+      
+      // Update slider position (inverse log map)
+      const slider = document.getElementById('freq-slider');
+      slider.value = Math.round(1000 * Math.log(matchedFrequency / 125) / Math.log(16000 / 125));
+      
+      // Update octave button highlighting
+      document.querySelectorAll('.octave-btn').forEach(btn => {
+        const btnHz = parseInt(btn.dataset.hz);
+        btn.classList.toggle('active', Math.abs(btnHz - matchedFrequency) / btnHz < 0.05);
+      });
+    }
+
+    function onSliderInput(val) {
+      const hz = 125 * Math.pow(16000 / 125, val / 1000);
+      playTone(hz);
+    }
+
+    function adjustFreq(delta) {
+      playTone(Math.max(125, Math.min(16000, matchedFrequency + delta)));
+    }
+
+    function drawNotchCurve() {
+      const canvas = document.getElementById('freq-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      const W = canvas.width, H = canvas.height;
+      ctx.clearRect(0, 0, W, H);
+      
+      // Background grid
+      ctx.strokeStyle = 'rgba(255,255,255,0.08)';
+      ctx.lineWidth = 1;
+      [250, 500, 1000, 2000, 4000, 8000, 16000].forEach(f => {
+        const x = W * Math.log(f / 125) / Math.log(16000 / 125);
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+      });
+      
+      // Frequency labels
+      ctx.fillStyle = 'rgba(255,255,255,0.3)';
+      ctx.font = '10px Inter, sans-serif';
+      ctx.textAlign = 'center';
+      [250, 500, '1k', '2k', '4k', '8k', '16k'].forEach((label, i) => {
+        const freqs = [250, 500, 1000, 2000, 4000, 8000, 16000];
+        const x = W * Math.log(freqs[i] / 125) / Math.log(16000 / 125);
+        ctx.fillText(label + (typeof label === 'number' ? ' Hz' : 'Hz'), x, H - 4);
+      });
+      
+      // Notch response curve
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let px = 0; px < W; px++) {
+        const f = 125 * Math.pow(16000 / 125, px / W);
+        const ratio = f / matchedFrequency;
+        const Q = 5.0;
+        // Approximate notch magnitude response
+        const denom = Math.sqrt(1 + Q * Q * Math.pow(ratio - 1/ratio, 2));
+        const notchDepth = Math.abs(1 - 1 / (ratio * ratio)) / denom;
+        const db = 20 * Math.log10(Math.max(notchDepth, 0.01));
+        const y = H * 0.15 - db * (H * 0.7 / 40); // Scale: 0dB at top, -40dB at bottom
+        const clampedY = Math.max(0, Math.min(H - 20, y));
+        if (px === 0) ctx.moveTo(px, clampedY);
+        else ctx.lineTo(px, clampedY);
+      }
+      ctx.stroke();
+      
+      // Notch frequency marker
+      const notchX = W * Math.log(matchedFrequency / 125) / Math.log(16000 / 125);
+      ctx.strokeStyle = 'rgba(56,189,248,0.4)';
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath(); ctx.moveTo(notchX, 0); ctx.lineTo(notchX, H - 20); ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = 'bold 11px Inter, sans-serif';
+      ctx.fillText(matchedFrequency.toLocaleString() + ' Hz', notchX, 12);
+    }
+
+    // WAV Generation using OfflineAudioContext
+    async function generateNotchedWAV() {
+      const btn = document.getElementById('gen-wav-btn');
+      btn.textContent = 'Generating... (5 minutes)';
+      btn.disabled = true;
+      
+      try {
+        const duration = 300; // 5 minutes
+        const sampleRate = 44100;
+        const offline = new OfflineAudioContext(2, sampleRate * duration, sampleRate);
+        
+        // Create Brownian noise buffer (2 seconds, looped)
+        const bufLen = sampleRate * 2;
+        const buf = offline.createBuffer(2, bufLen, sampleRate);
+        for (let ch = 0; ch < 2; ch++) {
+          const data = buf.getChannelData(ch);
+          let last = 0;
+          for (let i = 0; i < bufLen; i++) {
+            const white = Math.random() * 2 - 1;
+            last = (last + 0.03 * white) / 1.02;
+            data[i] = last * 3.5; // Amplify
+          }
+        }
+        
+        const source = offline.createBufferSource();
+        source.buffer = buf;
+        source.loop = true;
+        
+        // Notch filter at matched frequency
+        const notch = offline.createBiquadFilter();
+        notch.type = 'notch';
+        notch.frequency.value = matchedFrequency;
+        notch.Q.value = 5.0;
+        
+        const gain = offline.createGain();
+        gain.gain.value = 0.7;
+        
+        source.connect(notch);
+        notch.connect(gain);
+        gain.connect(offline.destination);
+        source.start();
+        
+        const rendered = await offline.startRendering();
+        
+        // Encode to WAV
+        const wavBlob = audioBufferToWav(rendered);
+        const url = URL.createObjectURL(wavBlob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `auralrelief-notched-${matchedFrequency}hz-brown-noise-5min.wav`;
+        a.click();
+        URL.revokeObjectURL(url);
+      } catch(e) {
+        console.error('WAV generation error:', e);
+        alert('WAV generation failed. Try a shorter duration or use the player instead.');
+      }
+      
+      btn.textContent = '↓ Download 5-min Notched Audio';
+      btn.disabled = false;
+    }
+
+    function audioBufferToWav(buffer) {
+      const numChannels = buffer.numberOfChannels;
+      const sampleRate = buffer.sampleRate;
+      const format = 1; // PCM
+      const bitDepth = 16;
+      const bytesPerSample = bitDepth / 8;
+      const blockAlign = numChannels * bytesPerSample;
+      const dataLength = buffer.length * blockAlign;
+      const bufferLength = 44 + dataLength;
+      const ab = new ArrayBuffer(bufferLength);
+      const view = new DataView(ab);
+      
+      // WAV header
+      writeString(view, 0, 'RIFF');
+      view.setUint32(4, bufferLength - 8, true);
+      writeString(view, 8, 'WAVE');
+      writeString(view, 12, 'fmt ');
+      view.setUint32(16, 16, true);
+      view.setUint16(20, format, true);
+      view.setUint16(22, numChannels, true);
+      view.setUint32(24, sampleRate, true);
+      view.setUint32(28, sampleRate * blockAlign, true);
+      view.setUint16(32, blockAlign, true);
+      view.setUint16(34, bitDepth, true);
+      writeString(view, 36, 'data');
+      view.setUint32(40, dataLength, true);
+      
+      // Interleave channels
+      const channels = [];
+      for (let i = 0; i < numChannels; i++) channels.push(buffer.getChannelData(i));
+      let offset = 44;
+      for (let i = 0; i < buffer.length; i++) {
+        for (let ch = 0; ch < numChannels; ch++) {
+          const sample = Math.max(-1, Math.min(1, channels[ch][i]));
+          view.setInt16(offset, sample * 0x7FFF, true);
+          offset += 2;
+        }
+      }
+      return new Blob([ab], { type: 'audio/wav' });
+    }
+
+    function writeString(view, offset, str) {
+      for (let i = 0; i < str.length; i++) view.setUint8(offset + i, str.charCodeAt(i));
+    }
+
+    // Initialize on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      // Canvas resize handler
+      const canvas = document.getElementById('freq-canvas');
+      function resizeCanvas() {
+        if (canvas.parentElement) {
+          canvas.width = canvas.parentElement.clientWidth;
+        } else {
+          canvas.width = window.innerWidth > 740 ? 708 : window.innerWidth - 32;
+        }
+        canvas.height = 200;
+        drawNotchCurve();
+      }
+      resizeCanvas();
+      window.addEventListener('resize', resizeCanvas);
+    });
+  </script>
+</body>
+</html>
