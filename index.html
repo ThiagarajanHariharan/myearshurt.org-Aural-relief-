@@ -101,16 +101,16 @@
       --sab: env(safe-area-inset-bottom, 0px);
       --sal: env(safe-area-inset-left, 0px);
       --sar: env(safe-area-inset-right, 0px);
-      --app-height: 100vh;
-      --app-height: 100dvh;
     }
 
     body, html {
       width: 100%;
       max-width: 100%;
       height: 100vh;
+      height: 100svh;
       height: 100dvh;
       min-height: 100vh;
+      min-height: 100svh;
       min-height: 100dvh;
       overflow: hidden;
       background-color: #000000;
@@ -275,6 +275,7 @@
       left: 0;
       width: 100%;
       height: 100vh;
+      height: 100svh;
       height: 100dvh;
       z-index: 20;
       display: flex;
@@ -306,6 +307,9 @@
       max-width: 96vw;
       overflow-x: auto;
       scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior-x: contain;
+      scroll-behavior: smooth;
     }
     .carousel-container::-webkit-scrollbar {
       display: none;
@@ -413,6 +417,31 @@
     input[type="range"]::-webkit-slider-thumb:hover {
       transform: scale(1.3);
     }
+    input[type="range"]::-moz-range-thumb {
+      width: 12px;
+      height: 12px;
+      border: none;
+      border-radius: 50%;
+      background: #ffffff;
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
+    }
+
+    /* Mute Hit Target */
+    .vol-mute-btn {
+      background: transparent;
+      border: none;
+      padding: 0;
+      margin: 0;
+      color: inherit;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      outline: none;
+      -webkit-tap-highlight-color: transparent;
+      border-radius: 50%;
+    }
 
     /* Set Timer Pill */
     .timer-pill {
@@ -487,31 +516,58 @@
       #explore-drawer { transition-duration: 0.01ms !important; }
     }
 
-    /* P1 Issue 8: Mobile-responsive touch targets, safe-area, & layout */
+    /* P1 Issue 8 / AG-2 & AG-3: Mobile-responsive touch targets, safe-area, dock & carousel */
     @media (max-width: 768px) {
       .endel-hud {
         padding: max(16px, calc(12px + var(--sat))) max(16px, calc(12px + var(--sar))) max(16px, calc(12px + var(--sab))) max(16px, calc(12px + var(--sal)));
         justify-content: space-between;
       }
       .dock-pill {
-        gap: 8px;
-        padding: 6px 12px;
-        max-width: calc(100% - 24px);
-        overflow-x: auto;
+        gap: 6px;
+        padding: 6px 10px;
+        max-width: calc(100% - 16px);
+        box-sizing: border-box;
       }
       .btn-circle {
+        width: 40px;
+        height: 40px;
+        min-width: 40px;
+        flex-shrink: 0;
+      }
+      .vol-mute-btn {
+        min-width: 44px;
+        min-height: 44px;
         width: 44px;
         height: 44px;
-        min-width: 44px;
+        flex-shrink: 0;
       }
       #hud-vol-slider {
-        width: 70px;
+        width: 60px;
+        min-width: 40px;
+        flex: 1 1 60px;
+      }
+      #hud-vol-slider::-webkit-slider-thumb {
+        width: 24px;
+        height: 24px;
+      }
+      #hud-vol-slider::-moz-range-thumb {
+        width: 24px;
+        height: 24px;
       }
       .carousel-container {
+        justify-content: flex-start;
         gap: 12px;
-        padding: 8px 12px;
+        padding: 8px 16px;
         max-width: 100%;
+        width: 100%;
+        overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        overscroll-behavior-x: contain;
+        scroll-snap-type: x proximity;
+      }
+      .category-station-circle {
+        scroll-snap-align: center;
+        flex-shrink: 0;
       }
       .station-bubble {
         width: 52px;
@@ -529,6 +585,7 @@
       }
       #explore-drawer {
         max-height: 88vh;
+        max-height: 88svh;
         max-height: 88dvh;
         padding: 20px 16px;
         padding-bottom: max(24px, calc(16px + var(--sab)));
@@ -543,6 +600,10 @@
     }
 
     @media (max-width: 480px) {
+      .endel-hud {
+        padding-left: max(8px, calc(6px + var(--sal)));
+        padding-right: max(8px, calc(6px + var(--sar)));
+      }
       #hud-track-title {
         font-size: 1.85rem;
       }
@@ -550,16 +611,24 @@
         font-size: 0.75rem;
       }
       .dock-pill {
-        gap: 6px;
-        padding: 6px 10px;
+        gap: 5px;
+        padding: 4px 6px;
+        max-width: 100%;
       }
       .btn-circle {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+      }
+      .vol-mute-btn {
+        min-width: 44px;
+        min-height: 44px;
         width: 44px;
         height: 44px;
-        min-width: 44px;
       }
       #hud-vol-slider {
-        width: 60px;
+        width: 48px;
+        min-width: 36px;
       }
     }
 
@@ -695,8 +764,10 @@
         <div class="w-px h-6 bg-white/15"></div>
 
         <!-- Master Volume Slider -->
-        <div class="flex items-center gap-2 px-1">
-          <span id="vol-icon" class="material-symbols-outlined text-sm text-white/60 cursor-pointer" onclick="toggleMute()" title="Mute (M)">volume_up</span>
+        <div class="flex items-center gap-1 sm:gap-2 px-1">
+          <button type="button" id="vol-mute-btn" onclick="toggleMute()" class="vol-mute-btn" title="Mute (M)" aria-label="Toggle Mute">
+            <span id="vol-icon" class="material-symbols-outlined text-sm text-white/60">volume_up</span>
+          </button>
           <input type="range" id="hud-vol-slider" min="0" max="1" step="0.01" value="0.85" oninput="setAudioVolume(this.value)" class="w-16" title="Volume Slider (Up/Down Arrows)">
         </div>
       </div>
@@ -2647,6 +2718,13 @@
           <span class="station-label">${cat.label}</span>
         `;
         container.appendChild(stationEl);
+
+        if (isActive) {
+          requestAnimationFrame(() => {
+            const targetLeft = stationEl.offsetLeft - (container.clientWidth / 2) + (stationEl.clientWidth / 2);
+            container.scrollTo({ left: targetLeft, behavior: 'smooth' });
+          });
+        }
       });
     }
 
