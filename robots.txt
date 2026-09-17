@@ -1,27 +1,42 @@
 User-agent: *
 Allow: /
 
+# OpenAI Crawlers: Training + ChatGPT Search Citations
 User-agent: GPTBot
 Allow: /
 
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic Crawlers: Training + Claude Search Citations
 User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
 Allow: /
 
 User-agent: Claude-Web
 Allow: /
 
+# Perplexity Search Crawler
 User-agent: PerplexityBot
 Allow: /
 
+# Google Search & Gemini Grounding Crawlers
 User-agent: Googlebot
 Allow: /
 
 User-agent: Google-Extended
 Allow: /
 
+User-agent: Google-CloudVertexBot
+Allow: /
+
+# Microsoft Bing & Copilot Crawler
 User-agent: Bingbot
 Allow: /
 
+# Apple Intelligence & Safari Search Crawlers
 User-agent: Applebot
 Allow: /
 
