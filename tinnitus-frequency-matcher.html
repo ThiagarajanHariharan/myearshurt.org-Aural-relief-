@@ -261,6 +261,20 @@
       The Tinnitus Frequency Matcher is a free browser-based Web Audio tool that identifies the exact pitch of your ear ringing (tinnitus) through a three-step calibration process. First, tap octave preset buttons spanning 250 Hz to 16,000 Hz to bracket your ringing range. Then sweep a logarithmic slider to narrow the match within that octave. Finally, use ±1 Hz precision steppers to lock your exact tinnitus frequency. The tool generates a real-time sine tone via the Web Audio API OscillatorNode that you compare against your perceived internal ringing. Once matched, AuralRelief applies this frequency to its precision notch therapy filter — a BiquadFilterNode (Q=5.0, type notch) that removes acoustic energy at your tinnitus pitch from background soundscapes. Clinical research published in PNAS (Okamoto et al., 2010) demonstrates that this notched audio approach induces lateral cortical inhibition, suppressing hyperactive auditory neurons responsible for the phantom ringing sensation.
     </div>
 
+    <!-- Video Demonstration & Audio Guide Preview -->
+    <div class="mb-12 rounded-2xl overflow-hidden border border-white/10 bg-white/5 shadow-2xl">
+      <div class="relative aspect-video w-full overflow-hidden group">
+        <img src="/assets/youtube/tinnitus_frequency_matcher_thumbnail.jpg" alt="Find Your Tinnitus Frequency Video Tutorial Preview" class="w-full h-full object-cover opacity-90 transition-transform duration-500 group-hover:scale-105" loading="lazy">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/30 to-transparent flex flex-col justify-end p-6">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-sky-500/20 border border-sky-400/40 text-sky-300 text-xs font-semibold mb-2 w-fit">
+            <span>📺</span> Video Demonstration & Audio Guide
+          </div>
+          <h3 class="text-lg md:text-xl font-bold text-white mb-1">Brown Noise for Tinnitus Relief: Free Notch Therapy Demo</h3>
+          <p class="text-xs md:text-sm text-white/70">3-minute walkthrough on finding your exact ringing frequency and generating custom notched sound therapy.</p>
+        </div>
+      </div>
+    </div>
+
     <section class="mb-16">
       <h2 class="text-2xl font-bold text-white mb-6">Interactive Pitch Matcher</h2>
       
